@@ -1,5 +1,7 @@
 cargo publish -p waffles-solana-frozen-abi-macro
-cargo publish -p waffles-solana-programs/address-lookup-table
+cargo publish -p waffles-solana-sdk-macro
+cargo publish -p waffles-solana-program
+cargo publish -p waffles-solana-address-lookup-table-program
 cargo publish -p waffles-solana-account-decoder
 cargo publish -p waffles-solana-banks-client
 cargo publish -p waffles-solana-banks-interface
@@ -55,8 +57,6 @@ cargo publish -p waffles-solana-rpc-client-api
 cargo publish -p waffles-solana-rpc-client-nonce-utils
 cargo publish -p waffles-solana-runtime
 cargo publish -p waffles-solana-sdk
-cargo publish -p waffles-solana-sdk/macro
-cargo publish -p waffles-solana-sdk/program
 cargo publish -p waffles-solana-send-transaction-service
 cargo publish -p waffles-solana-stake-accounts
 cargo publish -p waffles-solana-storage-bigtable
