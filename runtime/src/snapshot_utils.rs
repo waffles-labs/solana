@@ -66,7 +66,12 @@ use {
 
 mod archive_format;
 mod snapshot_storage_rebuilder;
+use std::sync::RwLock;
+
 pub use archive_format::*;
+use dashmap::DashMap;
+
+use crate::accounts_db::AccountStorageEntry;
 
 pub const SNAPSHOT_STATUS_CACHE_FILENAME: &str = "status_cache";
 pub const SNAPSHOT_ARCHIVE_DOWNLOAD_DIR: &str = "remote";
@@ -998,7 +1003,28 @@ fn verify_and_unarchive_snapshots(
         Arc::try_unwrap(next_append_vec_id).unwrap(),
     ))
 }
+pub fn storage_from_snapshot_archives(
+    account_paths: &[PathBuf],
+    bank_snapshots_dir: impl AsRef<Path>,
+    full_snapshot_archive_info: &FullSnapshotArchiveInfo,
+    incremental_snapshot_archive_info: Option<&IncrementalSnapshotArchiveInfo>,
+) -> Result<DashMap<u64, Arc<RwLock<HashMap<u32, Arc<AccountStorageEntry>>>>>> {
+    let (unarchived_full_snapshot, mut unarchived_incremental_snapshot, next_append_vec_id) =
+        verify_and_unarchive_snapshots(
+            bank_snapshots_dir,
+            full_snapshot_archive_info,
+            incremental_snapshot_archive_info,
+            account_paths,
+        )?;
 
+    let mut storage = unarchived_full_snapshot.storage;
+    if let Some(ref mut unarchive_preparation_result) = unarchived_incremental_snapshot {
+        let incremental_snapshot_storages =
+            std::mem::take(&mut unarchive_preparation_result.storage);
+        storage.extend(incremental_snapshot_storages.into_iter());
+    }
+    return Ok(storage);
+}
 /// Utility for parsing out bank specific information from a snapshot archive. This utility can be used
 /// to parse out bank specific information like the leader schedule, epoch schedule, etc.
 pub fn bank_fields_from_snapshot_archives(

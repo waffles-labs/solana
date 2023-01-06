@@ -147,7 +147,7 @@ impl<'a: 'b, 'b, T: ReadableAccount + Sync + 'b, U: StorableAccounts<'a, T>, V: 
 /// Meta contains enough context to recover the index from storage itself
 /// This struct will be backed by mmaped and snapshotted data files.
 /// So the data layout must be stable and consistent across the entire cluster!
-#[derive(Clone, PartialEq, Eq, Debug)]
+#[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
 pub struct StoredMeta {
     /// global write version
     /// This will be made completely obsolete such that we stop storing it.
@@ -192,7 +192,16 @@ impl<'a, T: ReadableAccount> From<Option<&'a T>> for AccountMeta {
         }
     }
 }
-
+#[derive(Serialize, Deserialize)]
+pub struct StoredAccountMetaClone<'a> {
+    pub meta: StoredMeta,
+    /// account data
+    pub account_meta: AccountMeta,
+    pub data: &'a [u8],
+    pub offset: usize,
+    pub stored_size: usize,
+    pub hash: Hash,
+}
 /// References to account data stored elsewhere. Getting an `Account` requires cloning
 /// (see `StoredAccountMeta::clone_account()`).
 #[derive(PartialEq, Eq, Debug)]
