@@ -126,7 +126,7 @@ pub(crate) fn check_rent_state_with_account(
 
 #[cfg(test)]
 mod tests {
-    use {super::*, solana_sdk::pubkey::Pubkey};
+    use {super::*, waffles_solana_sdk::pubkey::Pubkey};
 
     #[test]
     fn test_from_account() {

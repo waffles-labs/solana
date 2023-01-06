@@ -217,7 +217,7 @@ impl AbiDigester {
                 .unwrap_or("unknown-test-thread")
                 .replace(':', "_");
             if thread_name == "main" {
-                error!("Bad thread name detected for dumping; Maybe, --test-threads=1? Sorry, SOLANA_ABI_DUMP_DIR doesn't work under 1; increase it");
+                error!("Bad thread name detected for dumping; Maybe, --test-threads=1? Sorry, waffles_solana_ABI_DUMP_DIR doesn't work under 1; increase it");
             }
 
             let path = format!("{dir}/{thread_name}_{hash}",);

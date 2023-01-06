@@ -400,7 +400,7 @@ pub enum SystemInstruction {
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
 /// use waffles_solana_rpc_client::rpc_client::RpcClient;
 /// use waffles_solana_sdk::{
 ///     pubkey::Pubkey,
@@ -607,7 +607,7 @@ pub fn create_account_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
 /// use waffles_solana_rpc_client::rpc_client::RpcClient;
 /// use waffles_solana_sdk::{
 ///     pubkey::Pubkey,
@@ -819,7 +819,7 @@ pub fn assign_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
 /// use waffles_solana_rpc_client::rpc_client::RpcClient;
 /// use waffles_solana_sdk::{
 ///     pubkey::Pubkey,
@@ -1040,7 +1040,7 @@ pub fn transfer_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
 /// use waffles_solana_rpc_client::rpc_client::RpcClient;
 /// use waffles_solana_sdk::{
 ///     pubkey::Pubkey,
@@ -1249,7 +1249,7 @@ pub fn allocate_with_seed(
 /// This example performs multiple transfers in a single transaction.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
 /// use waffles_solana_rpc_client::rpc_client::RpcClient;
 /// use waffles_solana_sdk::{
 ///     pubkey::Pubkey,

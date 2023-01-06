@@ -3894,7 +3894,7 @@ RPC Enabled Nodes: 1"#;
     }
 
     fn new_vote_transaction<R: Rng>(rng: &mut R, slots: Vec<Slot>) -> Transaction {
-        let vote = Vote::new(slots, solana_sdk::hash::new_rand(rng));
+        let vote = Vote::new(slots, waffles_solana_sdk::hash::new_rand(rng));
         let ix = vote_instruction::vote(
             &Pubkey::new_unique(), // vote_pubkey
             &Pubkey::new_unique(), // authorized_voter_pubkey

@@ -93,7 +93,7 @@ pub struct UiConfig<T> {
 mod test {
     use {
         super::*, crate::validator_info::ValidatorInfo, serde_json::json,
-        solana_config_program::create_config_account, solana_sdk::account::ReadableAccount,
+        solana_config_program::create_config_account, waffles_solana_sdk::account::ReadableAccount,
     };
 
     #[test]

@@ -1,5 +1,5 @@
 use {
-    super::Bank, solana_program_runtime::sysvar_cache::SysvarCache,
+    super::Bank, waffles_solana_program_runtime::sysvar_cache::SysvarCache,
     solana_sdk::account::ReadableAccount,
 };
 

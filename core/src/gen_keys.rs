@@ -42,7 +42,7 @@ impl GenKeys {
 #[cfg(test)]
 mod tests {
     pub use waffles_solana_sdk::pubkey::Pubkey;
-    use {super::*, solana_sdk::signature::Signer, std::collections::HashSet};
+    use {super::*, waffles_solana_sdk::signature::Signer, std::collections::HashSet};
 
     #[test]
     fn test_new_key_is_deterministic() {

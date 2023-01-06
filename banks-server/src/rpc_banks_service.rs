@@ -111,7 +111,7 @@ impl RpcBanksService {
 
 #[cfg(test)]
 mod tests {
-    use {super::*, solana_runtime::bank::Bank};
+    use {super::*, waffles_solana_runtime::bank::Bank};
 
     #[test]
     fn test_rpc_banks_server_exit() {

@@ -13,7 +13,7 @@ use waffles_solana_rpc_client_api::deprecated_config::{
     RpcGetConfirmedSignaturesForAddress2Config,
 };
 #[cfg(feature = "spinner")]
-use {crate::spinner, solana_sdk::clock::MAX_HASH_AGE_IN_SECONDS, std::cmp::min};
+use {crate::spinner, waffles_solana_sdk::clock::MAX_HASH_AGE_IN_SECONDS, std::cmp::min};
 use {
     crate::{
         http_sender::HttpSender,

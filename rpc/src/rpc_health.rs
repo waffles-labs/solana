@@ -129,7 +129,7 @@ impl RpcHealth {
     #[cfg(test)]
     pub(crate) fn stub() -> Arc<Self> {
         use {
-            solana_gossip::contact_info::ContactInfo, solana_sdk::signer::keypair::Keypair,
+            solana_gossip::contact_info::ContactInfo, waffles_solana_sdk::signer::keypair::Keypair,
             solana_streamer::socket::SocketAddrSpace,
         };
         Arc::new(Self::new(

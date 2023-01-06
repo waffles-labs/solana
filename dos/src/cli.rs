@@ -183,7 +183,7 @@ pub fn build_cli_parameters() -> DosClientParameters {
 
 #[cfg(test)]
 mod tests {
-    use {super::*, clap::Parser, solana_sdk::pubkey::Pubkey};
+    use {super::*, clap::Parser, waffles_solana_sdk::pubkey::Pubkey};
 
     #[test]
     fn test_cli_parse_rpc_no_data_input() {

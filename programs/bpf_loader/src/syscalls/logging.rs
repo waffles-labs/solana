@@ -1,4 +1,4 @@
-use {super::*, crate::declare_syscall, solana_rbpf::vm::ContextObject};
+use {super::*, crate::declare_syscall, waffles_solana_rbpf::vm::ContextObject};
 
 declare_syscall!(
     /// Log a user's info message

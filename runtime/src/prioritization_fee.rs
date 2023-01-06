@@ -248,7 +248,7 @@ impl PrioritizationFee {
 
 #[cfg(test)]
 mod tests {
-    use {super::*, solana_sdk::pubkey::Pubkey};
+    use {super::*, waffles_solana_sdk::pubkey::Pubkey};
 
     #[test]
     fn test_update_prioritization_fee() {

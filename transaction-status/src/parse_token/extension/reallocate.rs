@@ -33,7 +33,7 @@ mod test {
         super::*,
         crate::parse_token::test::*,
         solana_sdk::pubkey::Pubkey,
-        spl_token_2022::{instruction::reallocate, solana_program::message::Message},
+        spl_token_2022::{instruction::reallocate, waffles_solana_program::message::Message},
     };
 
     #[test]

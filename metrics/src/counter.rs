@@ -322,7 +322,7 @@ mod tests {
         assert_eq!(
             Counter::default_log_rate(),
             DEFAULT_LOG_RATE,
-            "default_log_rate() is {}, expected {}, SOLANA_DEFAULT_LOG_RATE environment variable set?",
+            "default_log_rate() is {}, expected {}, waffles_solana_DEFAULT_LOG_RATE environment variable set?",
             Counter::default_log_rate(),
             DEFAULT_LOG_RATE,
         );

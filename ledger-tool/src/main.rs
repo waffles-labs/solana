@@ -2225,7 +2225,7 @@ fn main() {
         )
         .get_matches();
 
-    info!("{} {}", crate_name!(), solana_version::version!());
+    info!("{} {}", crate_name!(), waffles_solana_version::version!());
 
     let ledger_path = parse_ledger_path(&matches, "ledger_path");
 

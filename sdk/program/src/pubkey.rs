@@ -372,7 +372,7 @@ impl Pubkey {
     ///
     /// ```
     /// # use borsh::{BorshSerialize, BorshDeserialize};
-    /// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+    /// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
     /// # use waffles_solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::Instruction,
