@@ -1,12 +1,12 @@
 [package]
-name = "solana-sbf-rust-error-handling"
+name = "waffles-solana-sbf-rust-error-handling"
 version = "1.15.0"
-description = "Solana SBF test program written in Rust"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+description = "Waffle Labs maintained Solana SBF test program written in Rust"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-sbf-rust-error-handling"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-sbf-rust-error-handling"
 edition = "2021"
 
 [dependencies]

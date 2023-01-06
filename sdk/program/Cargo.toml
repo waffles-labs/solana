@@ -1,11 +1,11 @@
 [package]
-name = "solana-program"
+name = "waffles-solana-program"
 version = "1.15.0"
-description = "Solana Program"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-program"
+description = "Waffle Labs maintained Solana Program"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-program"
 readme = "README.md"
 license = "Apache-2.0"
 edition = "2021"

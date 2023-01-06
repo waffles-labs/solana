@@ -1,12 +1,12 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.com>"]
-description = "Blockchain, Rebuilt for Scale"
+description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
 edition = "2021"
-homepage = "https://solana.com/"
+homepage = "https://waffles.so/"
 license = "Apache-2.0"
 name = "proto"
 publish = false
-repository = "https://github.com/solana-labs/solana"
+repository = "https://github.com/waffles-labs/solana"
 version = "1.15.0"
 
 [dependencies]

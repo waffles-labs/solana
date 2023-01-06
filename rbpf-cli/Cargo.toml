@@ -1,10 +1,10 @@
 [package]
-name = "rbpf-cli"
+name = "waffles-rbpf-cli"
 version = "1.15.0"
-description = "CLI to test and analyze SBF programs"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+description = "Waffle Labs maintained CLI to test and analyze SBF programs"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/solana-labs/rbpf"
-homepage = "https://solana.com/"
+homepage = "https://waffles.so/"
 keywords = ["SBF", "interpreter", "JIT"]
 edition = "2021"
 publish = false

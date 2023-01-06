@@ -1,12 +1,12 @@
 [package]
-name = "solana-bloom"
+name = "waffles-solana-bloom"
 version = "1.15.0"
-description = "Solana bloom filter"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+description = "Waffle Labs maintained Solana bloom filter"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-bloom"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-bloom"
 edition = "2021"
 
 [dependencies]

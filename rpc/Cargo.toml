@@ -1,12 +1,12 @@
 [package]
-name = "solana-rpc"
+name = "waffles-solana-rpc"
 version = "1.15.0"
-description = "Solana RPC"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+description = "Waffle Labs maintained Solana RPC"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-rpc"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-rpc"
 edition = "2021"
 
 [dependencies]

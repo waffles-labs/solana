@@ -2,12 +2,12 @@
 # solana-runtime -> solana-address-program -> solana-program-test -> solana-runtime
 
 [package]
-name = "solana-address-lookup-table-program-tests"
+name = "waffles-solana-address-lookup-table-program-tests"
 version = "1.15.0"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
+homepage = "https://waffles.so/"
 edition = "2021"
 publish = false
 

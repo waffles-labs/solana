@@ -1,11 +1,11 @@
 [package]
-name = "solana-frozen-abi-macro"
+name = "waffles-solana-frozen-abi-macro"
 version = "1.15.0"
-description = "Solana Frozen ABI Macro"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-frozen-abi-macro"
+description = "Waffle Labs maintained Solana Frozen ABI Macro"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-frozen-abi-macro"
 license = "Apache-2.0"
 edition = "2021"
 

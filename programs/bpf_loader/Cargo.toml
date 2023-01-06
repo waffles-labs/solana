@@ -1,12 +1,12 @@
 [package]
-name = "solana-bpf-loader-program"
+name = "waffles-solana-bpf-loader-program"
 version = "1.15.0"
-description = "Solana BPF loader"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+description = "Waffle Labs maintained Solana BPF loader"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-bpf-loader-program"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-bpf-loader-program"
 edition = "2021"
 
 [dependencies]

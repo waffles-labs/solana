@@ -1,13 +1,13 @@
 [package]
-name = "solana-stake-accounts"
-description = "Blockchain, Rebuilt for Scale"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+name = "waffles-solana-stake-accounts"
+description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
 version = "1.15.0"
-repository = "https://github.com/solana-labs/solana"
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-stake-accounts"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-stake-accounts"
 
 [dependencies]
 clap = "2.33.1"

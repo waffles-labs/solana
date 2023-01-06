@@ -1,5 +1,5 @@
 [package]
-name = "gen-headers"
+name = "waffles-gen-headers"
 version = "1.15.0"
 edition = "2021"
 license = "Apache-2.0"

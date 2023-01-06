@@ -1,12 +1,12 @@
 [package]
-name = "solana-bucket-map"
+name = "waffles-solana-bucket-map"
 version = "1.15.0"
-description = "solana-bucket-map"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-bucket-map"
+description = "Waffle Labs maintained solana-bucket-map"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-bucket-map"
 readme = "../README.md"
-repository = "https://github.com/solana-labs/solana"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+repository = "https://github.com/waffles-labs/solana"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 license = "Apache-2.0"
 edition = "2021"
 

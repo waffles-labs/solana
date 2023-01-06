@@ -1,12 +1,12 @@
 [package]
-name = "solana-banks-interface"
+name = "waffles-solana-banks-interface"
 version = "1.15.0"
-description = "Solana banks RPC interface"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
-repository = "https://github.com/solana-labs/solana"
+description = "Waffle Labs maintained Solana banks RPC interface"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-banks-interface"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-banks-interface"
 edition = "2021"
 
 [dependencies]

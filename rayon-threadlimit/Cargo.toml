@@ -1,12 +1,12 @@
 [package]
-name = "solana-rayon-threadlimit"
+name = "waffles-solana-rayon-threadlimit"
 version = "1.15.0"
-description = "solana-rayon-threadlimit"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-rayon-threadlimit"
+description = "Waffle Labs maintained solana-rayon-threadlimit"
+homepage = "https://waffles.so/"
+documentation = "https://docs.rs/waffles-solana-rayon-threadlimit"
 readme = "../README.md"
-repository = "https://github.com/solana-labs/solana"
-authors = ["Solana Maintainers <maintainers@solana.foundation>"]
+repository = "https://github.com/waffles-labs/solana"
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 license = "Apache-2.0"
 edition = "2021"
 
