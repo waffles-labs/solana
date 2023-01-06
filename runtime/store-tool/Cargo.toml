@@ -1,7 +1,7 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-store-tool"
+name = "waffles-solana-store-tool"
 description = "Waffle Labs maintained Tool to inspect append vecs"
 version = "1.15.0"
 repository = "https://github.com/waffles-labs/solana"

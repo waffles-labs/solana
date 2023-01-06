@@ -3,7 +3,7 @@ authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Mai
 description = "Waffle Labs maintained Solana Program Test Framework"
 edition = "2021"
 license = "Apache-2.0"
-name = "solana-program-test"
+name = "waffles-solana-program-test"
 repository = "https://github.com/waffles-labs/solana"
 version = "1.15.0"
 

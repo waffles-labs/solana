@@ -1,7 +1,7 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-dos"
+name = "waffles-solana-dos"
 version = "1.15.0"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"

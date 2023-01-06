@@ -1,7 +1,7 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-cli-output"
+name = "waffles-solana-cli-output"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
 version = "1.15.0"
 repository = "https://github.com/waffles-labs/solana"

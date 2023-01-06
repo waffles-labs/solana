@@ -1,7 +1,7 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-geyser-plugin-interface"
+name = "waffles-solana-geyser-plugin-interface"
 description = "Waffle Labs maintained The Solana Geyser plugin interface."
 version = "1.15.0"
 repository = "https://github.com/waffles-labs/solana"
