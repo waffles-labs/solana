@@ -36,7 +36,7 @@ waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
 default = ["spinner"]
 # Support tpu-client methods that feature a spinner progress bar for
 # command-line interfaces
-spinner = ["dep:indicatif", "solana-rpc-client/spinner"]
+spinner = ["dep:indicatif", "waffles-solana-rpc-client/spinner"]
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
