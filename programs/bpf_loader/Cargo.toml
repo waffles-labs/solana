@@ -19,7 +19,7 @@ waffles-solana-measure = { path = "../../measure", version = "=1.15.0" }
 waffles-solana-program-runtime = { path = "../../program-runtime", version = "=1.15.0" }
 waffles-solana-sdk = { path = "../../sdk", version = "=1.15.0" }
 waffles-solana-zk-token-sdk = { path = "../../zk-token-sdk", version = "=1.15.0" }
-waffles-solana_rbpf = "=0.2.38"
+solana_rbpf = "=0.2.38"
 thiserror = "1.0"
 
 [lib]
