@@ -11,8 +11,8 @@ documentation = "https://docs.rs/waffles-solana-geyser-plugin-interface"
 
 [dependencies]
 log = "0.4.17"
-solana-sdk = { path = "../sdk", version = "=1.15.0" }
-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
+waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
 thiserror = "1.0.31"
 
 [package.metadata.docs.rs]
