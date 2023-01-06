@@ -551,7 +551,7 @@ pub mod sdk_ids {
     use {
         crate::{
             bpf_loader, bpf_loader_deprecated, bpf_loader_upgradeable, config, ed25519_program,
-            feature, incinerator, secp256k1_program, waffles_solana_program::pubkey::Pubkey, stake,
+            feature, incinerator, secp256k1_program, solana_program::pubkey::Pubkey, stake,
             system_program, sysvar, vote,
         },
         lazy_static::lazy_static,
