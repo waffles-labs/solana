@@ -566,7 +566,7 @@ pub enum SystemAccountKind {
 }
 
 pub fn get_system_account_kind(account: &AccountSharedData) -> Option<SystemAccountKind> {
-    use solana_sdk::account::ReadableAccount;
+    use waffles_solana_sdk::account::ReadableAccount;
     if system_program::check_id(account.owner()) {
         if account.data().is_empty() {
             Some(SystemAccountKind::System)
@@ -587,7 +587,7 @@ pub fn get_system_account_kind(account: &AccountSharedData) -> Option<SystemAcco
 #[cfg(test)]
 mod tests {
     #[allow(deprecated)]
-    use solana_sdk::{
+    use waffles_solana_sdk::{
         account::{self, Account, AccountSharedData, ReadableAccount},
         client::SyncClient,
         fee_calculator::FeeCalculator,

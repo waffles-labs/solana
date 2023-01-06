@@ -1,4 +1,4 @@
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     instruction::{AccountMeta, Instruction},

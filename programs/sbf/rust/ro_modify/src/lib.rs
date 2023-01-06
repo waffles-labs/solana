@@ -1,6 +1,6 @@
 #![cfg(target_os = "solana")]
 
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, msg, program::invoke,
     program_error::ProgramError, pubkey::Pubkey, syscalls::sol_invoke_signed_c, system_instruction,
 };

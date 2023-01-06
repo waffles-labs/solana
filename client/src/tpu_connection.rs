@@ -1,4 +1,4 @@
-pub use solana_tpu_client::tpu_connection::ClientStats;
+pub use waffles_solana_tpu_client::tpu_connection::ClientStats;
 use {
     enum_dispatch::enum_dispatch,
     rayon::iter::{IntoParallelIterator, ParallelIterator},

@@ -99,9 +99,9 @@ pub fn account_identity_ok<T: ReadableAccount>(account: &T) -> Result<(), Error>
 /// Determine if a nonce account is initialized:
 ///
 /// ```no_run
-/// use solana_rpc_client_nonce_utils::nonblocking;
-/// use solana_rpc_client::nonblocking::rpc_client::RpcClient;
-/// use solana_sdk::{
+/// use waffles_solana_rpc_client_nonce_utils::nonblocking;
+/// use waffles_solana_rpc_client::nonblocking::rpc_client::RpcClient;
+/// use waffles_solana_sdk::{
 ///     nonce::State,
 ///     pubkey::Pubkey,
 /// };
@@ -149,9 +149,9 @@ pub fn state_from_account<T: ReadableAccount + StateMut<Versions>>(
 /// Create and sign a transaction with a durable nonce:
 ///
 /// ```no_run
-/// use solana_rpc_client_nonce_utils::nonblocking;
-/// use solana_rpc_client::nonblocking::rpc_client::RpcClient;
-/// use solana_sdk::{
+/// use waffles_solana_rpc_client_nonce_utils::nonblocking;
+/// use waffles_solana_rpc_client::nonblocking::rpc_client::RpcClient;
+/// use waffles_solana_sdk::{
 ///     message::Message,
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},

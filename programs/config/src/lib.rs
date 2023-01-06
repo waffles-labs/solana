@@ -3,7 +3,7 @@ pub mod config_instruction;
 pub mod config_processor;
 pub mod date_instruction;
 
-pub use solana_sdk::config::program::id;
+pub use waffles_solana_sdk::config::program::id;
 use {
     bincode::{deserialize, serialize, serialized_size},
     serde_derive::{Deserialize, Serialize},

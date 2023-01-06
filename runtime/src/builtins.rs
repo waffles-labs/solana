@@ -1,5 +1,5 @@
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
-use solana_frozen_abi::abi_example::AbiExample;
+use waffles_solana_frozen_abi::abi_example::AbiExample;
 use {
     crate::system_instruction_processor,
     solana_program_runtime::invoke_context::ProcessInstructionWithContext,

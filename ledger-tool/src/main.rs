@@ -3591,7 +3591,7 @@ fn main() {
                                 new_credits_observed: Option<u64>,
                                 skipped_reasons: String,
                             }
-                            use solana_stake_program::stake_state::InflationPointCalculationEvent;
+                            use waffles_solana_stake_program::stake_state::InflationPointCalculationEvent;
                             let stake_calculation_details: DashMap<Pubkey, CalculationDetail> =
                                 DashMap::new();
                             let last_point_value = Arc::new(RwLock::new(None));

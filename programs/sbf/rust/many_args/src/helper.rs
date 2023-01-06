@@ -1,7 +1,7 @@
 //! Example Rust-based SBF program tests loop iteration
 
 extern crate waffles_solana_program;
-use solana_program::log::*;
+use waffles_solana_program::log::*;
 
 pub fn many_args(
     arg1: u64,

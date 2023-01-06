@@ -1,7 +1,7 @@
 //! Solana Rust-based SBF program utility functions and types
 
 extern crate waffles_solana_program;
-use solana_program::{log::sol_log_64, msg};
+use waffles_solana_program::{log::sol_log_64, msg};
 
 pub fn many_args(
     arg1: u64,

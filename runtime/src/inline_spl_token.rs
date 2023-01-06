@@ -1,5 +1,5 @@
 /// Partial SPL Token declarations inlined to avoid an external dependency on the spl-token crate
-use solana_sdk::pubkey::{Pubkey, PUBKEY_BYTES};
+use waffles_solana_sdk::pubkey::{Pubkey, PUBKEY_BYTES};
 
 solana_sdk::declare_id!("TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA");
 

@@ -11,7 +11,7 @@ extern crate waffles_solana_metrics;
 #[macro_use]
 extern crate waffles_solana_frozen_abi_macro;
 
-pub use solana_sdk::vote::{
+pub use waffles_solana_sdk::vote::{
     authorized_voters, error as vote_error, instruction as vote_instruction,
     program::{check_id, id},
 };

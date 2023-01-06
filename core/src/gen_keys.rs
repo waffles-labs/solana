@@ -41,7 +41,7 @@ impl GenKeys {
 
 #[cfg(test)]
 mod tests {
-    pub use solana_sdk::pubkey::Pubkey;
+    pub use waffles_solana_sdk::pubkey::Pubkey;
     use {super::*, solana_sdk::signature::Signer, std::collections::HashSet};
 
     #[test]

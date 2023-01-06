@@ -1,6 +1,6 @@
 //! Example Rust-based SBF noop program
 
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo,
     custom_heap_default,
     entrypoint_deprecated::ProgramResult,

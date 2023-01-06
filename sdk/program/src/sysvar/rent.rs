@@ -17,7 +17,7 @@
 //! Accessing via on-chain program directly:
 //!
 //! ```no_run
-//! # use solana_program::{
+//! # use waffles_solana_program::{
 //! #    account_info::{AccountInfo, next_account_info},
 //! #    entrypoint::ProgramResult,
 //! #    msg,
@@ -25,7 +25,7 @@
 //! #    sysvar::rent::{self, Rent},
 //! #    sysvar::Sysvar,
 //! # };
-//! # use solana_program::program_error::ProgramError;
+//! # use waffles_solana_program::program_error::ProgramError;
 //! #
 //! fn process_instruction(
 //!     program_id: &Pubkey,
@@ -39,7 +39,7 @@
 //!     Ok(())
 //! }
 //! #
-//! # use solana_program::sysvar::SysvarId;
+//! # use waffles_solana_program::sysvar::SysvarId;
 //! # let p = Rent::id();
 //! # let l = &mut 1009200;
 //! # let d = &mut vec![152, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 100];
@@ -56,7 +56,7 @@
 //! Accessing via on-chain program's parameters:
 //!
 //! ```
-//! # use solana_program::{
+//! # use waffles_solana_program::{
 //! #    account_info::{AccountInfo, next_account_info},
 //! #    entrypoint::ProgramResult,
 //! #    msg,
@@ -64,7 +64,7 @@
 //! #    sysvar::rent::{self, Rent},
 //! #    sysvar::Sysvar,
 //! # };
-//! # use solana_program::program_error::ProgramError;
+//! # use waffles_solana_program::program_error::ProgramError;
 //! #
 //! fn process_instruction(
 //!     program_id: &Pubkey,
@@ -82,7 +82,7 @@
 //!     Ok(())
 //! }
 //! #
-//! # use solana_program::sysvar::SysvarId;
+//! # use waffles_solana_program::sysvar::SysvarId;
 //! # let p = Rent::id();
 //! # let l = &mut 1009200;
 //! # let d = &mut vec![152, 13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 64, 100];
@@ -99,11 +99,11 @@
 //! Accessing via the RPC client:
 //!
 //! ```
-//! # use solana_program::example_mocks::solana_sdk;
-//! # use solana_program::example_mocks::solana_rpc_client;
-//! # use solana_sdk::account::Account;
-//! # use solana_rpc_client::rpc_client::RpcClient;
-//! # use solana_sdk::sysvar::rent::{self, Rent};
+//! # use waffles_solana_program::example_mocks::solana_sdk;
+//! # use waffles_solana_program::example_mocks::solana_rpc_client;
+//! # use waffles_solana_sdk::account::Account;
+//! # use waffles_solana_rpc_client::rpc_client::RpcClient;
+//! # use waffles_solana_sdk::sysvar::rent::{self, Rent};
 //! # use anyhow::Result;
 //! #
 //! fn print_sysvar_rent(client: &RpcClient) -> Result<()> {

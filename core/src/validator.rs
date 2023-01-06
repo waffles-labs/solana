@@ -1,6 +1,6 @@
 //! The `validator` module hosts all the validator microservices.
 
-pub use solana_perf::report_target_features;
+pub use waffles_solana_perf::report_target_features;
 use {
     crate::{
         accounts_hash_verifier::AccountsHashVerifier,
@@ -2215,7 +2215,7 @@ mod tests {
     #[test]
     fn test_wait_for_supermajority() {
         solana_logger::setup();
-        use solana_sdk::hash::hash;
+        use waffles_solana_sdk::hash::hash;
         let node_keypair = Arc::new(Keypair::new());
         let cluster_info = ClusterInfo::new(
             ContactInfo::new_localhost(&node_keypair.pubkey(), timestamp()),

@@ -293,7 +293,7 @@ impl Pubkey {
     ///
     /// ```
     /// # use borsh::{BorshSerialize, BorshDeserialize};
-    /// # use solana_program::{
+    /// # use waffles_solana_program::{
     /// #     pubkey::Pubkey,
     /// #     entrypoint::ProgramResult,
     /// #     program::invoke_signed,
@@ -372,20 +372,20 @@ impl Pubkey {
     ///
     /// ```
     /// # use borsh::{BorshSerialize, BorshDeserialize};
-    /// # use solana_program::example_mocks::{solana_sdk, solana_rpc_client};
-    /// # use solana_program::{
+    /// # use waffles_solana_program::example_mocks::{solana_sdk, solana_rpc_client};
+    /// # use waffles_solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::Instruction,
     /// #     hash::Hash,
     /// #     instruction::AccountMeta,
     /// #     system_program,
     /// # };
-    /// # use solana_sdk::{
+    /// # use waffles_solana_sdk::{
     /// #     signature::Keypair,
     /// #     signature::{Signer, Signature},
     /// #     transaction::Transaction,
     /// # };
-    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
     /// # use std::convert::TryFrom;
     /// # use anyhow::Result;
     /// #
@@ -549,7 +549,7 @@ impl Pubkey {
     /// that the returned `Pubkey` has the expected value.
     ///
     /// ```
-    /// # use solana_program::pubkey::Pubkey;
+    /// # use waffles_solana_program::pubkey::Pubkey;
     /// # let program_id = Pubkey::new_unique();
     /// let (expected_pda, bump_seed) = Pubkey::find_program_address(&[b"vault"], &program_id);
     /// let actual_pda = Pubkey::create_program_address(&[b"vault", &[bump_seed]], &program_id)?;

@@ -931,7 +931,7 @@ declare_syscall!(
         _arg5: u64,
         memory_mapping: &mut MemoryMapping,
     ) -> Result<u64, EbpfError> {
-        use solana_zk_token_sdk::curve25519::{curve_syscall_traits::*, edwards, ristretto};
+        use waffles_solana_zk_token_sdk::curve25519::{curve_syscall_traits::*, edwards, ristretto};
         match curve_id {
             CURVE25519_EDWARDS => {
                 let cost = invoke_context
@@ -988,7 +988,7 @@ declare_syscall!(
         result_point_addr: u64,
         memory_mapping: &mut MemoryMapping,
     ) -> Result<u64, EbpfError> {
-        use solana_zk_token_sdk::curve25519::{
+        use waffles_solana_zk_token_sdk::curve25519::{
             curve_syscall_traits::*, edwards, ristretto, scalar,
         };
         match curve_id {
@@ -1189,7 +1189,7 @@ declare_syscall!(
         result_point_addr: u64,
         memory_mapping: &mut MemoryMapping,
     ) -> Result<u64, EbpfError> {
-        use solana_zk_token_sdk::curve25519::{
+        use waffles_solana_zk_token_sdk::curve25519::{
             curve_syscall_traits::*, edwards, ristretto, scalar,
         };
         match curve_id {
@@ -1645,7 +1645,7 @@ declare_syscall!(
         _arg5: u64,
         memory_mapping: &mut MemoryMapping,
     ) -> Result<u64, EbpfError> {
-        use solana_sdk::alt_bn128::prelude::{ALT_BN128_ADD, ALT_BN128_MUL, ALT_BN128_PAIRING};
+        use waffles_solana_sdk::alt_bn128::prelude::{ALT_BN128_ADD, ALT_BN128_MUL, ALT_BN128_PAIRING};
         let budget = invoke_context.get_compute_budget();
         let (cost, output): (u64, usize) = match group_op {
             ALT_BN128_ADD => (
@@ -1721,7 +1721,7 @@ declare_syscall!(
 #[cfg(test)]
 mod tests {
     #[allow(deprecated)]
-    use solana_sdk::sysvar::fees::Fees;
+    use waffles_solana_sdk::sysvar::fees::Fees;
     use {
         super::*,
         crate::BpfAllocator,
@@ -2681,7 +2681,7 @@ mod tests {
 
     #[test]
     fn test_syscall_edwards_curve_point_validation() {
-        use solana_zk_token_sdk::curve25519::curve_syscall_traits::CURVE25519_EDWARDS;
+        use waffles_solana_zk_token_sdk::curve25519::curve_syscall_traits::CURVE25519_EDWARDS;
 
         let config = Config::default();
         prepare_mockup!(
@@ -2778,7 +2778,7 @@ mod tests {
 
     #[test]
     fn test_syscall_ristretto_curve_point_validation() {
-        use solana_zk_token_sdk::curve25519::curve_syscall_traits::CURVE25519_RISTRETTO;
+        use waffles_solana_zk_token_sdk::curve25519::curve_syscall_traits::CURVE25519_RISTRETTO;
 
         let config = Config::default();
         prepare_mockup!(
@@ -2875,7 +2875,7 @@ mod tests {
 
     #[test]
     fn test_syscall_edwards_curve_group_ops() {
-        use solana_zk_token_sdk::curve25519::curve_syscall_traits::{
+        use waffles_solana_zk_token_sdk::curve25519::curve_syscall_traits::{
             ADD, CURVE25519_EDWARDS, MUL, SUB,
         };
 
@@ -3082,7 +3082,7 @@ mod tests {
 
     #[test]
     fn test_syscall_ristretto_curve_group_ops() {
-        use solana_zk_token_sdk::curve25519::curve_syscall_traits::{
+        use waffles_solana_zk_token_sdk::curve25519::curve_syscall_traits::{
             ADD, CURVE25519_RISTRETTO, MUL, SUB,
         };
 
@@ -3291,7 +3291,7 @@ mod tests {
 
     #[test]
     fn test_syscall_multiscalar_multiplication() {
-        use solana_zk_token_sdk::curve25519::curve_syscall_traits::{
+        use waffles_solana_zk_token_sdk::curve25519::curve_syscall_traits::{
             CURVE25519_EDWARDS, CURVE25519_RISTRETTO,
         };
 

@@ -187,17 +187,17 @@ impl Message {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_program::example_mocks::{
+    /// # use waffles_solana_program::example_mocks::{
     /// #     solana_address_lookup_table_program,
     /// #     solana_rpc_client,
     /// #     solana_sdk,
     /// # };
     /// # use std::borrow::Cow;
-    /// # use solana_sdk::account::Account;
+    /// # use waffles_solana_sdk::account::Account;
     /// use anyhow::Result;
-    /// use solana_address_lookup_table_program::state::AddressLookupTable;
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_address_lookup_table_program::state::AddressLookupTable;
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      address_lookup_table_account::AddressLookupTableAccount,
     ///      instruction::{AccountMeta, Instruction},
     ///      message::{VersionedMessage, v0},

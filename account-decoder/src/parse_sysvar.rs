@@ -1,5 +1,5 @@
 #[allow(deprecated)]
-use solana_sdk::sysvar::{fees::Fees, recent_blockhashes::RecentBlockhashes};
+use waffles_solana_sdk::sysvar::{fees::Fees, recent_blockhashes::RecentBlockhashes};
 use {
     crate::{
         parse_account_data::{ParsableAccount, ParseAccountError},
@@ -221,7 +221,7 @@ pub struct UiStakeHistoryEntry {
 #[cfg(test)]
 mod test {
     #[allow(deprecated)]
-    use solana_sdk::sysvar::recent_blockhashes::IterItem;
+    use waffles_solana_sdk::sysvar::recent_blockhashes::IterItem;
     use {
         super::*,
         solana_sdk::{account::create_account_for_test, fee_calculator::FeeCalculator, hash::Hash},

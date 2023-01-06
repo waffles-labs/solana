@@ -3024,7 +3024,7 @@ pub mod test {
 
     #[test]
     fn test_adjust_lockouts_after_replay_all_rooted_with_too_old() {
-        use solana_sdk::slot_history::MAX_ENTRIES;
+        use waffles_solana_sdk::slot_history::MAX_ENTRIES;
 
         let mut tower = Tower::new_for_tests(10, 0.9);
         tower.record_vote(0, Hash::default());
@@ -3150,7 +3150,7 @@ pub mod test {
 
     #[test]
     fn test_adjust_lockouts_after_replay_too_old_tower() {
-        use solana_sdk::slot_history::MAX_ENTRIES;
+        use waffles_solana_sdk::slot_history::MAX_ENTRIES;
 
         let mut tower = Tower::new_for_tests(10, 0.9);
         tower.record_vote(0, Hash::default());
@@ -3205,7 +3205,7 @@ pub mod test {
 
     #[test]
     fn test_adjust_lockouts_after_replay_out_of_order() {
-        use solana_sdk::slot_history::MAX_ENTRIES;
+        use waffles_solana_sdk::slot_history::MAX_ENTRIES;
 
         let mut tower = Tower::new_for_tests(10, 0.9);
         tower

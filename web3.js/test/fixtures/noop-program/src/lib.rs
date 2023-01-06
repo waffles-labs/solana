@@ -1,6 +1,6 @@
 //! Example Rust-based SBF program that prints out the parameters passed to it
 
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo, entrypoint::ProgramResult, log::*, msg, program::set_return_data,
     pubkey::Pubkey,
 };

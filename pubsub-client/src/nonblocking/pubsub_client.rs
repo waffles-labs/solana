@@ -52,7 +52,7 @@
 //! ```
 //! use anyhow::Result;
 //! use futures_util::StreamExt;
-//! use solana_pubsub_client::nonblocking::pubsub_client::PubsubClient;
+//! use waffles_solana_pubsub_client::nonblocking::pubsub_client::PubsubClient;
 //! use std::sync::Arc;
 //! use tokio::io::AsyncReadExt;
 //! use tokio::sync::mpsc::unbounded_channel;

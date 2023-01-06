@@ -3,7 +3,7 @@
 #![allow(unreachable_code)]
 
 extern crate waffles_solana_program;
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo, bpf_loader, entrypoint::ProgramResult, log::*, msg,
     program::check_type_assumptions, pubkey::Pubkey,
 };

@@ -176,12 +176,12 @@ impl Message {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_program::example_mocks::solana_sdk;
-    /// # use solana_program::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_program::example_mocks::solana_sdk;
+    /// # use waffles_solana_program::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///     instruction::Instruction,
     ///     message::Message,
     ///     pubkey::Pubkey,
@@ -247,12 +247,12 @@ impl Message {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_program::example_mocks::solana_sdk;
-    /// # use solana_program::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_program::example_mocks::solana_sdk;
+    /// # use waffles_solana_program::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///     instruction::Instruction,
     ///     message::Message,
     ///     pubkey::Pubkey,
@@ -343,12 +343,12 @@ impl Message {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_program::example_mocks::solana_sdk;
-    /// # use solana_program::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_program::example_mocks::solana_sdk;
+    /// # use waffles_solana_program::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///     hash::Hash,
     ///     instruction::Instruction,
     ///     message::Message,

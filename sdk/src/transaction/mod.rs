@@ -53,11 +53,11 @@
 //! [`anyhow`]: https://docs.rs/anyhow
 //!
 //! ```
-//! # use solana_sdk::example_mocks::solana_rpc_client;
+//! # use waffles_solana_sdk::example_mocks::solana_rpc_client;
 //! use anyhow::Result;
 //! use borsh::{BorshSerialize, BorshDeserialize};
-//! use solana_rpc_client::rpc_client::RpcClient;
-//! use solana_sdk::{
+//! use waffles_solana_rpc_client::rpc_client::RpcClient;
+//! use waffles_solana_sdk::{
 //!      instruction::Instruction,
 //!      message::Message,
 //!      pubkey::Pubkey,
@@ -212,11 +212,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,
@@ -291,11 +291,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,
@@ -370,11 +370,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,
@@ -446,11 +446,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,
@@ -654,11 +654,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,
@@ -792,11 +792,11 @@ impl Transaction {
     /// [`anyhow`]: https://docs.rs/anyhow
     ///
     /// ```
-    /// # use solana_sdk::example_mocks::solana_rpc_client;
+    /// # use waffles_solana_sdk::example_mocks::solana_rpc_client;
     /// use anyhow::Result;
     /// use borsh::{BorshSerialize, BorshDeserialize};
-    /// use solana_rpc_client::rpc_client::RpcClient;
-    /// use solana_sdk::{
+    /// use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// use waffles_solana_sdk::{
     ///      instruction::Instruction,
     ///      message::Message,
     ///      pubkey::Pubkey,

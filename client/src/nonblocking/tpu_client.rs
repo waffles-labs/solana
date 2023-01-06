@@ -1,4 +1,4 @@
-pub use solana_tpu_client::nonblocking::tpu_client::{LeaderTpuService, TpuSenderError};
+pub use waffles_solana_tpu_client::nonblocking::tpu_client::{LeaderTpuService, TpuSenderError};
 use {
     crate::{
         connection_cache::ConnectionCache,

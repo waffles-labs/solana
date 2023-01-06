@@ -135,8 +135,8 @@ impl DefaultSigner {
     ///
     /// ```no_run
     /// use clap::{Arg, Command};
-    /// use solana_clap_v3_utils::keypair::DefaultSigner;
-    /// use solana_clap_v3_utils::offline::OfflineArgs;
+    /// use waffles_solana_clap_v3_utils::keypair::DefaultSigner;
+    /// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
     ///
     /// let clap_app = Command::new("my-program")
     ///     // The argument we'll parse as a signer "path"
@@ -205,9 +205,9 @@ impl DefaultSigner {
     ///
     /// ```no_run
     /// use clap::{Arg, Command};
-    /// use solana_clap_v3_utils::keypair::{DefaultSigner, signer_from_path};
-    /// use solana_clap_v3_utils::offline::OfflineArgs;
-    /// use solana_sdk::signer::Signer;
+    /// use waffles_solana_clap_v3_utils::keypair::{DefaultSigner, signer_from_path};
+    /// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
+    /// use waffles_solana_sdk::signer::Signer;
     ///
     /// let clap_app = Command::new("my-program")
     ///     // The argument we'll parse as a signer "path"
@@ -280,8 +280,8 @@ impl DefaultSigner {
     ///
     /// ```no_run
     /// use clap::{Arg, Command};
-    /// use solana_clap_v3_utils::keypair::DefaultSigner;
-    /// use solana_clap_v3_utils::offline::OfflineArgs;
+    /// use waffles_solana_clap_v3_utils::keypair::DefaultSigner;
+    /// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
     ///
     /// let clap_app = Command::new("my-program")
     ///     // The argument we'll parse as a signer "path"
@@ -327,8 +327,8 @@ impl DefaultSigner {
     ///
     /// ```no_run
     /// use clap::{Arg, Command};
-    /// use solana_clap_v3_utils::keypair::{SignerFromPathConfig, DefaultSigner};
-    /// use solana_clap_v3_utils::offline::OfflineArgs;
+    /// use waffles_solana_clap_v3_utils::keypair::{SignerFromPathConfig, DefaultSigner};
+    /// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
     ///
     /// let clap_app = Command::new("my-program")
     ///     // The argument we'll parse as a signer "path"
@@ -661,8 +661,8 @@ pub struct SignerFromPathConfig {
 ///
 /// ```no_run
 /// use clap::{Arg, Command};
-/// use solana_clap_v3_utils::keypair::signer_from_path;
-/// use solana_clap_v3_utils::offline::OfflineArgs;
+/// use waffles_solana_clap_v3_utils::keypair::signer_from_path;
+/// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
 ///
 /// let clap_app = Command::new("my-program")
 ///     // The argument we'll parse as a signer "path"
@@ -721,8 +721,8 @@ pub fn signer_from_path(
 ///
 /// ```no_run
 /// use clap::{Arg, Command};
-/// use solana_clap_v3_utils::keypair::{signer_from_path_with_config, SignerFromPathConfig};
-/// use solana_clap_v3_utils::offline::OfflineArgs;
+/// use waffles_solana_clap_v3_utils::keypair::{signer_from_path_with_config, SignerFromPathConfig};
+/// use waffles_solana_clap_v3_utils::offline::OfflineArgs;
 ///
 /// let clap_app = Command::new("my-program")
 ///     // The argument we'll parse as a signer "path"
@@ -837,7 +837,7 @@ pub fn signer_from_path_with_config(
 ///
 /// ```no_run
 /// use clap::{Arg, Command};
-/// use solana_clap_v3_utils::keypair::pubkey_from_path;
+/// use waffles_solana_clap_v3_utils::keypair::pubkey_from_path;
 ///
 /// let clap_app = Command::new("my-program")
 ///     // The argument we'll parse as a signer "path"
@@ -975,7 +975,7 @@ pub fn prompt_passphrase(prompt: &str) -> Result<String, Box<dyn error::Error>> 
 ///
 /// ```no_run
 /// use clap::{Arg, Command};
-/// use solana_clap_v3_utils::keypair::keypair_from_path;
+/// use waffles_solana_clap_v3_utils::keypair::keypair_from_path;
 ///
 /// let clap_app = Command::new("my-program")
 ///     // The argument we'll parse as a signer "path"

@@ -1,5 +1,5 @@
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
-use solana_frozen_abi::abi_example::AbiExample;
+use waffles_solana_frozen_abi::abi_example::AbiExample;
 use {
     solana_sdk::{
         account::{AccountSharedData, ReadableAccount},
@@ -123,7 +123,7 @@ impl<S, T> PartialEq<StakeAccount<S>> for StakeAccount<T> {
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
 impl AbiExample for StakeAccount<Delegation> {
     fn example() -> Self {
-        use solana_sdk::{
+        use waffles_solana_sdk::{
             account::Account,
             stake::state::{Meta, Stake},
         };

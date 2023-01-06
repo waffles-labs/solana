@@ -1,7 +1,7 @@
 //! Example Rust-based SBF program that tests duplicate accounts passed via accounts
 
 extern crate waffles_solana_program;
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     instruction::{AccountMeta, Instruction},

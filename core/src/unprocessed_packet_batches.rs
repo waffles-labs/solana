@@ -489,7 +489,7 @@ mod tests {
 
     #[test]
     fn test_transaction_from_deserialized_packet() {
-        use solana_sdk::feature_set::FeatureSet;
+        use waffles_solana_sdk::feature_set::FeatureSet;
         let keypair = Keypair::new();
         let transfer_tx =
             system_transaction::transfer(&keypair, &keypair.pubkey(), 1, Hash::default());

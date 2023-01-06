@@ -7,7 +7,7 @@
     since = "1.8.0",
     note = "Please use `solana_sdk::stake::state` or `solana_program::stake::state` instead"
 )]
-pub use solana_sdk::stake::state::*;
+pub use waffles_solana_sdk::stake::state::*;
 use {
     solana_program_runtime::{ic_msg, invoke_context::InvokeContext},
     solana_sdk::{

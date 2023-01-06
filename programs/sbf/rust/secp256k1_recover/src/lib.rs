@@ -1,7 +1,7 @@
 //! Secp256k1Recover Syscall test
 
 extern crate waffles_solana_program;
-use solana_program::{
+use waffles_solana_program::{
     custom_heap_default, custom_panic_default, msg, secp256k1_recover::secp256k1_recover,
 };
 

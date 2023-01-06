@@ -1,4 +1,4 @@
-use solana_sdk::{
+use waffles_solana_sdk::{
     account::{Account, AccountSharedData},
     pubkey::Pubkey,
     rent::Rent,

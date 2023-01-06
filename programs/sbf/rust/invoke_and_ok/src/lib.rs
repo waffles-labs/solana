@@ -1,7 +1,7 @@
 //! Invokes an instruction and return ok no matter what, the instruction invoked
 //! uses the instruction data provided and all the accounts
 
-use solana_program::{
+use waffles_solana_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     instruction::{AccountMeta, Instruction},

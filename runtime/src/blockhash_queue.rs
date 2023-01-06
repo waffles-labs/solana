@@ -1,5 +1,5 @@
 #[allow(deprecated)]
-use solana_sdk::sysvar::recent_blockhashes;
+use waffles_solana_sdk::sysvar::recent_blockhashes;
 use {
     serde::{Deserialize, Serialize},
     solana_sdk::{
@@ -131,7 +131,7 @@ impl BlockhashQueue {
 #[cfg(test)]
 mod tests {
     #[allow(deprecated)]
-    use solana_sdk::sysvar::recent_blockhashes::IterItem;
+    use waffles_solana_sdk::sysvar::recent_blockhashes::IterItem;
     use {
         super::*,
         bincode::serialize,
