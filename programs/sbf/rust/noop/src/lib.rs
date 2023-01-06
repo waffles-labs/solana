@@ -1,6 +1,6 @@
 //! Example Rust-based SBF noop program
 
-extern crate solana_program;
+extern crate waffles_solana_program;
 use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 solana_program::entrypoint!(process_instruction);

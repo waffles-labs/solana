@@ -1,7 +1,7 @@
 #![cfg(any(feature = "sbf_c", feature = "sbf_rust"))]
 
 #[macro_use]
-extern crate solana_bpf_loader_program;
+extern crate waffles_solana_bpf_loader_program;
 
 #[cfg(feature = "sbf_rust")]
 use {

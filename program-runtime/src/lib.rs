@@ -7,7 +7,7 @@
 extern crate eager;
 
 #[macro_use]
-extern crate solana_metrics;
+extern crate waffles_solana_metrics;
 
 pub mod accounts_data_meter;
 pub mod compute_budget;

@@ -30,7 +30,7 @@ use {
 };
 
 #[macro_use]
-extern crate solana_metrics;
+extern crate waffles_solana_metrics;
 
 #[macro_use]
 extern crate serde_derive;

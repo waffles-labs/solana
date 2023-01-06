@@ -1,6 +1,6 @@
 #![allow(clippy::integer_arithmetic)]
 #![feature(test)]
-extern crate solana_ledger;
+extern crate waffles_solana_ledger;
 extern crate test;
 
 use {

@@ -3,7 +3,7 @@
 
 extern crate test;
 #[macro_use]
-extern crate solana_bpf_loader_program;
+extern crate waffles_solana_bpf_loader_program;
 
 use {
     byteorder::{ByteOrder, LittleEndian, WriteBytesExt},
