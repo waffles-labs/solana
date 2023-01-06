@@ -30,7 +30,7 @@ full = [
     "serde_json",
     "ed25519-dalek",
     "ed25519-dalek-bip32",
-    "solana-logger",
+    "waffles-solana-logger",
     "libsecp256k1",
     "sha3",
     "digest",
