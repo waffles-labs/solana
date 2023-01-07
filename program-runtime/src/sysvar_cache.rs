@@ -1,5 +1,5 @@
 #[allow(deprecated)]
-use waffles_solana_sdk::sysvar::{fees::Fees, recent_blockhashes::RecentBlockhashes};
+use solana_sdk::sysvar::{fees::Fees, recent_blockhashes::RecentBlockhashes};
 use {
     crate::invoke_context::InvokeContext,
     solana_sdk::{

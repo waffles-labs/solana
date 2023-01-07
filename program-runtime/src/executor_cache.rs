@@ -365,7 +365,7 @@ impl Stats {
 #[cfg(test)]
 mod tests {
     use {
-        super::*, crate::invoke_context::InvokeContext, waffles_solana_sdk::instruction::InstructionError,
+        super::*, crate::invoke_context::InvokeContext, solana_sdk::instruction::InstructionError,
     };
 
     #[derive(Debug)]
