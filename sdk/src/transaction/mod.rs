@@ -127,7 +127,7 @@ use {
         wasm_bindgen,
     },
     serde::Serialize,
-    solana_program::{system_instruction::SystemInstruction, system_program},
+    waffles_solana_program::{system_instruction::SystemInstruction, system_program},
     solana_sdk::feature_set,
     std::result,
 };
