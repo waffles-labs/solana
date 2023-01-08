@@ -16,8 +16,8 @@ num-derive = "0.3"
 num-traits = "0.2"
 serde = "1.0.144"
 serde_derive = "1.0.103"
-waffles-solana-frozen-abi = { path = "../../frozen-abi", version = "=1.15.0" }
-waffles-solana-frozen-abi-macro = { path = "../../frozen-abi/macro", version = "=1.15.0" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../../frozen-abi", version = "=1.15.0" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../../frozen-abi/macro", version = "=1.15.0" }
 waffles-solana-metrics = { path = "../../metrics", version = "=1.15.0" }
 waffles-solana-program = { path = "../../sdk/program", version = "=1.15.0" }
 waffles-solana-program-runtime = { path = "../../program-runtime", version = "=1.15.0" }

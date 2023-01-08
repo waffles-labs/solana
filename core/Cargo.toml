@@ -40,8 +40,8 @@ waffles-solana-address-lookup-table-program = { path = "../programs/address-look
 waffles-solana-bloom = { path = "../bloom", version = "=1.15.0" }
 solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
-waffles-solana-frozen-abi = { path = "../frozen-abi", version = "=1.15.0" }
-waffles-solana-frozen-abi-macro = { path = "../frozen-abi/macro", version = "=1.15.0" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.15.0" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.15.0" }
 waffles-solana-geyser-plugin-manager = { path = "../geyser-plugin-manager", version = "=1.15.0" }
 solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.15.0" }
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
