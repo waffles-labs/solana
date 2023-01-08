@@ -15,7 +15,7 @@ bs58 = "0.4.0"
 prost = "0.11.0"
 serde = "1.0.144"
 waffles-solana-account-decoder = { path = "../account-decoder", version = "=1.15.0" }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
 
 [dev-dependencies]

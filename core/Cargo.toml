@@ -38,7 +38,7 @@ serde = "1.0.144"
 serde_derive = "1.0.103"
 waffles-solana-address-lookup-table-program = { path = "../programs/address-lookup-table", version = "=1.15.0" }
 waffles-solana-bloom = { path = "../bloom", version = "=1.15.0" }
-waffles-solana-client = { path = "../client", version = "=1.15.0" }
+waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
 waffles-solana-frozen-abi = { path = "../frozen-abi", version = "=1.15.0" }
 waffles-solana-frozen-abi-macro = { path = "../frozen-abi/macro", version = "=1.15.0" }
@@ -54,9 +54,9 @@ waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15
 waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0" }
-waffles-solana-runtime = { path = "../runtime", version = "=1.15.0" }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
-waffles-solana-send-transaction-service = { path = "../send-transaction-service", version = "=1.15.0" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
+solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.15.0" }
 waffles-solana-streamer = { path = "../streamer", version = "=1.15.0" }
 waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0", default-features = false }
 waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }

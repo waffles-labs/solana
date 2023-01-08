@@ -16,7 +16,7 @@ itertools = "0.10.5"
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-waffles-solana-client = { path = "../client", version = "=1.15.0" }
+waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-config-program = { path = "../programs/config", version = "=1.15.0" }
 waffles-solana-core = { path = "../core", version = "=1.15.0" }
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
@@ -25,8 +25,8 @@ waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 waffles-solana-pubsub-client = { path = "../pubsub-client", version = "=1.15.0" }
 waffles-solana-rpc-client = { path = "../rpc-client", version = "=1.15.0", default-features = false }
 waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0" }
-waffles-solana-runtime = { path = "../runtime", version = "=1.15.0" }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
 waffles-solana-streamer = { path = "../streamer", version = "=1.15.0" }
 waffles-solana-thin-client = { path = "../thin-client", version = "=1.15.0" }

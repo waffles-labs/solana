@@ -40,7 +40,7 @@ waffles-solana-bpf-loader-program = { path = "../programs/bpf_loader", version =
 waffles-solana-clap-utils = { path = "../clap-utils", version = "=1.15.0" }
 waffles-solana-cli-config = { path = "../cli-config", version = "=1.15.0" }
 waffles-solana-cli-output = { path = "../cli-output", version = "=1.15.0" }
-waffles-solana-client = { path = "../client", version = "=1.15.0" }
+waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-config-program = { path = "../programs/config", version = "=1.15.0" }
 waffles-solana-faucet = { path = "../faucet", version = "=1.15.0" }
 waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
@@ -50,7 +50,7 @@ waffles-solana-remote-wallet = { path = "../remote-wallet", version = "=1.15.0" 
 waffles-solana-rpc-client = { path = "../rpc-client", version = "=1.15.0" }
 waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0" }
 waffles-solana-rpc-client-nonce-utils = { path = "../rpc-client-nonce-utils", version = "=1.15.0" }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0" }
 waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
 waffles-solana-version = { path = "../version", version = "=1.15.0" }

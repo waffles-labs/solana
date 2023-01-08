@@ -85,7 +85,7 @@ pub mod vote_transaction;
 pub mod waitable_condvar;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 #[macro_use]
 extern crate serde_derive;
 

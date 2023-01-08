@@ -18,7 +18,7 @@ log = "0.4.17"
 rand = "0.7.0"
 serde = "1.0.144"
 waffles-solana-bench-tps = { path = "../bench-tps", version = "=1.15.0" }
-waffles-solana-client = { path = "../client", version = "=1.15.0" }
+waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-core = { path = "../core", version = "=1.15.0" }
 waffles-solana-faucet = { path = "../faucet", version = "=1.15.0" }
 waffles-solana-gossip = { path = "../gossip", version = "=1.15.0" }
@@ -28,7 +28,7 @@ waffles-solana-net-utils = { path = "../net-utils", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 waffles-solana-rpc-client = { path = "../rpc-client", version = "=1.15.0", default-features = false }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-streamer = { path = "../streamer", version = "=1.15.0" }
 waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0", default-features = false }
 waffles-solana-version = { path = "../version", version = "=1.15.0" }

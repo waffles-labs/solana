@@ -31,8 +31,8 @@ waffles-solana-geyser-plugin-manager = { path = "../geyser-plugin-manager", vers
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
 waffles-solana-measure = { path = "../measure", version = "=1.15.0" }
-waffles-solana-runtime = { path = "../runtime", version = "=1.15.0" }
-waffles-solana-sdk = { path = "../sdk", version = "=1.15.0" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
 waffles-solana-storage-bigtable = { path = "../storage-bigtable", version = "=1.15.0" }
 waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
