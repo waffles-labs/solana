@@ -4,7 +4,7 @@ pub mod nonblocking;
 pub mod quic_client;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 
 use {
     crate::{
