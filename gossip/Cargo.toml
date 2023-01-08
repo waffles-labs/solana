@@ -36,7 +36,7 @@ solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = 
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
-waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }

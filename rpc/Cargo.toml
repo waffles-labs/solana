@@ -36,11 +36,11 @@ solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version
 solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.15.0" }
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
-waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-poh = { path = "../poh", version = "=1.15.0" }
 waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
-waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0" }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.15.0" }

@@ -16,7 +16,7 @@ log = "0.4.17"
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
-waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-sys-tuner = { path = "../sys-tuner", version = "=1.15.0" }
