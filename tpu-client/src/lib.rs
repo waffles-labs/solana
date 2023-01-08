@@ -7,4 +7,4 @@ pub mod tpu_connection;
 pub mod tpu_connection_cache;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
