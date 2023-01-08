@@ -22,7 +22,7 @@ solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
-waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
 waffles-solana-program-test = { path = "../program-test", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0", default-features = false }

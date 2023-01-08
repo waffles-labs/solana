@@ -6,10 +6,10 @@ pub mod vote_state;
 pub mod vote_transaction;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 
 #[macro_use]
-extern crate waffles_solana_frozen_abi_macro;
+extern crate solana_frozen_abi_macro;
 
 pub use waffles_solana_sdk::vote::{
     authorized_voters, error as vote_error, instruction as vote_instruction,

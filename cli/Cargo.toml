@@ -44,7 +44,7 @@ solana-client = { package = "waffles-solana-client", path = "../client", version
 waffles-solana-config-program = { path = "../programs/config", version = "=1.15.0" }
 solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
-waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
 solana-pubsub-client = { package = "waffles-solana-pubsub-client", path = "../pubsub-client", version = "=1.15.0" }
 waffles-solana-remote-wallet = { path = "../remote-wallet", version = "=1.15.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0" }

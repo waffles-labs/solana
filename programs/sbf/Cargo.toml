@@ -31,7 +31,7 @@ waffles-solana-bpf-loader-program = { path = "../bpf_loader", version = "=1.15.0
 waffles-solana-cli-output = { path = "../../cli-output", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.15.0" }
-waffles-solana-program-runtime = { path = "../../program-runtime", version = "=1.15.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../../runtime", version = "=1.15.0" }
 waffles-solana-sbf-rust-invoke = { path = "rust/invoke", version = "=1.15.0" }
 waffles-solana-sbf-rust-realloc = { path = "rust/realloc", version = "=1.15.0" }

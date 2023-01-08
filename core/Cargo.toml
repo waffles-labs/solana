@@ -50,7 +50,7 @@ solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", vers
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-poh = { path = "../poh", version = "=1.15.0" }
-waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
 waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.15.0" }
@@ -74,7 +74,7 @@ raptorq = "1.7.0"
 serde_json = "1.0.83"
 serial_test = "0.9.0"
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
-waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
 static_assertions = "1.1.0"
 systemstat = "0.2.0"

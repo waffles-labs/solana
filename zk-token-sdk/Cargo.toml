@@ -12,7 +12,7 @@ base64 = "0.13"
 bytemuck = { version = "1.11.0", features = ["derive"] }
 num-derive = "0.3"
 num-traits = "0.2"
-waffles-solana-program = { path = "../sdk/program", version = "=1.15.0" }
+solana-program = { package = "waffles-solana-program", path = "../sdk/program", version = "=1.15.0" }
 
 [target.'cfg(not(target_os = "solana"))'.dependencies]
 aes-gcm-siv = "0.10.3"
