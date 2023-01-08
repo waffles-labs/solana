@@ -2821,7 +2821,7 @@ impl Bank {
                 };
             if let Some(reward_calc_tracer) = reward_calc_tracer.as_ref() {
                 let delegation =
-                    InflationPointCalculationEvent::Delegation(delegation, waffles_solana_vote_program);
+                    InflationPointCalculationEvent::Delegation(delegation, solana_vote_program);
                 let event = RewardCalculationEvent::Staking(stake_pubkey, &delegation);
                 reward_calc_tracer(&event);
             }
@@ -7980,7 +7980,7 @@ impl Drop for Bank {
 
 /// utility function used for testing and benchmarking.
 pub mod test_utils {
-    use {super::Bank, waffles_solana_sdk::hash::hashv};
+    use {super::Bank, solana_sdk::hash::hashv};
     pub fn goto_end_of_slot(bank: &mut Bank) {
         let mut tick_hash = bank.last_blockhash();
         loop {
