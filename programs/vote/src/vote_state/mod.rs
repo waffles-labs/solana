@@ -1,6 +1,6 @@
 //! Vote state, vote program
 //! Receive and processes votes from validators
-pub use waffles_solana_program::vote::state::{vote_state_versions::*, *};
+pub use solana_program::vote::state::{vote_state_versions::*, *};
 use {
     log::*,
     serde_derive::{Deserialize, Serialize},
