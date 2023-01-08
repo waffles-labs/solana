@@ -1022,7 +1022,7 @@ impl Validator {
         datapoint_info!(
             "validator-new",
             ("id", id.to_string(), String),
-            ("version", waffles_solana_version::version!(), String)
+            ("version", solana_version::version!(), String)
         );
 
         *start_progress.write().unwrap() = ValidatorStartProgress::Running;
