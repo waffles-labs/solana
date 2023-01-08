@@ -14,7 +14,7 @@ publish = false
 [dev-dependencies]
 assert_matches = "1.5.0"
 bincode = "1.3.3"
-waffles-solana-address-lookup-table-program = { path = "../address-lookup-table", version = "=1.15.0" }
+solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../address-lookup-table", version = "=1.15.0" }
 waffles-solana-program-test = { path = "../../program-test", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.15.0" }
 

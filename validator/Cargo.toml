@@ -43,7 +43,7 @@ waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
-waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0" }
 waffles-solana-poh = { path = "../poh", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0", default-features = false }

@@ -38,7 +38,7 @@ solana-logger = { package = "waffles-solana-logger", path = "../logger", version
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
-waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0" }
 solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }

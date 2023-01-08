@@ -25,7 +25,7 @@ solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
-waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0" }
 waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0", default-features = false }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }

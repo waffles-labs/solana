@@ -40,20 +40,20 @@ rayon = "1.5.3"
 regex = "1.6.0"
 serde = { version = "1.0.144", features = ["rc"] }
 serde_derive = "1.0.103"
-waffles-solana-address-lookup-table-program = { path = "../programs/address-lookup-table", version = "=1.15.0" }
-waffles-solana-bpf-loader-program = { path = "../programs/bpf_loader", version = "=1.15.0" }
-waffles-solana-bucket-map = { path = "../bucket_map", version = "=1.15.0" }
-waffles-solana-compute-budget-program = { path = "../programs/compute-budget", version = "=1.15.0" }
-waffles-solana-config-program = { path = "../programs/config", version = "=1.15.0" }
+solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../programs/address-lookup-table", version = "=1.15.0" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.15.0" }
+solana-bucket-map = { package = "waffles-solana-bucket-map", path = "../bucket_map", version = "=1.15.0" }
+solana-compute-budget-program = { package = "waffles-solana-compute-budget-program", path = "../programs/compute-budget", version = "=1.15.0" }
+solana-config-program = { package = "waffles-solana-config-program", path = "../programs/config", version = "=1.15.0" }
 solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.15.0" }
 solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
-waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0" }
 solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
 solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.15.0" }
 solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0" }
 waffles-solana-zk-token-proof-program = { path = "../programs/zk-token-proof", version = "=1.15.0" }
 solana-zk-token-sdk = { package = "waffles-solana-zk-token-sdk", path = "../zk-token-sdk", version = "=1.15.0" }

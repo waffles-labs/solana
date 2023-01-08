@@ -27,7 +27,7 @@ bincode = "1.3.3"
 matches = "0.1.9"
 rand = "0.7.0"
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
-waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0" }
 
 [lib]
 crate-type = ["lib"]

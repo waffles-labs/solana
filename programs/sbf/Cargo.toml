@@ -27,7 +27,7 @@ log = "0.4.11"
 miow = "0.3.6"
 net2 = "0.2.37"
 solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../../account-decoder", version = "=1.15.0" }
-waffles-solana-bpf-loader-program = { path = "../bpf_loader", version = "=1.15.0" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../bpf_loader", version = "=1.15.0" }
 waffles-solana-cli-output = { path = "../../cli-output", version = "=1.15.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.15.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.15.0" }
