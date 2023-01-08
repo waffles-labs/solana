@@ -1,6 +1,6 @@
 /// A helper for calculating a stake-weighted timestamp estimate from a set of timestamps and epoch
 /// stake.
-use waffles_solana_sdk::{
+use solana_sdk::{
     clock::{Slot, UnixTimestamp},
     pubkey::Pubkey,
 };

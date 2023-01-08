@@ -7,12 +7,12 @@
 //!
 //! [`bpf_loader_deprecated`]: crate::bpf_loader_deprecated
 
-pub use waffles_solana_program::entrypoint_deprecated::*;
+pub use solana_program::entrypoint_deprecated::*;
 
 #[macro_export]
 #[deprecated(
     since = "1.4.3",
-    note = "use waffles_solana_program::entrypoint::entrypoint instead"
+    note = "use solana_program::entrypoint::entrypoint instead"
 )]
 macro_rules! entrypoint_deprecated {
     ($process_instruction:ident) => {

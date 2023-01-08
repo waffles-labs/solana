@@ -71,7 +71,7 @@ macro_rules! info {
 /// # Examples
 ///
 /// ```
-/// use waffles_solana_program::msg;
+/// use solana_program::msg;
 ///
 /// // The fast form
 /// msg!("verifying multisig");

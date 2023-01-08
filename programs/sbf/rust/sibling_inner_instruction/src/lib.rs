@@ -2,7 +2,7 @@
 
 #![cfg(feature = "program")]
 
-use waffles_solana_program::{
+use solana_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     instruction::{

@@ -1,4 +1,4 @@
-use waffles_solana_runtime::builtins::{Builtin, BuiltinFeatureTransition, Builtins};
+use solana_runtime::builtins::{Builtin, BuiltinFeatureTransition, Builtins};
 
 macro_rules! to_builtin {
     ($b:expr) => {

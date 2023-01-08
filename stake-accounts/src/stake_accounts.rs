@@ -1,4 +1,4 @@
-use waffles_solana_sdk::{
+use solana_sdk::{
     clock::SECONDS_PER_DAY,
     instruction::Instruction,
     message::Message,

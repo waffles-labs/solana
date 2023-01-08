@@ -1,7 +1,7 @@
 //! Example Rust-based SBF program tests loop iteration
 
 extern crate waffles_solana_program;
-use waffles_solana_program::{custom_heap_default, custom_panic_default, entrypoint::SUCCESS};
+use solana_program::{custom_heap_default, custom_panic_default, entrypoint::SUCCESS};
 
 #[no_mangle]
 pub extern "C" fn entrypoint(_input: *mut u8) -> u64 {

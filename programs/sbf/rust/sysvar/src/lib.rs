@@ -2,10 +2,10 @@
 
 extern crate waffles_solana_program;
 #[allow(deprecated)]
-use waffles_solana_program::sysvar::fees::Fees;
+use solana_program::sysvar::fees::Fees;
 #[allow(deprecated)]
-use waffles_solana_program::sysvar::recent_blockhashes::RecentBlockhashes;
-use waffles_solana_program::{
+use solana_program::sysvar::recent_blockhashes::RecentBlockhashes;
+use solana_program::{
     account_info::AccountInfo,
     entrypoint::ProgramResult,
     instruction::{AccountMeta, Instruction},

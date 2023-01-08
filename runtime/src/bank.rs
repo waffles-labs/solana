@@ -34,8 +34,8 @@
 //! on behalf of the caller, and a low-level API for when they have
 //! already been signed and verified.
 #[allow(deprecated)]
-use waffles_solana_sdk::recent_blockhashes_account;
-pub use waffles_solana_sdk::reward_type::RewardType;
+use solana_sdk::recent_blockhashes_account;
+pub use solana_sdk::reward_type::RewardType;
 use {
     crate::{
         account_overrides::AccountOverrides,
@@ -333,7 +333,7 @@ pub struct BankRc {
 }
 
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
-use waffles_solana_frozen_abi::abi_example::AbiExample;
+use solana_frozen_abi::abi_example::AbiExample;
 
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
 impl AbiExample for BankRc {
@@ -7997,7 +7997,7 @@ pub mod test_utils {
 #[cfg(test)]
 pub(crate) mod tests {
     #[allow(deprecated)]
-    use waffles_solana_sdk::sysvar::fees::Fees;
+    use solana_sdk::sysvar::fees::Fees;
     use {
         super::*,
         crate::{

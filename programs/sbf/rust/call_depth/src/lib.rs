@@ -1,6 +1,6 @@
 //! Example Rust-based SBF program that tests call depth and stack usage
 
-use waffles_solana_program::{
+use solana_program::{
     custom_heap_default, custom_panic_default, entrypoint::SUCCESS, log::sol_log_64, msg,
 };
 

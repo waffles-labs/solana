@@ -1,4 +1,4 @@
-use waffles_solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
+use solana_program::{account_info::AccountInfo, entrypoint::ProgramResult, pubkey::Pubkey};
 
 solana_program::entrypoint!(process_instruction);
 #[allow(clippy::unnecessary_wraps)]

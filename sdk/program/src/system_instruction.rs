@@ -400,9 +400,9 @@ pub enum SystemInstruction {
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -461,7 +461,7 @@ pub enum SystemInstruction {
 /// # use borsh_derive::BorshDeserialize;
 /// # use borsh::BorshSerialize;
 /// # use borsh::de::BorshDeserialize;
-/// use waffles_solana_program::{
+/// use solana_program::{
 ///     account_info::{next_account_info, AccountInfo},
 ///     entrypoint,
 ///     entrypoint::ProgramResult,
@@ -607,9 +607,9 @@ pub fn create_account_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -679,7 +679,7 @@ pub fn create_account_with_seed(
 /// # use borsh_derive::BorshDeserialize;
 /// # use borsh::BorshSerialize;
 /// # use borsh::de::BorshDeserialize;
-/// use waffles_solana_program::{
+/// use solana_program::{
 ///     account_info::{next_account_info, AccountInfo},
 ///     entrypoint,
 ///     entrypoint::ProgramResult,
@@ -819,9 +819,9 @@ pub fn assign_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -891,7 +891,7 @@ pub fn assign_with_seed(
 /// # use borsh_derive::BorshDeserialize;
 /// # use borsh::BorshSerialize;
 /// # use borsh::de::BorshDeserialize;
-/// use waffles_solana_program::{
+/// use solana_program::{
 ///     account_info::{next_account_info, AccountInfo},
 ///     entrypoint,
 ///     entrypoint::ProgramResult,
@@ -1040,9 +1040,9 @@ pub fn transfer_with_seed(
 /// The `payer` and `new_account` are signers.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -1112,7 +1112,7 @@ pub fn transfer_with_seed(
 /// # use borsh_derive::BorshDeserialize;
 /// # use borsh::BorshSerialize;
 /// # use borsh::de::BorshDeserialize;
-/// use waffles_solana_program::{
+/// use solana_program::{
 ///     account_info::{next_account_info, AccountInfo},
 ///     entrypoint,
 ///     entrypoint::ProgramResult,
@@ -1249,9 +1249,9 @@ pub fn allocate_with_seed(
 /// This example performs multiple transfers in a single transaction.
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::{solana_sdk, waffles_solana_rpc_client};
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -1308,7 +1308,7 @@ pub fn allocate_with_seed(
 /// # use borsh_derive::BorshDeserialize;
 /// # use borsh::BorshSerialize;
 /// # use borsh::de::BorshDeserialize;
-/// use waffles_solana_program::{
+/// use solana_program::{
 ///     account_info::{next_account_info, next_account_infos, AccountInfo},
 ///     entrypoint,
 ///     entrypoint::ProgramResult,
@@ -1477,10 +1477,10 @@ pub fn create_nonce_account_with_seed(
 /// Create a nonce account from an off-chain client:
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::solana_sdk;
-/// # use waffles_solana_program::example_mocks::solana_rpc_client;
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::solana_sdk;
+/// # use solana_program::example_mocks::solana_rpc_client;
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 /// #   pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -1588,18 +1588,18 @@ pub fn create_nonce_account(
 /// Create and sign a transaction with a durable nonce:
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::solana_sdk;
-/// # use waffles_solana_program::example_mocks::solana_rpc_client;
-/// # use waffles_solana_program::example_mocks::solana_rpc_client_nonce_utils;
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::solana_sdk;
+/// # use solana_program::example_mocks::solana_rpc_client;
+/// # use solana_program::example_mocks::solana_rpc_client_nonce_utils;
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     message::Message,
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
 ///     transaction::Transaction,
 /// };
-/// # use waffles_solana_sdk::account::Account;
+/// # use solana_sdk::account::Account;
 /// use std::path::Path;
 /// use anyhow::Result;
 /// # use anyhow::anyhow;
@@ -1713,10 +1713,10 @@ pub fn advance_nonce_account(nonce_pubkey: &Pubkey, authorized_pubkey: &Pubkey) 
 /// # Examples
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::solana_sdk;
-/// # use waffles_solana_program::example_mocks::solana_rpc_client;
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::solana_sdk;
+/// # use solana_program::example_mocks::solana_rpc_client;
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,
@@ -1796,10 +1796,10 @@ pub fn withdraw_nonce_account(
 /// # Examples
 ///
 /// ```
-/// # use waffles_solana_program::example_mocks::solana_sdk;
-/// # use waffles_solana_program::example_mocks::solana_rpc_client;
-/// use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// use waffles_solana_sdk::{
+/// # use solana_program::example_mocks::solana_sdk;
+/// # use solana_program::example_mocks::solana_rpc_client;
+/// use solana_rpc_client::rpc_client::RpcClient;
+/// use solana_sdk::{
 ///     pubkey::Pubkey,
 ///     signature::{Keypair, Signer},
 ///     system_instruction,

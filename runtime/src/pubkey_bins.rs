@@ -1,4 +1,4 @@
-use waffles_solana_sdk::pubkey::Pubkey;
+use solana_sdk::pubkey::Pubkey;
 
 #[derive(Debug)]
 pub struct PubkeyBinCalculator24 {

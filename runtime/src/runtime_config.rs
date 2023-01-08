@@ -1,4 +1,4 @@
-use waffles_solana_program_runtime::compute_budget::ComputeBudget;
+use solana_program_runtime::compute_budget::ComputeBudget;
 
 /// Encapsulates flags that can be used to tweak the runtime behavior.
 #[derive(AbiExample, Debug, Default, Clone)]

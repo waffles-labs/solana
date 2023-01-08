@@ -1,6 +1,6 @@
 //! Solana account addresses.
 
-pub use waffles_solana_program::pubkey::*;
+pub use solana_program::pubkey::*;
 
 /// New random Pubkey for tests and benchmarks.
 #[cfg(feature = "full")]

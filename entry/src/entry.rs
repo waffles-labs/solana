@@ -628,7 +628,7 @@ impl EntrySlice for [Entry] {
     }
 
     fn verify_cpu_x86_simd(&self, start_hash: &Hash, simd_len: usize) -> EntryVerificationState {
-        use waffles_solana_sdk::hash::HASH_BYTES;
+        use solana_sdk::hash::HASH_BYTES;
         let now = Instant::now();
         let genesis = [Entry {
             num_hashes: 0,
@@ -1061,7 +1061,7 @@ mod tests {
 
     #[test]
     fn test_transaction_signing() {
-        use waffles_solana_sdk::signature::Signature;
+        use solana_sdk::signature::Signature;
         let zero = Hash::default();
 
         let keypair = Keypair::new();

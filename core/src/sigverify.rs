@@ -4,7 +4,7 @@
 //! to the GPU.
 //!
 
-pub use waffles_solana_perf::sigverify::{
+pub use solana_perf::sigverify::{
     count_packets_in_batches, ed25519_verify_cpu, ed25519_verify_disabled, init, TxOffset,
 };
 use {

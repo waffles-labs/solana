@@ -10,7 +10,7 @@
 //! For Entries:
 //! * recorded entry must be >= WorkingBank::min_tick_height && entry must be < WorkingBank::max_tick_height
 //!
-pub use waffles_solana_sdk::clock::Slot;
+pub use solana_sdk::clock::Slot;
 use {
     crate::poh_service::PohService,
     crossbeam_channel::{unbounded, Receiver, RecvTimeoutError, SendError, Sender, TrySendError},

@@ -1,4 +1,4 @@
-pub use waffles_solana_ledger::blockstore_processor::CacheBlockMetaSender;
+pub use solana_ledger::blockstore_processor::CacheBlockMetaSender;
 use {
     crossbeam_channel::{Receiver, RecvTimeoutError},
     solana_ledger::blockstore::Blockstore,

@@ -1,5 +1,5 @@
 //! calculate and collect rent from Accounts
-use waffles_solana_sdk::{
+use solana_sdk::{
     account::{AccountSharedData, ReadableAccount, WritableAccount},
     clock::Epoch,
     epoch_schedule::EpochSchedule,

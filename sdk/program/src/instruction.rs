@@ -355,7 +355,7 @@ impl Instruction {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_program::{
+    /// # use solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::{AccountMeta, Instruction},
     /// # };
@@ -407,7 +407,7 @@ impl Instruction {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_program::{
+    /// # use solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::{AccountMeta, Instruction},
     /// # };
@@ -460,7 +460,7 @@ impl Instruction {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_program::{
+    /// # use solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::{AccountMeta, Instruction},
     /// # };
@@ -549,7 +549,7 @@ impl AccountMeta {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_program::{
+    /// # use solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::{AccountMeta, Instruction},
     /// # };
@@ -584,7 +584,7 @@ impl AccountMeta {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_program::{
+    /// # use solana_program::{
     /// #     pubkey::Pubkey,
     /// #     instruction::{AccountMeta, Instruction},
     /// # };

@@ -11,7 +11,7 @@
 
 pub use crate::mock_sender::Mocks;
 #[allow(deprecated)]
-use waffles_solana_rpc_client_api::deprecated_config::{
+use solana_rpc_client_api::deprecated_config::{
     RpcConfirmedBlockConfig, RpcConfirmedTransactionConfig,
 };
 use {
@@ -168,11 +168,11 @@ pub struct GetConfirmedSignaturesForAddress2Config {
 /// field, so it is common for the value to be accessed with `?.value`, as in
 ///
 /// ```
-/// # use waffles_solana_sdk::system_transaction;
-/// # use waffles_solana_rpc_client_api::client_error::Error;
-/// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-/// # use waffles_solana_sdk::signature::{Keypair, Signer};
-/// # use waffles_solana_sdk::hash::Hash;
+/// # use solana_sdk::system_transaction;
+/// # use solana_rpc_client_api::client_error::Error;
+/// # use solana_rpc_client::rpc_client::RpcClient;
+/// # use solana_sdk::signature::{Keypair, Signer};
+/// # use solana_sdk::hash::Hash;
 /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
 /// # let key = Keypair::new();
 /// # let to = solana_sdk::pubkey::new_rand();
@@ -245,7 +245,7 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// let url = "http://localhost:8899".to_string();
     /// let client = RpcClient::new(url);
     /// ```
@@ -268,8 +268,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// let url = "http://localhost:8899".to_string();
     /// let commitment_config = CommitmentConfig::processed();
     /// let client = RpcClient::new_with_commitment(url, commitment_config);
@@ -296,7 +296,7 @@ impl RpcClient {
     ///
     /// ```
     /// # use std::time::Duration;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// let url = "http://localhost::8899".to_string();
     /// let timeout = Duration::from_secs(1);
     /// let client = RpcClient::new_with_timeout(url, timeout);
@@ -319,8 +319,8 @@ impl RpcClient {
     ///
     /// ```
     /// # use std::time::Duration;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// let url = "http://localhost::8899".to_string();
     /// let timeout = Duration::from_secs(1);
     /// let commitment_config = CommitmentConfig::processed();
@@ -360,8 +360,8 @@ impl RpcClient {
     ///
     /// ```
     /// # use std::time::Duration;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// let url = "http://localhost::8899".to_string();
     /// let timeout = Duration::from_secs(1);
     /// let commitment_config = CommitmentConfig::processed();
@@ -422,14 +422,14 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// // Create an `RpcClient` that always succeeds
     /// let url = "succeeds".to_string();
     /// let successful_client = RpcClient::new_mock(url);
     /// ```
     ///
     /// ```
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// // Create an `RpcClient` that always fails
     /// let url = "fails".to_string();
     /// let successful_client = RpcClient::new_mock(url);
@@ -484,11 +484,11 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     request::RpcRequest,
     /// #     response::{Response, RpcResponseContext},
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # use std::collections::HashMap;
     /// # use serde_json::json;
     /// // Create a mock with a custom repsonse to the `GetBalance` request
@@ -522,7 +522,7 @@ impl RpcClient {
     ///
     /// ```
     /// # use std::net::SocketAddr;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// let addr = SocketAddr::from(([127, 0, 0, 1], 8899));
     /// let client = RpcClient::new_socket(addr);
     /// ```
@@ -543,8 +543,8 @@ impl RpcClient {
     ///
     /// ```
     /// # use std::net::SocketAddr;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// let addr = SocketAddr::from(([127, 0, 0, 1], 8899));
     /// let commitment_config = CommitmentConfig::processed();
     /// let client = RpcClient::new_socket_with_commitment(
@@ -571,7 +571,7 @@ impl RpcClient {
     /// ```
     /// # use std::net::SocketAddr;
     /// # use std::time::Duration;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// let addr = SocketAddr::from(([127, 0, 0, 1], 8899));
     /// let timeout = Duration::from_secs(1);
     /// let client = RpcClient::new_socket_with_timeout(addr, timeout);
@@ -647,9 +647,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -758,9 +758,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -834,12 +834,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::RpcSendTransactionConfig,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -903,9 +903,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -956,9 +956,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     commitment_config::CommitmentConfig,
     /// #     signature::Signer,
     /// #     signature::Signature,
@@ -1040,12 +1040,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     response::RpcSimulateTransactionResult,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -1110,13 +1110,13 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::RpcSimulateTransactionConfig,
     /// #     response::RpcSimulateTransactionResult,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     hash::Hash,
@@ -1164,8 +1164,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let snapshot_slot_info = rpc_client.get_highest_snapshot_slot()?;
     /// # Ok::<(), Error>(())
@@ -1216,9 +1216,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -1281,9 +1281,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -1356,9 +1356,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
@@ -1417,9 +1417,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     commitment_config::CommitmentConfig,
     /// #     signature::Signer,
     /// #     signature::Signature,
@@ -1480,9 +1480,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     commitment_config::CommitmentConfig,
     /// #     signature::Signer,
     /// #     signature::Signature,
@@ -1533,8 +1533,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let slot = rpc_client.get_slot()?;
     /// # Ok::<(), Error>(())
@@ -1556,9 +1556,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::processed();
     /// let slot = rpc_client.get_slot_with_commitment(commitment_config)?;
@@ -1584,8 +1584,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let block_height = rpc_client.get_block_height()?;
     /// # Ok::<(), Error>(())
@@ -1607,9 +1607,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::processed();
     /// let block_height = rpc_client.get_block_height_with_commitment(
@@ -1635,9 +1635,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::slot_history::Slot;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::slot_history::Slot;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let start_slot = 1;
     /// let limit = 3;
@@ -1659,8 +1659,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let production = rpc_client.get_block_production()?;
     /// # Ok::<(), Error>(())
@@ -1680,12 +1680,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::{RpcBlockProductionConfig, RpcBlockProductionConfigRange},
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     commitment_config::CommitmentConfig,
@@ -1731,12 +1731,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     response::StakeActivationState,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signer::keypair::Keypair,
     /// #     signature::Signer,
     /// #     pubkey::Pubkey,
@@ -1810,8 +1810,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let supply = rpc_client.supply()?;
     /// # Ok::<(), Error>(())
@@ -1831,9 +1831,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::processed();
     /// let supply = rpc_client.supply_with_commitment(
@@ -1860,12 +1860,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::{RpcLargestAccountsConfig, RpcLargestAccountsFilter},
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::processed();
     /// let config = RpcLargestAccountsConfig {
@@ -1899,8 +1899,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let accounts = rpc_client.get_vote_accounts()?;
     /// # Ok::<(), Error>(())
@@ -1923,9 +1923,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::processed();
     /// let accounts = rpc_client.get_vote_accounts_with_commitment(
@@ -1954,12 +1954,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::RpcGetVoteAccountsConfig,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signer::keypair::Keypair,
     /// #     signature::Signer,
     /// #     commitment_config::CommitmentConfig,
@@ -2006,8 +2006,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let cluster_nodes = rpc_client.get_cluster_nodes()?;
     /// # Ok::<(), Error>(())
@@ -2035,8 +2035,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let slot = rpc_client.get_slot()?;
     /// let block = rpc_client.get_block(slot)?;
@@ -2057,9 +2057,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_transaction_status::UiTransactionEncoding;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_transaction_status::UiTransactionEncoding;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let slot = rpc_client.get_slot()?;
     /// let encoding = UiTransactionEncoding::Base58;
@@ -2088,12 +2088,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     config::RpcBlockConfig,
     /// #     client_error::Error,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_transaction_status::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_transaction_status::{
     /// #     TransactionDetails,
     /// #     UiTransactionEncoding,
     /// # };
@@ -2186,8 +2186,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// // Get up to the first 10 blocks
     /// let start_slot = 0;
@@ -2237,9 +2237,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// // Get up to the first 10 blocks
     /// let start_slot = 0;
@@ -2289,8 +2289,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// // Get the first 10 blocks
     /// let start_slot = 0;
@@ -2326,9 +2326,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// // Get the first 10 blocks
     /// let start_slot = 0;
@@ -2440,9 +2440,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     system_transaction,
@@ -2483,9 +2483,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::{GetConfirmedSignaturesForAddress2Config, RpcClient};
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::{GetConfirmedSignaturesForAddress2Config, RpcClient};
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     system_transaction,
@@ -2567,15 +2567,15 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
     /// #     system_transaction,
     /// # };
-    /// # use waffles_solana_transaction_status::UiTransactionEncoding;
+    /// # use solana_transaction_status::UiTransactionEncoding;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let alice = Keypair::new();
     /// # let bob = Keypair::new();
@@ -2619,19 +2619,19 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::RpcTransactionConfig,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signature::Signature,
     /// #     signer::keypair::Keypair,
     /// #     system_transaction,
     /// #     commitment_config::CommitmentConfig,
     /// # };
-    /// # use waffles_solana_transaction_status::UiTransactionEncoding;
+    /// # use solana_transaction_status::UiTransactionEncoding;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let alice = Keypair::new();
     /// # let bob = Keypair::new();
@@ -2697,8 +2697,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// // Get the time of the most recent finalized block
     /// let slot = rpc_client.get_slot()?;
@@ -2724,8 +2724,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let epoch_info = rpc_client.get_epoch_info()?;
     /// # Ok::<(), Error>(())
@@ -2745,9 +2745,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let commitment_config = CommitmentConfig::confirmed();
     /// let epoch_info = rpc_client.get_epoch_info_with_commitment(
@@ -2777,9 +2777,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let slot = rpc_client.get_slot()?;
     /// let leader_schedule = rpc_client.get_leader_schedule(
@@ -2805,9 +2805,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let slot = rpc_client.get_slot()?;
     /// let commitment_config = CommitmentConfig::processed();
@@ -2838,12 +2838,12 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::RpcLeaderScheduleConfig,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let slot = rpc_client.get_slot()?;
     /// # let validator_pubkey_str = "7AYmEYBBetok8h5L3Eo3vi3bDWnjNnaFbSXfSNYV5ewB".to_string();
@@ -2876,8 +2876,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let epoch_schedule = rpc_client.get_epoch_schedule()?;
     /// # Ok::<(), Error>(())
@@ -2900,8 +2900,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let limit = 10;
     /// let performance_samples = rpc_client.get_recent_performance_samples(
@@ -2927,8 +2927,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let identity = rpc_client.get_identity()?;
     /// # Ok::<(), Error>(())
@@ -2954,8 +2954,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let inflation_governor = rpc_client.get_inflation_governor()?;
     /// # Ok::<(), Error>(())
@@ -2975,8 +2975,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let inflation_rate = rpc_client.get_inflation_rate()?;
     /// # Ok::<(), Error>(())
@@ -3000,9 +3000,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::signature::{Keypair, Signer};
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::signature::{Keypair, Signer};
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let epoch_info = rpc_client.get_epoch_info()?;
     /// # let epoch = epoch_info.epoch;
@@ -3034,9 +3034,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::signature::{Keypair, Signer};
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::signature::{Keypair, Signer};
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let expected_version = semver::Version::new(1, 7, 0);
     /// let version = rpc_client.get_version()?;
@@ -3063,8 +3063,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let slot = rpc_client.minimum_ledger_slot()?;
     /// # Ok::<(), Error>(())
@@ -3101,9 +3101,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::{self, RpcClient};
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::{self, RpcClient};
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     pubkey::Pubkey,
@@ -3136,9 +3136,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::{self, RpcClient};
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::{self, RpcClient};
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     pubkey::Pubkey,
@@ -3183,18 +3183,18 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     config::RpcAccountInfoConfig,
     /// #     client_error::Error,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::{self, RpcClient};
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::{self, RpcClient};
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     pubkey::Pubkey,
     /// #     commitment_config::CommitmentConfig,
     /// # };
-    /// # use waffles_solana_account_decoder::UiAccountEncoding;
+    /// # use solana_account_decoder::UiAccountEncoding;
     /// # use std::str::FromStr;
     /// # let mocks = rpc_client::create_rpc_client_mocks();
     /// # let rpc_client = RpcClient::new_mock_with_mocks("succeeds".to_string(), mocks);
@@ -3232,8 +3232,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let slot = rpc_client.get_max_retransmit_slot()?;
     /// # Ok::<(), Error>(())
@@ -3253,8 +3253,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let slot = rpc_client.get_max_shred_insert_slot()?;
     /// # Ok::<(), Error>(())
@@ -3277,9 +3277,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// # };
@@ -3305,9 +3305,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     commitment_config::CommitmentConfig,
@@ -3345,17 +3345,17 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     config::RpcAccountInfoConfig,
     /// #     client_error::Error,
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     commitment_config::CommitmentConfig,
     /// # };
-    /// # use waffles_solana_account_decoder::UiAccountEncoding;
+    /// # use solana_account_decoder::UiAccountEncoding;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let alice = Keypair::new();
     /// # let bob = Keypair::new();
@@ -3397,9 +3397,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::{self, RpcClient};
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::{self, RpcClient};
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     pubkey::Pubkey,
@@ -3427,8 +3427,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let data_len = 300;
     /// let balance = rpc_client.get_minimum_balance_for_rent_exemption(data_len)?;
@@ -3453,9 +3453,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// # };
@@ -3479,9 +3479,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     commitment_config::CommitmentConfig,
@@ -3521,9 +3521,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// # };
@@ -3547,18 +3547,18 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::{
+    /// # use solana_rpc_client_api::{
     /// #     client_error::Error,
     /// #     config::{RpcAccountInfoConfig, RpcProgramAccountsConfig},
     /// #     filter::{MemcmpEncodedBytes, RpcFilterType, Memcmp},
     /// # };
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::{
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::{
     /// #     signature::Signer,
     /// #     signer::keypair::Keypair,
     /// #     commitment_config::CommitmentConfig,
     /// # };
-    /// # use waffles_solana_account_decoder::{UiDataSliceConfig, UiAccountEncoding};
+    /// # use solana_account_decoder::{UiDataSliceConfig, UiAccountEncoding};
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// # let alice = Keypair::new();
     /// # let base64_bytes = "\
@@ -3611,8 +3611,8 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let stake_minimum_delegation = rpc_client.get_stake_minimum_delegation()?;
     /// # Ok::<(), Error>(())
@@ -3632,9 +3632,9 @@ impl RpcClient {
     /// # Examples
     ///
     /// ```
-    /// # use waffles_solana_rpc_client_api::client_error::Error;
-    /// # use waffles_solana_rpc_client::rpc_client::RpcClient;
-    /// # use waffles_solana_sdk::commitment_config::CommitmentConfig;
+    /// # use solana_rpc_client_api::client_error::Error;
+    /// # use solana_rpc_client::rpc_client::RpcClient;
+    /// # use solana_sdk::commitment_config::CommitmentConfig;
     /// # let rpc_client = RpcClient::new_mock("succeeds".to_string());
     /// let stake_minimum_delegation =
     /// rpc_client.get_stake_minimum_delegation_with_commitment(CommitmentConfig::confirmed())?;

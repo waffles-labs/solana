@@ -1,6 +1,6 @@
 //! Example Rust-based SBF realloc test program
 
-use waffles_solana_program::{
+use solana_program::{
     instruction::{AccountMeta, Instruction},
     pubkey::Pubkey,
 };

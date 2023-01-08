@@ -1,7 +1,7 @@
 //! Helpers for the recent blockhashes sysvar.
 
 #[allow(deprecated)]
-use waffles_solana_program::sysvar::recent_blockhashes::{
+use solana_program::sysvar::recent_blockhashes::{
     IntoIterSorted, IterItem, RecentBlockhashes, MAX_ENTRIES,
 };
 use {

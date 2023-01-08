@@ -1,6 +1,6 @@
 #![cfg(feature = "program")]
 
-pub use waffles_solana_program::log::*;
+pub use solana_program::log::*;
 
 #[macro_export]
 #[deprecated(

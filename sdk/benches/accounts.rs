@@ -1,7 +1,7 @@
 #![feature(test)]
 #![allow(clippy::integer_arithmetic)]
 
-use waffles_solana_sdk::{entrypoint::MAX_PERMITTED_DATA_INCREASE, pubkey::Pubkey};
+use solana_sdk::{entrypoint::MAX_PERMITTED_DATA_INCREASE, pubkey::Pubkey};
 
 extern crate test;
 use {solana_sdk::account::AccountSharedData, test::Bencher};

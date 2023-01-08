@@ -17,11 +17,11 @@
 //! Calling via the RPC client:
 //!
 //! ```
-//! # use waffles_solana_program::example_mocks::solana_sdk;
-//! # use waffles_solana_program::example_mocks::solana_rpc_client;
-//! # use waffles_solana_sdk::account::Account;
-//! # use waffles_solana_rpc_client::rpc_client::RpcClient;
-//! # use waffles_solana_sdk::sysvar::stake_history::{self, StakeHistory};
+//! # use solana_program::example_mocks::solana_sdk;
+//! # use solana_program::example_mocks::solana_rpc_client;
+//! # use solana_sdk::account::Account;
+//! # use solana_rpc_client::rpc_client::RpcClient;
+//! # use solana_sdk::sysvar::stake_history::{self, StakeHistory};
 //! # use anyhow::Result;
 //! #
 //! fn print_sysvar_stake_history(client: &RpcClient) -> Result<()> {

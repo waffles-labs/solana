@@ -46,10 +46,10 @@
 //!
 //! ```
 //! use anyhow::Result;
-//! use waffles_solana_sdk::commitment_config::CommitmentConfig;
-//! use waffles_solana_pubsub_client::pubsub_client::PubsubClient;
-//! use waffles_solana_rpc_client_api::config::RpcAccountInfoConfig;
-//! use waffles_solana_sdk::pubkey::Pubkey;
+//! use solana_sdk::commitment_config::CommitmentConfig;
+//! use solana_pubsub_client::pubsub_client::PubsubClient;
+//! use solana_rpc_client_api::config::RpcAccountInfoConfig;
+//! use solana_sdk::pubkey::Pubkey;
 //! use std::thread;
 //!
 //! fn get_account_updates(account_pubkey: Pubkey) -> Result<()> {

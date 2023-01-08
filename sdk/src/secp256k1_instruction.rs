@@ -207,7 +207,7 @@
 //!
 //! ```no_run
 //! mod secp256k1_defs {
-//!     use waffles_solana_program::program_error::ProgramError;
+//!     use solana_program::program_error::ProgramError;
 //!     use std::iter::Iterator;
 //!
 //!     pub const HASHED_PUBKEY_SERIALIZED_SIZE: usize = 20;
@@ -273,7 +273,7 @@
 //!
 //! ```no_run
 //! # mod secp256k1_defs {
-//! #     use waffles_solana_program::program_error::ProgramError;
+//! #     use solana_program::program_error::ProgramError;
 //! #     use std::iter::Iterator;
 //! #
 //! #     pub const HASHED_PUBKEY_SERIALIZED_SIZE: usize = 20;
@@ -321,7 +321,7 @@
 //! #             }))
 //! #     }
 //! # }
-//! use waffles_solana_program::{
+//! use solana_program::{
 //!     account_info::{next_account_info, AccountInfo},
 //!     entrypoint::ProgramResult,
 //!     msg,
@@ -417,10 +417,10 @@
 //! The client program:
 //!
 //! ```no_run
-//! # use waffles_solana_sdk::example_mocks::solana_rpc_client;
+//! # use solana_sdk::example_mocks::solana_rpc_client;
 //! use anyhow::Result;
-//! use waffles_solana_rpc_client::rpc_client::RpcClient;
-//! use waffles_solana_sdk::{
+//! use solana_rpc_client::rpc_client::RpcClient;
+//! use solana_sdk::{
 //!     instruction::{AccountMeta, Instruction},
 //!     secp256k1_instruction,
 //!     signature::{Keypair, Signer},
@@ -486,7 +486,7 @@
 //!
 //! ```no_run
 //! # mod secp256k1_defs {
-//! #     use waffles_solana_program::program_error::ProgramError;
+//! #     use solana_program::program_error::ProgramError;
 //! #     use std::iter::Iterator;
 //! #
 //! #     pub const HASHED_PUBKEY_SERIALIZED_SIZE: usize = 20;
@@ -534,7 +534,7 @@
 //! #             }))
 //! #     }
 //! # }
-//! use waffles_solana_program::{
+//! use solana_program::{
 //!     account_info::{next_account_info, AccountInfo},
 //!     entrypoint::ProgramResult,
 //!     msg,
@@ -633,10 +633,10 @@
 //! The client program:
 //!
 //! ```no_run
-//! # use waffles_solana_sdk::example_mocks::solana_rpc_client;
+//! # use solana_sdk::example_mocks::solana_rpc_client;
 //! use anyhow::Result;
-//! use waffles_solana_rpc_client::rpc_client::RpcClient;
-//! use waffles_solana_sdk::{
+//! use solana_rpc_client::rpc_client::RpcClient;
+//! use solana_sdk::{
 //!     instruction::{AccountMeta, Instruction},
 //!     keccak,
 //!     secp256k1_instruction::{
