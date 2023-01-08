@@ -51,10 +51,10 @@ solana-measure = { package = "waffles-solana-measure", path = "../measure", vers
 solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
-waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
-waffles-solana-vote-program = { path = "../programs/vote", version = "=1.15.0" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0" }
 waffles-solana-zk-token-proof-program = { path = "../programs/zk-token-proof", version = "=1.15.0" }
 waffles-solana-zk-token-sdk = { path = "../zk-token-sdk", version = "=1.15.0" }
 strum = { version = "0.24", features = ["derive"] }

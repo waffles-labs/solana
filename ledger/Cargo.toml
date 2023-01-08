@@ -44,14 +44,14 @@ solana-measure = { package = "waffles-solana-measure", path = "../measure", vers
 solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0" }
-waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
 waffles-solana-storage-bigtable = { path = "../storage-bigtable", version = "=1.15.0" }
 waffles-solana-storage-proto = { path = "../storage-proto", version = "=1.15.0" }
 solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
-waffles-solana-vote-program = { path = "../programs/vote", version = "=1.15.0" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0" }
 spl-token = { version = "=3.5.0", features = ["no-entrypoint"] }
 spl-token-2022 = { version = "=0.5.0", features = ["no-entrypoint"] }
 static_assertions = "1.1.0"

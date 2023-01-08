@@ -26,7 +26,7 @@ solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
 solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0" }
-waffles-solana-vote-program = { path = "../programs/vote", version = "=1.15.0" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0" }
 tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
