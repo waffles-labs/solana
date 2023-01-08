@@ -3,7 +3,7 @@
 use {
     crossbeam_channel::{Receiver, Sender},
     log::*,
-    waffles_solana_sdk::clock::Slot,
+    solana_sdk::clock::Slot,
     std::fmt,
 };
 

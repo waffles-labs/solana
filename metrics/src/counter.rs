@@ -1,7 +1,7 @@
 use {
     crate::metrics::submit_counter,
     log::*,
-    waffles_solana_sdk::timing,
+    solana_sdk::timing,
     std::{
         env,
         sync::atomic::{AtomicU64, AtomicUsize, Ordering},
@@ -322,7 +322,7 @@ mod tests {
         assert_eq!(
             Counter::default_log_rate(),
             DEFAULT_LOG_RATE,
-            "default_log_rate() is {}, expected {}, waffles_solana_DEFAULT_LOG_RATE environment variable set?",
+            "default_log_rate() is {}, expected {}, solana_DEFAULT_LOG_RATE environment variable set?",
             Counter::default_log_rate(),
             DEFAULT_LOG_RATE,
         );

@@ -6,7 +6,7 @@ use {
     gethostname::gethostname,
     lazy_static::lazy_static,
     log::*,
-    waffles_solana_sdk::hash::hash,
+    solana_sdk::hash::hash,
     std::{
         cmp,
         collections::HashMap,
