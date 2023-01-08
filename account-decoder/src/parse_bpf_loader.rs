@@ -92,7 +92,7 @@ pub struct UiProgramData {
 
 #[cfg(test)]
 mod test {
-    use {super::*, bincode::serialize, waffles_solana_sdk::pubkey::Pubkey};
+    use {super::*, bincode::serialize, solana_sdk::pubkey::Pubkey};
 
     #[test]
     fn test_parse_bpf_upgradeable_loader_accounts() {
