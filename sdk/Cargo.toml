@@ -74,7 +74,7 @@ sha2 = "0.10.5"
 sha3 = { version = "0.10.4", optional = true }
 waffles-solana-frozen-abi = { path = "../frozen-abi", version = "=1.15.0" }
 waffles-solana-frozen-abi-macro = { path = "../frozen-abi/macro", version = "=1.15.0" }
-waffles-solana-logger = { path = "../logger", version = "=1.15.0", optional = true }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0", optional = true }
 waffles-solana-program = { path = "program", version = "=1.15.0" }
 waffles-solana-sdk-macro = { path = "macro", version = "=1.15.0" }
 thiserror = "1.0"

@@ -38,16 +38,16 @@ serde = "1.0.144"
 serde_derive = "1.0.103"
 waffles-solana-address-lookup-table-program = { path = "../programs/address-lookup-table", version = "=1.15.0" }
 waffles-solana-bloom = { path = "../bloom", version = "=1.15.0" }
-waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
 waffles-solana-frozen-abi = { path = "../frozen-abi", version = "=1.15.0" }
 waffles-solana-frozen-abi-macro = { path = "../frozen-abi/macro", version = "=1.15.0" }
 waffles-solana-geyser-plugin-manager = { path = "../geyser-plugin-manager", version = "=1.15.0" }
-waffles-solana-gossip = { path = "../gossip", version = "=1.15.0" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.15.0" }
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
-waffles-solana-measure = { path = "../measure", version = "=1.15.0" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
-waffles-solana-net-utils = { path = "../net-utils", version = "=1.15.0" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-poh = { path = "../poh", version = "=1.15.0" }
 waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
@@ -57,10 +57,10 @@ waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.15.0" }
-waffles-solana-streamer = { path = "../streamer", version = "=1.15.0" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.15.0" }
 waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0", default-features = false }
-waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
-waffles-solana-version = { path = "../version", version = "=1.15.0" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0" }
 waffles-solana-vote-program = { path = "../programs/vote", version = "=1.15.0" }
 sys-info = "0.9.1"
 tempfile = "3.3.0"
@@ -73,7 +73,7 @@ matches = "0.1.9"
 raptorq = "1.7.0"
 serde_json = "1.0.83"
 serial_test = "0.9.0"
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 waffles-solana-program-runtime = { path = "../program-runtime", version = "=1.15.0" }
 waffles-solana-stake-program = { path = "../programs/stake", version = "=1.15.0" }
 static_assertions = "1.1.0"

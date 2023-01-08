@@ -19,7 +19,7 @@ log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
 serde = "1.0.144"
-waffles-solana-measure = { path = "../measure", version = "=1.15.0" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 waffles-solana-merkle-tree = { path = "../merkle-tree", version = "=1.15.0" }
 waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
@@ -28,7 +28,7 @@ solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15
 
 [dev-dependencies]
 matches = "0.1.9"
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 
 [lib]
 crate-type = ["lib"]

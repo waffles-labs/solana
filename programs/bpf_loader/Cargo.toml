@@ -15,7 +15,7 @@ byteorder = "1.4.3"
 libsecp256k1 = "0.6.0"
 log = "0.4.17"
 rand = "0.7.3"
-waffles-solana-measure = { path = "../../measure", version = "=1.15.0" }
+solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.15.0" }
 waffles-solana-program-runtime = { path = "../../program-runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.15.0" }
 waffles-solana-zk-token-sdk = { path = "../../zk-token-sdk", version = "=1.15.0" }

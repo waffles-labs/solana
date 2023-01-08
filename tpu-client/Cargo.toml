@@ -18,11 +18,11 @@ indicatif = { version = "0.17.1", optional = true }
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-waffles-solana-measure = { path = "../measure", version = "=1.15.0" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
-waffles-solana-net-utils = { path = "../net-utils", version = "=1.15.0" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
 waffles-solana-pubsub-client = { path = "../pubsub-client", version = "=1.15.0" }
-waffles-solana-rpc-client = { path = "../rpc-client", version = "=1.15.0", default-features = false }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0", default-features = false }
 waffles-solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 thiserror = "1.0"
@@ -30,7 +30,7 @@ tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
 rand_chacha = "0.2.2"
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 
 [features]
 default = ["spinner"]

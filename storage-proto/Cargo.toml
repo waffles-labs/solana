@@ -14,9 +14,9 @@ bincode = "1.3.3"
 bs58 = "0.4.0"
 prost = "0.11.0"
 serde = "1.0.144"
-waffles-solana-account-decoder = { path = "../account-decoder", version = "=1.15.0" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
 
 [dev-dependencies]
 enum-iterator = "1.2.0"

@@ -28,24 +28,24 @@ serde = "1.0.144"
 serde_bytes = "0.11"
 serde_derive = "1.0.103"
 waffles-solana-bloom = { path = "../bloom", version = "=1.15.0" }
-waffles-solana-clap-utils = { path = "../clap-utils", version = "=1.15.0" }
-waffles-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.15.0" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.15.0" }
 waffles-solana-entry = { path = "../entry", version = "=1.15.0" }
 waffles-solana-frozen-abi = { path = "../frozen-abi", version = "=1.15.0" }
 waffles-solana-frozen-abi-macro = { path = "../frozen-abi/macro", version = "=1.15.0" }
 waffles-solana-ledger = { path = "../ledger", version = "=1.15.0" }
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
-waffles-solana-measure = { path = "../measure", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
 waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
-waffles-solana-net-utils = { path = "../net-utils", version = "=1.15.0" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
 waffles-solana-perf = { path = "../perf", version = "=1.15.0" }
 waffles-solana-rayon-threadlimit = { path = "../rayon-threadlimit", version = "=1.15.0" }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-waffles-solana-streamer = { path = "../streamer", version = "=1.15.0" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.15.0" }
 waffles-solana-thin-client = { path = "../thin-client", version = "=1.15.0" }
 waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0", default-features = false }
-waffles-solana-version = { path = "../version", version = "=1.15.0" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0" }
 waffles-solana-vote-program = { path = "../programs/vote", version = "=1.15.0" }
 thiserror = "1.0"
 

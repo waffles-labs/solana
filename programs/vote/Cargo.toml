@@ -25,7 +25,7 @@ solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1
 thiserror = "1.0"
 
 [dev-dependencies]
-waffles-solana-logger = { path = "../../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.15.0" }
 test-case = "2.2.2"
 
 [build-dependencies]

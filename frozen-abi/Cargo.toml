@@ -43,7 +43,7 @@ rand_core = { version = "0.6.3", features = ["alloc", "getrandom", "std"] }
 subtle = { version = "2.4.1", features = ["default", "i128", "std"] }
 
 [target.'cfg(not(target_os = "solana"))'.dev-dependencies]
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 
 [build-dependencies]
 rustc_version = "0.4"

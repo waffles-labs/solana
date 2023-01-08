@@ -30,7 +30,7 @@ smpl_jwt = "0.7.1"
 waffles-solana-metrics = { path = "../metrics", version = "=1.15.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
 waffles-solana-storage-proto = { path = "../storage-proto", version = "=1.15.0" }
-waffles-solana-transaction-status = { path = "../transaction-status", version = "=1.15.0" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
 thiserror = "1.0"
 tokio = "1"
 tonic = { version = "0.8.0", features = ["tls", "transport"] }

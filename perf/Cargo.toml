@@ -37,7 +37,7 @@ name = "solana_perf"
 
 [dev-dependencies]
 matches = "0.1.9"
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 
 [[bench]]
 name = "sigverify"

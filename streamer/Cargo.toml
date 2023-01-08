@@ -36,7 +36,7 @@ tokio = { version = "1", features = ["full"] }
 x509-parser = "0.14.0"
 
 [dev-dependencies]
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
 
 [lib]
 crate-type = ["lib"]

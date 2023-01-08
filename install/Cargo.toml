@@ -27,12 +27,12 @@ scopeguard = "1.1.0"
 semver = "1.0.14"
 serde = { version = "1.0.144", features = ["derive"] }
 serde_yaml = "0.9.13"
-waffles-solana-clap-utils = { path = "../clap-utils", version = "=1.15.0" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.15.0" }
 waffles-solana-config-program = { path = "../programs/config", version = "=1.15.0" }
-waffles-solana-logger = { path = "../logger", version = "=1.15.0" }
-waffles-solana-rpc-client = { path = "../rpc-client", version = "=1.15.0", default-features = false }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0", default-features = false }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-waffles-solana-version = { path = "../version", version = "=1.15.0" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0" }
 tar = "0.4.38"
 tempfile = "3.3.0"
 url = "2.2.2"
