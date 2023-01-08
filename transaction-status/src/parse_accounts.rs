@@ -1,4 +1,4 @@
-use waffles_solana_sdk::message::{v0::LoadedMessage, Message};
+use solana_sdk::message::{v0::LoadedMessage, Message};
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
