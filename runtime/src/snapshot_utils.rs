@@ -15,7 +15,8 @@ use {
         },
         runtime_config::RuntimeConfig,
         serde_snapshot::{
-            bank_from_streams, bank_to_stream, fields_from_streams, SerdeStyle, SnapshotStreams,
+            bank_from_streams, bank_to_stream, fields_from_streams, serialized_bank_from_stream,
+            SerdeStyle, SnapshotStreams,
         },
         shared_buffer_reader::{SharedBuffer, SharedBufferReader},
         snapshot_archive_info::{
@@ -1003,6 +1004,78 @@ fn verify_and_unarchive_snapshots(
         Arc::try_unwrap(next_append_vec_id).unwrap(),
     ))
 }
+
+/// Rebuild bank from snapshot archives.  Handles either just a full snapshot, or both a full
+/// snapshot and an incremental snapshot.
+#[allow(clippy::too_many_arguments)]
+pub fn bank_from_gcs_snapshot_archives(
+    account_paths: &[PathBuf],
+    bank_snapshots_dir: impl AsRef<Path>,
+    full_snapshot_archive_info: &FullSnapshotArchiveInfo,
+    incremental_snapshot_archive_info: Option<&IncrementalSnapshotArchiveInfo>,
+) -> Result<(
+    BankFieldsToDeserialize,
+    DashMap<u64, Arc<RwLock<HashMap<u32, Arc<AccountStorageEntry>>>>>,
+    SnapshotAccountsDbFields<SerializableAccountStorageEntry>,
+)> {
+    let (unarchived_full_snapshot, mut unarchived_incremental_snapshot, next_append_vec_id) =
+        verify_and_unarchive_snapshots(
+            bank_snapshots_dir,
+            full_snapshot_archive_info,
+            incremental_snapshot_archive_info,
+            account_paths,
+        )?;
+
+    let mut storage = unarchived_full_snapshot.storage;
+    if let Some(ref mut unarchive_preparation_result) = unarchived_incremental_snapshot {
+        let incremental_snapshot_storages =
+            std::mem::take(&mut unarchive_preparation_result.storage);
+        storage.extend(incremental_snapshot_storages.into_iter());
+    }
+
+    let (full_snapshot_version, full_snapshot_root_paths) =
+        verify_unpacked_snapshots_dir_and_version(
+            &unarchived_full_snapshot.unpacked_snapshots_dir_and_version,
+        )?;
+
+    let incremental_snapshot_unpacked_snapshots_dir_and_version = unarchived_incremental_snapshot
+        .as_ref()
+        .map(|unarchive_preparation_result| {
+            &unarchive_preparation_result.unpacked_snapshots_dir_and_version
+        });
+
+    let (incremental_snapshot_version, incremental_snapshot_root_paths) =
+        if let Some(snapshot_unpacked_snapshots_dir_and_version) =
+            incremental_snapshot_unpacked_snapshots_dir_and_version
+        {
+            let (snapshot_version, bank_snapshot_info) = verify_unpacked_snapshots_dir_and_version(
+                snapshot_unpacked_snapshots_dir_and_version,
+            )?;
+            (Some(snapshot_version), Some(bank_snapshot_info))
+        } else {
+            (None, None)
+        };
+
+    let snapshot_root_paths = SnapshotRootPaths {
+        full_snapshot_root_file_path: full_snapshot_root_paths.snapshot_path,
+        incremental_snapshot_root_file_path: incremental_snapshot_root_paths
+            .map(|root_paths| root_paths.snapshot_path),
+    };
+
+    let (bank_fields, full_snapshot_db_fields) =
+        deserialize_snapshot_data_files(&snapshot_root_paths, |snapshot_streams| {
+            Ok(
+                match incremental_snapshot_version.unwrap_or(full_snapshot_version) {
+                    SnapshotVersion::V1_2_0 => {
+                        serialized_bank_from_stream(SerdeStyle::Newer, snapshot_streams)
+                    }
+                }?,
+            )
+        })?;
+
+    return Ok((bank_fields, storage, full_snapshot_db_fields));
+}
+
 pub fn storage_from_snapshot_archives(
     account_paths: &[PathBuf],
     bank_snapshots_dir: impl AsRef<Path>,

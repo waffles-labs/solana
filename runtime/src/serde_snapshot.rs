@@ -249,6 +249,22 @@ pub(crate) fn snapshot_storage_lengths_from_fields(
         .collect()
 }
 
+pub(crate) fn serialized_bank_from_stream<R>(
+    serde_style: SerdeStyle,
+    snapshot_streams: &mut SnapshotStreams<R>,
+) -> std::result::Result<
+    (
+        BankFieldsToDeserialize,
+        SnapshotAccountsDbFields<SerializableAccountStorageEntry>,
+    ),
+    Error,
+>
+where
+    R: Read,
+{
+    Ok(fields_from_streams(serde_style, snapshot_streams)?)
+}
+
 pub(crate) fn fields_from_stream<R: Read>(
     serde_style: SerdeStyle,
     snapshot_stream: &mut BufReader<R>,
