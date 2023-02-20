@@ -71,7 +71,7 @@ pub fn get_pubkey_from_tls_certificate(certificates: &[rustls::Certificate]) -> 
 
 #[cfg(test)]
 mod tests {
-    use {super::*, waffles_solana_sdk::signer::Signer, std::net::Ipv4Addr};
+    use {super::*, solana_sdk::signer::Signer, std::net::Ipv4Addr};
 
     #[test]
     fn test_generate_tls_certificate() {

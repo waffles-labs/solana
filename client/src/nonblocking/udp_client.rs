@@ -4,7 +4,7 @@
 pub use solana_udp_client::nonblocking::udp_client::UdpTpuConnection;
 use {
     crate::nonblocking::tpu_connection::TpuConnection, async_trait::async_trait,
-    core::iter::repeat, waffles_solana_sdk::transport::Result as TransportResult,
+    core::iter::repeat, solana_sdk::transport::Result as TransportResult,
     solana_streamer::nonblocking::sendmmsg::batch_send, std::net::SocketAddr,
 };
 

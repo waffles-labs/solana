@@ -1,4 +1,4 @@
-use {super::*, waffles_solana_sdk::message::AccountKeys, std::time::Instant};
+use {super::*, solana_sdk::message::AccountKeys, std::time::Instant};
 
 #[derive(Default)]
 pub struct PurgeStats {

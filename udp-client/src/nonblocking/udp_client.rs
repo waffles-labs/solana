@@ -2,7 +2,7 @@
 //! an interface for sending transactions
 
 use {
-    async_trait::async_trait, core::iter::repeat, waffles_solana_sdk::transport::Result as TransportResult,
+    async_trait::async_trait, core::iter::repeat, solana_sdk::transport::Result as TransportResult,
     solana_streamer::nonblocking::sendmmsg::batch_send,
     solana_tpu_client::nonblocking::tpu_connection::TpuConnection, std::net::SocketAddr,
     tokio::net::UdpSocket,

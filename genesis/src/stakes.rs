@@ -165,7 +165,7 @@ pub fn create_and_add_stakes(
 
 #[cfg(test)]
 mod tests {
-    use {super::*, waffles_solana_sdk::rent::Rent};
+    use {super::*, solana_sdk::rent::Rent};
 
     fn create_and_check_stakes(
         genesis_config: &mut GenesisConfig,
