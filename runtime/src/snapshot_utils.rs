@@ -72,8 +72,10 @@ use std::sync::RwLock;
 pub use archive_format::*;
 use dashmap::DashMap;
 
-use crate::accounts_db::AccountStorageEntry;
 use crate::serde_snapshot::SnapshotAccountsDbFields;
+use crate::{
+    accounts_db::AccountStorageEntry, serde_snapshot::storage::SerializableAccountStorageEntry,
+};
 
 pub const SNAPSHOT_STATUS_CACHE_FILENAME: &str = "status_cache";
 pub const SNAPSHOT_ARCHIVE_DOWNLOAD_DIR: &str = "remote";

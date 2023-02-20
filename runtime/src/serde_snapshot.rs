@@ -50,7 +50,7 @@ use {
 };
 
 mod newer;
-mod storage;
+pub mod storage;
 mod tests;
 mod utils;
 
