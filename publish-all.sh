@@ -1,4 +1,6 @@
+cargo publish -p waffles-solana-logger
 cargo publish -p waffles-solana-frozen-abi-macro
+cargo publish -p waffles-solana-frozen-abi
 cargo publish -p waffles-solana-sdk-macro
 cargo publish -p waffles-solana-program
 cargo publish -p waffles-solana-sdk
@@ -9,7 +11,6 @@ cargo publish -p waffles-solana-address-lookup-table-program
 cargo publish -p waffles-solana-config-program
 cargo publish -p waffles-solana-account-decoder
 cargo publish -p waffles-solana-banks-interface
-cargo publish -p waffles-solana-frozen-abi
 cargo publish -p waffles-solana-version
 cargo publish -p waffles-solana-net-utils
 cargo publish -p waffles-solana-transaction-status
@@ -52,7 +53,6 @@ cargo publish -p waffles-solana-runtime
 #cargo publish -p waffles-solana-ledger
 #cargo publish -p waffles-solana-ledger-tool
 #cargo publish -p waffles-solana-local-cluster
-#cargo publish -p waffles-solana-logger
 #cargo publish -p waffles-solana-memory-management
 #cargo publish -p waffles-solana-merkle-tree
 #cargo publish -p waffles-solana-notifier
