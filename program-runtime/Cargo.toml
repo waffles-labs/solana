@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-program-runtime"
-version = "1.15.0"
+version = "1.15.0.1"
 description = "Waffle Labs maintained Solana program runtime"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

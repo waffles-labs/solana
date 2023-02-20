@@ -11,7 +11,7 @@ use {crate::clock::DEFAULT_SLOTS_PER_EPOCH, solana_sdk_macro::CloneZeroed};
 #[derive(Serialize, Deserialize, PartialEq, CloneZeroed, Copy, Debug, AbiExample)]
 pub struct Rent {
     /// Rental rate in lamports/byte-year.
-    pub lamports_per_byte_year: u64,
+    pub lamports_per_byte_year:     u64,
 
     /// Amount of time (in years) a balance must include rent for the account to
     /// be rent exempt.

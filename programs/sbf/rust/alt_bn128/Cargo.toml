@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-bpf-rust-alt-bn128"
-version = "1.15.0"
+version = "1.15.0.1"
 description = "Waffle Labs maintained Solana BPF test program written in Rust"
 authors = ["NeonLabs Team <at@neonlabs.org>"]
 repository = "https://github.com/waffles-labs/solana"

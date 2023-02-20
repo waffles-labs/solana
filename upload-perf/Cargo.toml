@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-upload-perf"
-version = "1.15.0"
+version = "1.15.0.1"
 description = "Waffle Labs maintained Metrics Upload Utility"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

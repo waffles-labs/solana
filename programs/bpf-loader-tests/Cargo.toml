@@ -3,7 +3,7 @@
 
 [package]
 name = "waffles-solana-bpf-loader-program-tests"
-version = "1.15.0"
+version = "1.15.0.1"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
