@@ -73,6 +73,7 @@ pub use archive_format::*;
 use dashmap::DashMap;
 
 use crate::accounts_db::AccountStorageEntry;
+use crate::serde_snapshot::SnapshotAccountsDbFields;
 
 pub const SNAPSHOT_STATUS_CACHE_FILENAME: &str = "status_cache";
 pub const SNAPSHOT_ARCHIVE_DOWNLOAD_DIR: &str = "remote";
