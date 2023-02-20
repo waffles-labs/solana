@@ -1,6 +1,6 @@
 //! Example Rust-based SBF program tests loop iteration
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 
 #[derive(Debug)]
 pub struct Data<'a> {

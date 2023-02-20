@@ -2,7 +2,7 @@
 
 #![cfg(feature = "program")]
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 use {
     crate::instructions::*,
     solana_program::{

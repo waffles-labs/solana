@@ -1,6 +1,6 @@
 //! Example Rust-based SBF program that tests sysvar use
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 #[allow(deprecated)]
 use solana_program::sysvar::fees::Fees;
 #[allow(deprecated)]

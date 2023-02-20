@@ -2,7 +2,7 @@
 
 #![allow(unreachable_code)]
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 use solana_program::{
     account_info::AccountInfo, bpf_loader, entrypoint_deprecated::ProgramResult, log::*, msg,
     pubkey::Pubkey,

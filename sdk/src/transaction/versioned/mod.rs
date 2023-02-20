@@ -22,7 +22,7 @@ mod sanitized;
 pub use sanitized::*;
 use {
     crate::program_utils::limited_deserialize,
-    waffles_solana_program::{
+    solana_program::{
         nonce::NONCED_TX_MARKER_IX_INDEX, system_instruction::SystemInstruction, system_program,
     },
 };

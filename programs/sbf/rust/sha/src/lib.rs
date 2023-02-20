@@ -1,6 +1,6 @@
 //! SHA Syscall test
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 use solana_program::{custom_heap_default, custom_panic_default, msg};
 
 fn test_sha256_hasher() {

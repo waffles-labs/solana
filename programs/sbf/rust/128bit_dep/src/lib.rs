@@ -1,6 +1,6 @@
 //! Solana Rust-based SBF program utility functions and types
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 
 pub fn uadd(x: u128, y: u128) -> u128 {
     x + y

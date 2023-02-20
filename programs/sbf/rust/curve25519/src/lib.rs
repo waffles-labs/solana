@@ -1,6 +1,6 @@
 //! @brief curve25519 syscall tests
 
-extern crate waffles_solana_program;
+extern crate solana_program;
 use {
     solana_program::{custom_heap_default, custom_panic_default, msg},
     solana_zk_token_sdk::curve25519::{edwards, ristretto, scalar},
