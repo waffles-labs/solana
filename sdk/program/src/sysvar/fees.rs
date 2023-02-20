@@ -24,7 +24,7 @@ use {
     crate::{
         fee_calculator::FeeCalculator, impl_sysvar_get, program_error::ProgramError, sysvar::Sysvar,
     },
-    waffles_solana_sdk_macro::CloneZeroed,
+    solana_sdk_macro::CloneZeroed,
 };
 
 crate::declare_deprecated_sysvar_id!("SysvarFees111111111111111111111111111111111", Fees);

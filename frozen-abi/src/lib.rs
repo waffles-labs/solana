@@ -14,7 +14,7 @@ mod hash;
 
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
 #[macro_use]
-extern crate waffles_solana_frozen_abi_macro;
+extern crate solana_frozen_abi_macro;
 
 #[cfg(RUSTC_WITH_SPECIALIZATION)]
 #[cfg(test)]

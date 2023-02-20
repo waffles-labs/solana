@@ -624,7 +624,7 @@ pub use solana_sdk_macro::program_pubkey as pubkey;
 extern crate serde_derive;
 
 #[macro_use]
-extern crate waffles_solana_frozen_abi_macro;
+extern crate solana_frozen_abi_macro;
 
 /// Convenience macro for doing integer division where the operation's safety
 /// can be checked at compile-time.
