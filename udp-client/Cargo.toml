@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-udp-client"
-version = "1.15.0-1"
+version = "1.15.0-2"
 description = "Waffle Labs maintained Solana UDP Client"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -11,9 +11,9 @@ edition = "2021"
 
 [dependencies]
 async-trait = "0.1.57"
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.15.0" }
-waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.15.0-2" }
+waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0-2" }
 thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }

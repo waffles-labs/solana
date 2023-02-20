@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-sbf-rust-dep-crate"
-version = "1.15.0-1"
+version = "1.15.0-2"
 description = "Waffle Labs maintained Solana SBF test program written in Rust"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -12,8 +12,8 @@ edition = "2021"
 [dependencies]
 byteorder = { version = "1", default-features = false }
 # list of crates which must be buildable for bpf programs
-solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.15.0" }
-solana-program = { path = "../../../../sdk/program", version = "=1.15.0" }
+solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.15.0-2" }
+solana-program = { path = "../../../../sdk/program", version = "=1.15.0-2" }
 
 [lib]
 crate-type = ["cdylib"]

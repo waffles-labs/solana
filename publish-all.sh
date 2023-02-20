@@ -10,7 +10,6 @@ cargo publish -p waffles-solana-config-program
 cargo publish -p waffles-solana-account-decoder
 cargo publish -p waffles-solana-banks-interface
 cargo publish -p waffles-solana-frozen-abi
-cargo publish -p waffles-solana-frozen-abi-macro
 cargo publish -p waffles-solana-version
 cargo publish -p waffles-solana-net-utils
 cargo publish -p waffles-solana-transaction-status

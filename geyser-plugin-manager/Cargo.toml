@@ -3,7 +3,7 @@ authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Mai
 edition = "2021"
 name = "waffles-solana-geyser-plugin-manager"
 description = "Waffle Labs maintained The Solana Geyser plugin manager."
-version = "1.15.0-1"
+version = "1.15.0-2"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
@@ -16,13 +16,13 @@ json5 = "0.4.1"
 libloading = "0.7.3"
 log = "0.4.17"
 serde_json = "1.0.83"
-waffles-solana-geyser-plugin-interface = { path = "../geyser-plugin-interface", version = "=1.15.0" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0" }
-waffles-solana-rpc = { path = "../rpc", version = "=1.15.0" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
+waffles-solana-geyser-plugin-interface = { path = "../geyser-plugin-interface", version = "=1.15.0-2" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.15.0-2" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0-2" }
+waffles-solana-rpc = { path = "../rpc", version = "=1.15.0-2" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0-2" }
 thiserror = "1.0.31"
 
 [package.metadata.docs.rs]

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-sbf-rust-iter"
-version = "1.15.0-1"
+version = "1.15.0-2"
 description = "Waffle Labs maintained Solana SBF test program written in Rust"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -10,7 +10,7 @@ documentation = "https://docs.rs/waffles-solana-sbf-rust-iter"
 edition = "2021"
 
 [dependencies]
-solana-program = { path = "../../../../sdk/program", version = "=1.15.0" }
+solana-program = { path = "../../../../sdk/program", version = "=1.15.0-2" }
 
 [lib]
 crate-type = ["cdylib"]

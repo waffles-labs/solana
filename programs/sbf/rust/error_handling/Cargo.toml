@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-sbf-rust-error-handling"
-version = "1.15.0-1"
+version = "1.15.0-2"
 description = "Waffle Labs maintained Solana SBF test program written in Rust"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -12,7 +12,7 @@ edition = "2021"
 [dependencies]
 num-derive = "0.3"
 num-traits = "0.2"
-solana-program = { path = "../../../../sdk/program", version = "=1.15.0" }
+solana-program = { path = "../../../../sdk/program", version = "=1.15.0-2" }
 thiserror = "1.0"
 
 [lib]

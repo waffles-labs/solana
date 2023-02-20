@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-net-utils"
-version = "1.15.0-1"
+version = "1.15.0-2"
 description = "Waffle Labs maintained Solana Network Utilities"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -19,9 +19,9 @@ rand = "0.7.0"
 serde = "1.0.144"
 serde_derive = "1.0.103"
 socket2 = "0.4.4"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0-2" }
 tokio = { version = "1", features = ["full"] }
 url = "2.2.2"
 

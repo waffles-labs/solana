@@ -3,7 +3,7 @@ authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Mai
 edition = "2021"
 name = "waffles-solana-cli-output"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.15.0-1"
+version = "1.15.0-2"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
@@ -21,13 +21,13 @@ pretty-hex = "0.3.0"
 semver = "1.0.14"
 serde = "1.0.144"
 serde_json = "1.0.83"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.15.0" }
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.15.0" }
-waffles-solana-cli-config = { path = "../cli-config", version = "=1.15.0" }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.15.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.15.0-2" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.15.0-2" }
+waffles-solana-cli-config = { path = "../cli-config", version = "=1.15.0-2" }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.15.0-2" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0-2" }
 spl-memo = { version = "=3.0.1", features = ["no-entrypoint"] }
 
 [dev-dependencies]
