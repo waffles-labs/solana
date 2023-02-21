@@ -60,23 +60,23 @@
 #sleep 5
 #cargo publish -p waffles-solana-udp-client
 #sleep 5
+#cargo publish -p waffles-solana-zk-token-sdk
+#sleep 5
+#cargo publish -p waffles-solana-rayon-threadlimit
+#sleep 5
+#cargo publish -p waffles-solana-bpf-loader-program
+#sleep 5
+#cargo publish -p waffles-solana-bucket-map
+#sleep 5
+#cargo publish -p waffles-solana-compute-budget-program
+#sleep 5
+#cargo publish -p waffles-solana-stake-program
+#sleep 5
+#cargo publish -p waffles-solana-zk-token-proof-program
+#sleep 5
 cargo publish -p waffles-solana-client
 sleep 5
 cargo publish -p waffles-solana-rpc
-sleep 5
-cargo publish -p waffles-solana-rayon-threadlimit
-sleep 5
-cargo publish -p waffles-solana-zk-token-sdk
-sleep 5
-cargo publish -p waffles-solana-bpf-loader-program
-sleep 5
-cargo publish -p waffles-solana-bucket-map
-sleep 5
-cargo publish -p waffles-solana-compute-budget-program
-sleep 5
-cargo publish -p waffles-solana-stake-program
-sleep 5
-cargo publish -p waffles-solana-zk-token-proof-program
 sleep 5
 cargo publish -p waffles-solana-runtime
 #cargo publish -p waffles-solana-banks-server
