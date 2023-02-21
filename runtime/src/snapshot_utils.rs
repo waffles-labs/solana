@@ -75,6 +75,7 @@ use dashmap::DashMap;
 
 use crate::serde_snapshot::SnapshotAccountsDbFields;
 use crate::{
+    account_storage::AccountStorageReference,
     serde_snapshot::storage::SerializableAccountStorageEntry,
 };
 
@@ -1221,7 +1222,7 @@ pub fn bank_from_gcs_snapshot_archives(
     incremental_snapshot_archive_info: Option<&IncrementalSnapshotArchiveInfo>,
 ) -> Result<(
     BankFieldsToDeserialize,
-    DashMap<u64, Arc<RwLock<HashMap<u32, Arc<AccountStorageEntry>>>>>,
+    DashMap<u64, AccountStorageReference>,
     SnapshotAccountsDbFields<SerializableAccountStorageEntry>,
 )> {
     let (unarchived_full_snapshot, mut unarchived_incremental_snapshot, next_append_vec_id) =
@@ -1263,9 +1264,9 @@ pub fn bank_from_gcs_snapshot_archives(
         };
 
     let snapshot_root_paths = SnapshotRootPaths {
-        full_snapshot_root_file_path: full_snapshot_root_paths.snapshot_path,
+        full_snapshot_root_file_path: full_snapshot_root_paths.snapshot_path(),
         incremental_snapshot_root_file_path: incremental_snapshot_root_paths
-            .map(|root_paths| root_paths.snapshot_path),
+            .map(|root_paths| root_paths.snapshot_path()),
     };
 
     let (bank_fields, full_snapshot_db_fields) =
@@ -1287,7 +1288,7 @@ pub fn storage_from_snapshot_archives(
     bank_snapshots_dir: impl AsRef<Path>,
     full_snapshot_archive_info: &FullSnapshotArchiveInfo,
     incremental_snapshot_archive_info: Option<&IncrementalSnapshotArchiveInfo>,
-) -> Result<DashMap<u64, Arc<RwLock<HashMap<u32, Arc<AccountStorageEntry>>>>>> {
+) -> Result<DashMap<u64, AccountStorageReference>> {
     let (unarchived_full_snapshot, mut unarchived_incremental_snapshot, next_append_vec_id) =
         verify_and_unarchive_snapshots(
             bank_snapshots_dir,

@@ -158,7 +158,7 @@ pub struct StoredMeta {
 
 /// This struct will be backed by mmaped and snapshotted data files.
 /// So the data layout must be stable and consistent across the entire cluster!
-#[derive(Serialize, Deserialize, Clone, Debug, Default, Eq, PartialEq)]
+#[derive(Clone, Debug, Default, Eq, PartialEq)]
 #[repr(C)]
 pub struct AccountMeta {
     /// lamports in the account
@@ -190,7 +190,6 @@ impl<'a, T: ReadableAccount> From<Option<&'a T>> for AccountMeta {
         }
     }
 }
-#[derive(Serialize, Deserialize)]
 pub struct StoredAccountMetaClone<'a> {
     pub meta: StoredMeta,
     /// account data
