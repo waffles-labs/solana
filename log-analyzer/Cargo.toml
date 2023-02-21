@@ -1,14 +1,10 @@
 [package]
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
-edition = "2021"
 name = "waffles-solana-log-analyzer"
 description = "Waffle Labs maintained The solana cluster network analysis tool"
 version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
-name = "solana-log-analyzer"
-description = "The solana cluster network analysis tool"
-version = "1.16.0"
-repository = "https://github.com/solana-labs/solana"
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+edition = "2021"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 publish = false
@@ -20,8 +16,6 @@ serde = "1.0.152"
 serde_json = "1.0.83"
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
 solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
-solana-logger = { path = "../logger", version = "=1.16.0" }
-solana-version = { path = "../version", version = "=1.16.0" }
 
 [[bin]]
 name = "solana-log-analyzer"

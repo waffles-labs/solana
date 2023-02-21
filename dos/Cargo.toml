@@ -1,14 +1,9 @@
 [package]
-authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
-edition = "2021"
 name = "waffles-solana-dos"
 version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-dos"
-version = "1.16.0"
-repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 publish = false
@@ -21,8 +16,8 @@ crossbeam-channel = "0.5.6"
 itertools = "0.10.5"
 log = "0.4.17"
 rand = "0.7.0"
-serde = "1.0.144"
-waffles-solana-bench-tps = { path = "../bench-tps", version = "=1.16.0" }
+serde = "1.0.152"
+solana-bench-tps = { package = "waffles-solana-bench-tps", path = "../bench-tps", version = "=1.16.0" }
 solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0" }
 solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0" }
 solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0" }
@@ -31,28 +26,12 @@ solana-logger = { package = "waffles-solana-logger", path = "../logger", version
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0" }
 solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0" }
-waffles-solana-rpc = { path = "../rpc", version = "=1.16.0" }
+solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0", default-features = false }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
 solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0" }
-waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0", default-features = false }
 solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
-serde = "1.0.152"
-solana-bench-tps = { path = "../bench-tps", version = "=1.16.0" }
-solana-client = { path = "../client", version = "=1.16.0" }
-solana-core = { path = "../core", version = "=1.16.0" }
-solana-faucet = { path = "../faucet", version = "=1.16.0" }
-solana-gossip = { path = "../gossip", version = "=1.16.0" }
-solana-logger = { path = "../logger", version = "=1.16.0" }
-solana-measure = { path = "../measure", version = "=1.16.0" }
-solana-net-utils = { path = "../net-utils", version = "=1.16.0" }
-solana-perf = { path = "../perf", version = "=1.16.0" }
-solana-rpc = { path = "../rpc", version = "=1.16.0" }
-solana-rpc-client = { path = "../rpc-client", version = "=1.16.0", default-features = false }
-solana-sdk = { path = "../sdk", version = "=1.16.0" }
-solana-streamer = { path = "../streamer", version = "=1.16.0" }
-solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
-solana-version = { path = "../version", version = "=1.16.0" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
@@ -60,6 +39,4 @@ targets = ["x86_64-unknown-linux-gnu"]
 [dev-dependencies]
 serial_test = "0.9.0"
 solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0" }
-waffles-solana-thin-client = { path = "../thin-client", version = "=1.16.0" }
-solana-local-cluster = { path = "../local-cluster", version = "=1.16.0" }
-solana-thin-client = { path = "../thin-client", version = "=1.16.0" }
+solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0" }

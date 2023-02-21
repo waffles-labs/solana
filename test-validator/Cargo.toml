@@ -7,14 +7,6 @@ documentation = "https://docs.rs/waffles-solana-test-validator"
 readme = "../README.md"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
-name = "solana-test-validator"
-description = "Blockchain, Rebuilt for Scale"
-version = "1.16.0"
-homepage = "https://solana.com/"
-documentation = "https://docs.rs/solana-test-validator"
-readme = "../README.md"
-repository = "https://github.com/solana-labs/solana"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
 license = "Apache-2.0"
 edition = "2021"
 
@@ -23,36 +15,21 @@ base64 = "0.13.0"
 log = "0.4.17"
 serde_derive = "1.0.103"
 serde_json = "1.0.83"
-waffles-solana-cli-output = { path = "../cli-output", version = "=1.16.0" }
+solana-cli-output = { package = "waffles-solana-cli-output", path = "../cli-output", version = "=1.16.0" }
 solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0" }
 solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0" }
 solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0" }
-waffles-solana-ledger = { path = "../ledger", version = "=1.16.0" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
 solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0" }
 solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0" }
-waffles-solana-program-test = { path = "../program-test", version = "=1.16.0" }
-waffles-solana-rpc = { path = "../rpc", version = "=1.16.0" }
+solana-program-test = { package = "waffles-solana-program-test", path = "../program-test", version = "=1.16.0" }
+solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0" }
 solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0", default-features = false }
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
 solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0" }
-waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
-solana-cli-output = { path = "../cli-output", version = "=1.16.0" }
-solana-client = { path = "../client", version = "=1.16.0" }
-solana-core = { path = "../core", version = "=1.16.0" }
-solana-gossip = { path = "../gossip", version = "=1.16.0" }
-solana-ledger = { path = "../ledger", version = "=1.16.0" }
-solana-logger = { path = "../logger", version = "=1.16.0" }
-solana-net-utils = { path = "../net-utils", version = "=1.16.0" }
-solana-program-runtime = { path = "../program-runtime", version = "=1.16.0" }
-solana-program-test = { path = "../program-test", version = "=1.16.0" }
-solana-rpc = { path = "../rpc", version = "=1.16.0" }
-solana-rpc-client = { path = "../rpc-client", version = "=1.16.0", default-features = false }
-solana-runtime = { path = "../runtime", version = "=1.16.0" }
-solana-sdk = { path = "../sdk", version = "=1.16.0" }
-solana-streamer = { path = "../streamer", version = "=1.16.0" }
-solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0", default-features = false }
 tokio = { version = "1", features = ["full"] }
 
 [package.metadata.docs.rs]

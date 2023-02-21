@@ -4,11 +4,6 @@ version = "1.16.0"
 description = "Waffle Labs maintained Solana utilities for the clap v3"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
-name = "solana-clap-v3-utils"
-version = "1.16.0"
-description = "Solana utilities for the clap v3"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
-repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 documentation = "https://docs.rs/waffles-solana-clap-utils"
@@ -19,11 +14,8 @@ chrono = "0.4"
 clap = { version = "3.1.5", features = ["cargo"] }
 rpassword = "7.0"
 solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0" }
-waffles-solana-remote-wallet = { path = "../remote-wallet", version = "=1.16.0", default-features = false }
+solana-remote-wallet = { package = "waffles-solana-remote-wallet", path = "../remote-wallet", version = "=1.16.0", default-features = false }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
-solana-perf = { path = "../perf", version = "=1.16.0" }
-solana-remote-wallet = { path = "../remote-wallet", version = "=1.16.0", default-features = false }
-solana-sdk = { path = "../sdk", version = "=1.16.0" }
 thiserror = "1.0.31"
 tiny-bip39 = "0.8.2"
 uriparse = "0.6.4"

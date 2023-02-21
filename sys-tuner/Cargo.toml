@@ -1,16 +1,10 @@
 [package]
-authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
-edition = "2021"
 name = "waffles-solana-sys-tuner"
 description = "Waffle Labs maintained The solana cluster system tuner daemon"
 version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-name = "solana-sys-tuner"
-description = "The solana cluster system tuner daemon"
-version = "1.16.0"
-repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 documentation = "https://docs.rs/waffles-solana-sys-tuner"
@@ -22,8 +16,6 @@ libc = "0.2.131"
 log = "0.4.17"
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
 solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
-solana-logger = { path = "../logger", version = "=1.16.0" }
-solana-version = { path = "../version", version = "=1.16.0" }
 
 [target."cfg(unix)".dependencies]
 unix_socket2 = "0.5.4"

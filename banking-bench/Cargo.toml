@@ -1,10 +1,9 @@
 [package]
-authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
-edition = "2021"
 name = "waffles-solana-banking-bench"
 version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
-authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
+edition = "2021"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 publish = false
@@ -18,7 +17,7 @@ rayon = "1.5.3"
 solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0" }
 solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0" }
 solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0" }
-waffles-solana-ledger = { path = "../ledger", version = "=1.16.0" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0" }
 solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
 solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0" }
 solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0" }
