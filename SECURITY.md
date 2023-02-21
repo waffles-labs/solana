@@ -124,7 +124,6 @@ $5,000 USD in locked SOL tokens (locked for 12 months)
 ### Out of Scope:
 The following components are out of scope for the bounty program
 * Metrics: `/metrics` in the monorepo as well as https://metrics.solana.com
-* Explorer: `/explorer` in the monorepo as well as https://explorer.solana.com
 * Any encrypted credentials, auth tokens, etc. checked into the repo
 * Bugs in dependencies. Please take them upstream!
 * Attacks that require social engineering
@@ -154,7 +153,7 @@ bi = 2 ^ (R - ri) / ((2^R) - 1)
 |               |          |        |   | 2             | 2        | 33.33% |   | 5             | 2        | 25.81% |
 | 4             | 1        | 53.33% |   |               |          |        |   | 5             | 3        | 12.90% |
 | 4             | 2        | 26.67% |   | 3             | 1        | 57.14% |   | 5             | 4        |  6.45% |
-| 4             | 3        | 13.33% |   | 3             | 2        | 26.67% |   | 5             | 5        |  3.23% |
+| 4             | 3        | 13.33% |   | 3             | 2        | 28.57% |   | 5             | 5        |  3.23% |
 | 4             | 4        |  6.67% |   | 3             | 3        | 14.29% |   |               |          |        |
 
 ### Payment of Bug Bounties:

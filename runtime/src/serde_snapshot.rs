@@ -3,9 +3,10 @@ use {
         accounts::Accounts,
         accounts_db::{
             AccountShrinkThreshold, AccountStorageEntry, AccountsDb, AccountsDbConfig, AppendVecId,
-            AtomicAppendVecId, BankHashInfo, IndexGenerationInfo, SnapshotStorage,
+            AtomicAppendVecId, BankHashStats, IndexGenerationInfo,
         },
-        accounts_hash::AccountsHash,
+        accounts_file::AccountsFile,
+        accounts_hash::{AccountsDeltaHash, AccountsHash},
         accounts_index::AccountSecondaryIndexes,
         accounts_update_notifier_interface::AccountsUpdateNotifier,
         append_vec::{AppendVec, StoredMetaWriteVersion},
@@ -79,6 +80,13 @@ pub struct AccountsDbFields<T>(
     #[serde(deserialize_with = "default_on_eof")]
     Vec<(Slot, Hash)>,
 );
+
+#[derive(Clone, Default, Debug, Serialize, Deserialize, PartialEq, Eq, AbiExample)]
+struct BankHashInfo {
+    accounts_delta_hash: AccountsDeltaHash,
+    accounts_hash: AccountsHash,
+    stats: BankHashStats,
+}
 
 /// Helper type to wrap BufReader streams when deserializing and reconstructing from either just a
 /// full snapshot, or both a full and incremental snapshot
@@ -297,14 +305,8 @@ pub(crate) fn fields_from_streams<R: Read>(
         .as_mut()
         .map(|stream| fields_from_stream(serde_style, stream))
         .transpose()?;
-
-    // Option::unzip() not stabilized yet
     let (incremental_snapshot_bank_fields, incremental_snapshot_accounts_db_fields) =
-        if let Some((bank_fields, accounts_fields)) = incremental_fields {
-            (Some(bank_fields), Some(accounts_fields))
-        } else {
-            (None, None)
-        };
+        incremental_fields.unzip();
 
     let snapshot_accounts_db_fields = SnapshotAccountsDbFields {
         full_snapshot_accounts_db_fields,
@@ -361,7 +363,7 @@ pub(crate) fn bank_to_stream<W>(
     serde_style: SerdeStyle,
     stream: &mut BufWriter<W>,
     bank: &Bank,
-    snapshot_storages: &[SnapshotStorage],
+    snapshot_storages: &[Vec<Arc<AccountStorageEntry>>],
 ) -> Result<(), Error>
 where
     W: Write,
@@ -383,7 +385,7 @@ pub(crate) fn bank_to_stream_no_extra_fields<W>(
     serde_style: SerdeStyle,
     stream: &mut BufWriter<W>,
     bank: &Bank,
-    snapshot_storages: &[SnapshotStorage],
+    snapshot_storages: &[Vec<Arc<AccountStorageEntry>>],
 ) -> Result<(), Error>
 where
     W: Write,
@@ -434,8 +436,7 @@ pub fn reserialize_bank_with_new_accounts_hash(
 ) -> bool {
     let bank_post = snapshot_utils::get_bank_snapshots_dir(bank_snapshots_dir, slot);
     let bank_post = bank_post.join(snapshot_utils::get_snapshot_file_name(slot));
-    let mut bank_pre = bank_post.clone();
-    bank_pre.set_extension(BANK_SNAPSHOT_PRE_FILENAME_EXTENSION);
+    let bank_pre = bank_post.with_extension(BANK_SNAPSHOT_PRE_FILENAME_EXTENSION);
 
     let mut found = false;
     {
@@ -461,7 +462,7 @@ pub fn reserialize_bank_with_new_accounts_hash(
 
 struct SerializableBankAndStorage<'a, C> {
     bank: &'a Bank,
-    snapshot_storages: &'a [SnapshotStorage],
+    snapshot_storages: &'a [Vec<Arc<AccountStorageEntry>>],
     phantom: std::marker::PhantomData<C>,
 }
 
@@ -477,7 +478,7 @@ impl<'a, C: TypeContext<'a>> Serialize for SerializableBankAndStorage<'a, C> {
 #[cfg(test)]
 struct SerializableBankAndStorageNoExtra<'a, C> {
     bank: &'a Bank,
-    snapshot_storages: &'a [SnapshotStorage],
+    snapshot_storages: &'a [Vec<Arc<AccountStorageEntry>>],
     phantom: std::marker::PhantomData<C>,
 }
 
@@ -510,7 +511,7 @@ impl<'a, C> From<SerializableBankAndStorageNoExtra<'a, C>> for SerializableBankA
 struct SerializableAccountsDb<'a, C> {
     accounts_db: &'a AccountsDb,
     slot: Slot,
-    account_storage_entries: &'a [SnapshotStorage],
+    account_storage_entries: &'a [Vec<Arc<AccountStorageEntry>>],
     phantom: std::marker::PhantomData<C>,
 }
 
@@ -589,11 +590,12 @@ fn reconstruct_single_storage(
     current_len: usize,
     append_vec_id: AppendVecId,
 ) -> io::Result<Arc<AccountStorageEntry>> {
-    let (accounts, num_accounts) = AppendVec::new_from_file(append_vec_path, current_len)?;
+    let (append_vec, num_accounts) = AppendVec::new_from_file(append_vec_path, current_len)?;
+    let accounts_file = AccountsFile::AppendVec(append_vec);
     Ok(Arc::new(AccountStorageEntry::new_existing(
         *slot,
         append_vec_id,
-        accounts,
+        accounts_file,
         num_accounts,
     )))
 }
@@ -727,10 +729,6 @@ where
         next_append_vec_id,
     } = storage_and_next_append_vec_id;
 
-    // discard any slots with no storage entries
-    // this can happen if a non-root slot was serialized
-    // but non-root stores should not be included in the snapshot
-    storage.retain(|_slot, stores| !stores.read().unwrap().is_empty());
     assert!(
         !storage.is_empty(),
         "At least one storage entry must exist from deserializing stream"
@@ -744,11 +742,26 @@ where
     );
 
     // Process deserialized data, set necessary fields in self
-    accounts_db
-        .bank_hashes
-        .write()
-        .unwrap()
-        .insert(snapshot_slot, snapshot_bank_hash_info);
+    let old_accounts_delta_hash = accounts_db.set_accounts_delta_hash_from_snapshot(
+        snapshot_slot,
+        snapshot_bank_hash_info.accounts_delta_hash,
+    );
+    assert!(
+        old_accounts_delta_hash.is_none(),
+        "There should not already be an AccountsDeltaHash at slot {snapshot_slot}: {old_accounts_delta_hash:?}",
+        );
+    let old_accounts_hash = accounts_db
+        .set_accounts_hash_from_snapshot(snapshot_slot, snapshot_bank_hash_info.accounts_hash);
+    assert!(
+        old_accounts_hash.is_none(),
+        "There should not already be an AccountsHash at slot {snapshot_slot}: {old_accounts_hash:?}",
+    );
+    let old_stats = accounts_db
+        .update_bank_hash_stats_from_snapshot(snapshot_slot, snapshot_bank_hash_info.stats);
+    assert!(
+        old_stats.is_none(),
+        "There should not already be a BankHashStats at slot {snapshot_slot}: {old_stats:?}",
+    );
     accounts_db.storage.initialize(storage);
     accounts_db
         .next_id
@@ -782,11 +795,7 @@ where
         .set(rent_paying_accounts_by_partition)
         .unwrap();
 
-    accounts_db.maybe_add_filler_accounts(
-        &genesis_config.epoch_schedule,
-        &genesis_config.rent,
-        snapshot_slot,
-    );
+    accounts_db.maybe_add_filler_accounts(&genesis_config.epoch_schedule, snapshot_slot);
 
     handle.join().unwrap();
     measure_notify.stop();

@@ -1,9 +1,14 @@
 [package]
 name = "waffles-solana-banks-interface"
-version = "1.15.0-2"
+version = "1.16.0"
 description = "Waffle Labs maintained Solana banks RPC interface"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
+name = "solana-banks-interface"
+version = "1.16.0"
+description = "Solana banks RPC interface"
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 documentation = "https://docs.rs/waffles-solana-banks-interface"
@@ -11,7 +16,9 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.144", features = ["derive"] }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
+serde = { version = "1.0.152", features = ["derive"] }
+solana-sdk = { path = "../sdk", version = "=1.16.0" }
 tarpc = { version = "0.29.0", features = ["full"] }
 
 [lib]

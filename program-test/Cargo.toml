@@ -5,7 +5,14 @@ edition = "2021"
 license = "Apache-2.0"
 name = "waffles-solana-program-test"
 repository = "https://github.com/waffles-labs/solana"
-version = "1.15.0-2"
+version = "1.16.0"
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+description = "Solana Program Test Framework"
+edition = "2021"
+license = "Apache-2.0"
+name = "solana-program-test"
+repository = "https://github.com/solana-labs/solana"
+version = "1.16.0"
 
 [dependencies]
 assert_matches = "1.5.0"
@@ -16,14 +23,27 @@ chrono-humanize = "0.2.1"
 crossbeam-channel = "0.5"
 log = "0.4.17"
 serde = "1.0.144"
-waffles-solana-banks-client = { path = "../banks-client", version = "=1.15.0-2" }
-waffles-solana-banks-interface = { package = "waffles-solana-banks-interface", path = "../banks-interface", version = "=1.15.0-2" }
-waffles-solana-banks-server = { path = "../banks-server", version = "=1.15.0-2" }
-solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.15.0-2" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0-2" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.15.0-2" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0-2" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0-2" }
+waffles-solana-banks-client = { path = "../banks-client", version = "=1.16.0" }
+waffles-solana-banks-interface = { package = "waffles-solana-banks-interface", path = "../banks-interface", version = "=1.16.0" }
+waffles-solana-banks-server = { path = "../banks-server", version = "=1.16.0" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.16.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0" }
+serde = "1.0.152"
+solana-banks-client = { path = "../banks-client", version = "=1.16.0" }
+solana-banks-interface = { path = "../banks-interface", version = "=1.16.0" }
+solana-banks-server = { path = "../banks-server", version = "=1.16.0" }
+solana-bpf-loader-program = { path = "../programs/bpf_loader", version = "=1.16.0" }
+solana-logger = { path = "../logger", version = "=1.16.0" }
+solana-program-runtime = { path = "../program-runtime", version = "=1.16.0" }
+solana-runtime = { path = "../runtime", version = "=1.16.0" }
+solana-sdk = { path = "../sdk", version = "=1.16.0" }
+solana-vote-program = { path = "../programs/vote", version = "=1.16.0" }
 thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
+
+[dev-dependencies]
+solana-stake-program = { path = "../programs/stake", version = "=1.16.0" }

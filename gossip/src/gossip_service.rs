@@ -1,7 +1,7 @@
 //! The `gossip_service` module implements the network control plane.
 
 use {
-    crate::{cluster_info::ClusterInfo, contact_info::ContactInfo},
+    crate::{cluster_info::ClusterInfo, legacy_contact_info::LegacyContactInfo as ContactInfo},
     crossbeam_channel::{unbounded, Sender},
     rand::{thread_rng, Rng},
     solana_client::{connection_cache::ConnectionCache, thin_client::ThinClient},
@@ -331,7 +331,10 @@ pub fn make_gossip_node(
 mod tests {
     use {
         super::*,
-        crate::cluster_info::{ClusterInfo, Node},
+        crate::{
+            cluster_info::{ClusterInfo, Node},
+            contact_info::ContactInfo,
+        },
         std::sync::{atomic::AtomicBool, Arc},
     };
 
@@ -422,7 +425,7 @@ mod tests {
             None,
             TIMEOUT,
             None,
-            Some(&peer0_info.gossip),
+            Some(&peer0_info.gossip().unwrap()),
         );
         assert!(met_criteria);
 

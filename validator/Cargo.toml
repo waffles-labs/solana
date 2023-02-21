@@ -3,8 +3,14 @@ authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Mai
 edition = "2021"
 name = "waffles-solana-validator"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.15.0-2"
+version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+edition = "2021"
+name = "solana-validator"
+description = "Blockchain, Rebuilt for Scale"
+version = "1.16.0"
+repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 documentation = "https://docs.rs/waffles-solana-validator"
@@ -28,39 +34,67 @@ log = "0.4.17"
 num_cpus = "1.13.1"
 rand = "0.7.0"
 rayon = "1.5.3"
-serde = "1.0.144"
+serde = "1.0.152"
 serde_json = "1.0.83"
 serde_yaml = "0.9.13"
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.15.0-2" }
-waffles-solana-cli-config = { path = "../cli-config", version = "=1.15.0-2" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.15.0-2" }
-waffles-solana-download-utils = { path = "../download-utils", version = "=1.15.0-2" }
-waffles-solana-entry = { path = "../entry", version = "=1.15.0-2" }
-solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.15.0-2" }
-waffles-solana-genesis-utils = { path = "../genesis-utils", version = "=1.15.0-2" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.15.0-2" }
-waffles-solana-ledger = { path = "../ledger", version = "=1.15.0-2" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0-2" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.15.0-2" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.15.0-2" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.15.0-2" }
-waffles-solana-poh = { path = "../poh", version = "=1.15.0-2" }
-waffles-solana-rpc = { path = "../rpc", version = "=1.15.0-2" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.15.0-2", default-features = false }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.15.0-2" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.15.0-2" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
-solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.15.0-2" }
-waffles-solana-storage-bigtable = { path = "../storage-bigtable", version = "=1.15.0-2" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.15.0-2" }
-solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.15.0-2" }
-waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.15.0-2", default-features = false }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0-2" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.15.0-2" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0" }
+waffles-solana-cli-config = { path = "../cli-config", version = "=1.16.0" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0" }
+waffles-solana-download-utils = { path = "../download-utils", version = "=1.16.0" }
+waffles-solana-entry = { path = "../entry", version = "=1.16.0" }
+solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0" }
+waffles-solana-genesis-utils = { path = "../genesis-utils", version = "=1.16.0" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0" }
+waffles-solana-ledger = { path = "../ledger", version = "=1.16.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0" }
+waffles-solana-poh = { path = "../poh", version = "=1.16.0" }
+waffles-solana-rpc = { path = "../rpc", version = "=1.16.0" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0", default-features = false }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
+solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.16.0" }
+waffles-solana-storage-bigtable = { path = "../storage-bigtable", version = "=1.16.0" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0" }
+solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.16.0" }
+waffles-solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0" }
+solana-clap-utils = { path = "../clap-utils", version = "=1.16.0" }
+solana-cli-config = { path = "../cli-config", version = "=1.16.0" }
+solana-core = { path = "../core", version = "=1.16.0" }
+solana-download-utils = { path = "../download-utils", version = "=1.16.0" }
+solana-entry = { path = "../entry", version = "=1.16.0" }
+solana-faucet = { path = "../faucet", version = "=1.16.0" }
+solana-genesis-utils = { path = "../genesis-utils", version = "=1.16.0" }
+solana-gossip = { path = "../gossip", version = "=1.16.0" }
+solana-ledger = { path = "../ledger", version = "=1.16.0" }
+solana-logger = { path = "../logger", version = "=1.16.0" }
+solana-metrics = { path = "../metrics", version = "=1.16.0" }
+solana-net-utils = { path = "../net-utils", version = "=1.16.0" }
+solana-perf = { path = "../perf", version = "=1.16.0" }
+solana-poh = { path = "../poh", version = "=1.16.0" }
+solana-rpc = { path = "../rpc", version = "=1.16.0" }
+solana-rpc-client = { path = "../rpc-client", version = "=1.16.0", default-features = false }
+solana-rpc-client-api = { path = "../rpc-client-api", version = "=1.16.0" }
+solana-runtime = { path = "../runtime", version = "=1.16.0" }
+solana-sdk = { path = "../sdk", version = "=1.16.0" }
+solana-send-transaction-service = { path = "../send-transaction-service", version = "=1.16.0" }
+solana-storage-bigtable = { path = "../storage-bigtable", version = "=1.16.0" }
+solana-streamer = { path = "../streamer", version = "=1.16.0" }
+solana-test-validator = { path = "../test-validator", version = "=1.16.0" }
+solana-tpu-client = { path = "../tpu-client", version = "=1.16.0", default-features = false }
+solana-version = { path = "../version", version = "=1.16.0" }
+solana-vote-program = { path = "../programs/vote", version = "=1.16.0" }
 symlink = "0.1.0"
+thiserror = "1.0"
 
 [dev-dependencies]
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.15.0-2" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0" }
+solana-account-decoder = { path = "../account-decoder", version = "=1.16.0" }
 spl-token-2022 = { version = "=0.5.0", features = ["no-entrypoint"] }
 
 [target.'cfg(not(target_env = "msvc"))'.dependencies]

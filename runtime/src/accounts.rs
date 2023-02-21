@@ -4,7 +4,7 @@ use {
         account_rent_state::{check_rent_state_with_account, RentState},
         accounts_db::{
             AccountShrinkThreshold, AccountsAddRootTiming, AccountsDb, AccountsDbConfig,
-            BankHashInfo, CalcAccountsHashDataSource, IncludeSlotInHash, LoadHint, LoadedAccount,
+            BankHashLamportsVerifyConfig, IncludeSlotInHash, LoadHint, LoadedAccount,
             ScanStorageResult, ACCOUNTS_DB_CONFIG_FOR_BENCHMARKS, ACCOUNTS_DB_CONFIG_FOR_TESTING,
         },
         accounts_index::{
@@ -22,21 +22,17 @@ use {
         system_instruction_processor::{get_system_account_kind, SystemAccountKind},
         transaction_error_metrics::TransactionErrorMetrics,
     },
-    dashmap::{
-        mapref::entry::Entry::{Occupied, Vacant},
-        DashMap,
-    },
+    dashmap::DashMap,
     log::*,
     solana_address_lookup_table_program::{error::AddressLookupError, state::AddressLookupTable},
-    solana_program_runtime::compute_budget::ComputeBudget,
     solana_sdk::{
         account::{Account, AccountSharedData, ReadableAccount, WritableAccount},
         account_utils::StateMut,
         bpf_loader_upgradeable::{self, UpgradeableLoaderState},
         clock::{BankId, Slot},
         feature_set::{
-            self, cap_transaction_accounts_data_size, remove_deprecated_request_unit_ix,
-            use_default_units_in_fee_calculation, FeatureSet,
+            self, enable_request_heap_frame_ix, remove_congestion_multiplier_from_fee_calculation,
+            remove_deprecated_request_unit_ix, use_default_units_in_fee_calculation, FeatureSet,
         },
         fee::FeeStructure,
         genesis_config::ClusterType,
@@ -50,10 +46,10 @@ use {
             State as NonceState,
         },
         pubkey::Pubkey,
-        signature::Signature,
+        saturating_add_assign,
         slot_hashes::SlotHashes,
         system_program,
-        sysvar::{self, epoch_schedule::EpochSchedule, instructions::construct_instructions_data},
+        sysvar::{self, instructions::construct_instructions_data},
         transaction::{Result, SanitizedTransaction, TransactionAccountLocks, TransactionError},
         transaction_context::{IndexOfAccount, TransactionAccount},
     },
@@ -146,10 +142,7 @@ pub enum AccountAddressFilter {
 
 impl Accounts {
     pub fn default_for_tests() -> Self {
-        Self {
-            accounts_db: Arc::new(AccountsDb::default_for_tests()),
-            account_locks: Mutex::default(),
-        }
+        Self::new_empty(AccountsDb::default_for_tests())
     }
 
     pub fn new_with_config_for_tests(
@@ -195,32 +188,30 @@ impl Accounts {
         accounts_update_notifier: Option<AccountsUpdateNotifier>,
         exit: &Arc<AtomicBool>,
     ) -> Self {
-        Self {
-            accounts_db: Arc::new(AccountsDb::new_with_config(
-                paths,
-                cluster_type,
-                account_indexes,
-                shrink_ratio,
-                accounts_db_config,
-                accounts_update_notifier,
-                exit,
-            )),
-            account_locks: Mutex::new(AccountLocks::default()),
-        }
+        Self::new_empty(AccountsDb::new_with_config(
+            paths,
+            cluster_type,
+            account_indexes,
+            shrink_ratio,
+            accounts_db_config,
+            accounts_update_notifier,
+            exit,
+        ))
     }
 
     pub fn new_from_parent(parent: &Accounts, slot: Slot, parent_slot: Slot) -> Self {
         let accounts_db = parent.accounts_db.clone();
-        accounts_db.insert_default_bank_hash(slot, parent_slot);
-        Self {
-            accounts_db,
-            account_locks: Mutex::new(AccountLocks::default()),
-        }
+        accounts_db.insert_default_bank_hash_stats(slot, parent_slot);
+        Self::new(accounts_db)
     }
 
     pub(crate) fn new_empty(accounts_db: AccountsDb) -> Self {
+        Self::new(Arc::new(accounts_db))
+    }
+
+    fn new(accounts_db: Arc<AccountsDb>) -> Self {
         Self {
-            accounts_db: Arc::new(accounts_db),
+            accounts_db,
             account_locks: Mutex::new(AccountLocks::default()),
         }
     }
@@ -240,6 +231,45 @@ impl Accounts {
             owner,
             ..Account::default()
         })
+    }
+
+    /// If feature `cap_transaction_accounts_data_size` is active, total accounts data a
+    /// transaction can load is limited to 64MiB to not break anyone in Mainnet-beta today.
+    /// (It will be set by compute_budget instruction in the future to more reasonable level).
+    fn get_requested_loaded_accounts_data_size_limit(
+        feature_set: &FeatureSet,
+    ) -> Option<NonZeroUsize> {
+        feature_set
+            .is_active(&feature_set::cap_transaction_accounts_data_size::id())
+            .then(|| {
+                const REQUESTED_LOADED_ACCOUNTS_DATA_SIZE: usize = 64 * 1024 * 1024;
+                NonZeroUsize::new(REQUESTED_LOADED_ACCOUNTS_DATA_SIZE)
+                    .expect("requested loaded accounts data size is greater than 0")
+            })
+    }
+
+    /// Accumulate loaded account data size into `accumulated_accounts_data_size`.
+    /// Returns TransactionErr::MaxLoadedAccountsDataSizeExceeded if
+    /// `requested_loaded_accounts_data_size_limit` is specified and
+    /// `accumulated_accounts_data_size` exceeds it.
+    fn accumulate_and_check_loaded_account_data_size(
+        accumulated_loaded_accounts_data_size: &mut usize,
+        account_data_size: usize,
+        requested_loaded_accounts_data_size_limit: Option<NonZeroUsize>,
+        error_counters: &mut TransactionErrorMetrics,
+    ) -> Result<()> {
+        if let Some(requested_loaded_accounts_data_size) = requested_loaded_accounts_data_size_limit
+        {
+            saturating_add_assign!(*accumulated_loaded_accounts_data_size, account_data_size);
+            if *accumulated_loaded_accounts_data_size > requested_loaded_accounts_data_size.get() {
+                error_counters.max_loaded_accounts_data_size_exceeded += 1;
+                Err(TransactionError::MaxLoadedAccountsDataSizeExceeded)
+            } else {
+                Ok(())
+            }
+        } else {
+            Ok(())
+        }
     }
 
     fn load_transaction_accounts(
@@ -263,137 +293,145 @@ impl Accounts {
         let mut tx_rent: TransactionRent = 0;
         let message = tx.message();
         let account_keys = message.account_keys();
+        let mut account_found_and_dep_index = Vec::with_capacity(account_keys.len());
         let mut account_deps = Vec::with_capacity(account_keys.len());
         let mut rent_debits = RentDebits::default();
-        let requested_loaded_accounts_data_size_limit =
-            if feature_set.is_active(&feature_set::cap_transaction_accounts_data_size::id()) {
-                let requested_loaded_accounts_data_size =
-                    Self::get_requested_loaded_accounts_data_size_limit(tx, feature_set)?;
-                Some(requested_loaded_accounts_data_size)
-            } else {
-                None
-            };
-        let mut accumulated_accounts_data_size: usize = 0;
 
         let set_exempt_rent_epoch_max =
             feature_set.is_active(&solana_sdk::feature_set::set_exempt_rent_epoch_max::id());
+
+        let requested_loaded_accounts_data_size_limit =
+            Self::get_requested_loaded_accounts_data_size_limit(feature_set);
+        let mut accumulated_accounts_data_size: usize = 0;
+
         let mut accounts = account_keys
             .iter()
             .enumerate()
             .map(|(i, key)| {
-                let (account, loaded_programdata_account_size) = if !message.is_non_loader_key(i) {
-                    // Fill in an empty account for the program slots.
-                    (AccountSharedData::default(), 0)
+                let mut account_found = true;
+                let mut account_dep_index = None;
+                #[allow(clippy::collapsible_else_if)]
+                let account = if solana_sdk::sysvar::instructions::check_id(key) {
+                    Self::construct_instructions_account(
+                        message,
+                        feature_set
+                            .is_active(&feature_set::instructions_sysvar_owned_by_sysvar::id()),
+                    )
                 } else {
-                    #[allow(clippy::collapsible_else_if)]
-                    if solana_sdk::sysvar::instructions::check_id(key) {
-                        (
-                            Self::construct_instructions_account(
-                                message,
-                                feature_set.is_active(
-                                    &feature_set::instructions_sysvar_owned_by_sysvar::id(),
-                                ),
-                            ),
-                            0,
-                        )
+                    let (mut account, rent) = if let Some(account_override) =
+                        account_overrides.and_then(|overrides| overrides.get(key))
+                    {
+                        (account_override.clone(), 0)
                     } else {
-                        let (mut account, rent) = if let Some(account_override) =
-                            account_overrides.and_then(|overrides| overrides.get(key))
-                        {
-                            (account_override.clone(), 0)
-                        } else {
-                            self.accounts_db
-                                .load_with_fixed_root(ancestors, key)
-                                .map(|(mut account, _)| {
-                                    if message.is_writable(i) {
-                                        let rent_due = rent_collector
-                                            .collect_from_existing_account(
-                                                key,
-                                                &mut account,
-                                                self.accounts_db.filler_account_suffix.as_ref(),
-                                                set_exempt_rent_epoch_max,
-                                            )
-                                            .rent_amount;
-                                        (account, rent_due)
-                                    } else {
-                                        (account, 0)
-                                    }
-                                })
-                                .unwrap_or_default()
-                        };
+                        self.accounts_db
+                            .load_with_fixed_root(ancestors, key)
+                            .map(|(mut account, _)| {
+                                if message.is_writable(i) {
+                                    let rent_due = rent_collector
+                                        .collect_from_existing_account(
+                                            key,
+                                            &mut account,
+                                            self.accounts_db.filler_account_suffix.as_ref(),
+                                            set_exempt_rent_epoch_max,
+                                        )
+                                        .rent_amount;
+                                    (account, rent_due)
+                                } else {
+                                    (account, 0)
+                                }
+                            })
+                            .unwrap_or_else(|| {
+                                account_found = false;
+                                let mut default_account = AccountSharedData::default();
+                                if set_exempt_rent_epoch_max {
+                                    // All new accounts must be rent-exempt (enforced in Bank::execute_loaded_transaction).
+                                    // Currently, rent collection sets rent_epoch to u64::MAX, but initializing the account
+                                    // with this field already set would allow us to skip rent collection for these accounts.
+                                    default_account.set_rent_epoch(u64::MAX);
+                                }
+                                (default_account, 0)
+                            })
+                    };
+                    Self::accumulate_and_check_loaded_account_data_size(
+                        &mut accumulated_accounts_data_size,
+                        account.data().len(),
+                        requested_loaded_accounts_data_size_limit,
+                        error_counters,
+                    )?;
 
-                        if !validated_fee_payer {
-                            if i != 0 {
-                                warn!("Payer index should be 0! {:?}", tx);
-                            }
-
-                            Self::validate_fee_payer(
-                                key,
-                                &mut account,
-                                i as IndexOfAccount,
-                                error_counters,
-                                rent_collector,
-                                feature_set,
-                                fee,
-                            )?;
-
-                            validated_fee_payer = true;
+                    if !validated_fee_payer && message.is_non_loader_key(i) {
+                        if i != 0 {
+                            warn!("Payer index should be 0! {:?}", tx);
                         }
 
-                        let mut loaded_programdata_account_size: usize = 0;
-                        if bpf_loader_upgradeable::check_id(account.owner()) {
-                            if message.is_writable(i) && !message.is_upgradeable_loader_present() {
-                                error_counters.invalid_writable_account += 1;
-                                return Err(TransactionError::InvalidWritableAccount);
-                            }
+                        Self::validate_fee_payer(
+                            key,
+                            &mut account,
+                            i as IndexOfAccount,
+                            error_counters,
+                            rent_collector,
+                            feature_set,
+                            fee,
+                        )?;
 
-                            if account.executable() {
-                                // The upgradeable loader requires the derived ProgramData account
-                                if let Ok(UpgradeableLoaderState::Program {
-                                    programdata_address,
-                                }) = account.state()
-                                {
-                                    if let Some((programdata_account, _)) = self
-                                        .accounts_db
-                                        .load_with_fixed_root(ancestors, &programdata_address)
-                                    {
-                                        loaded_programdata_account_size =
-                                            programdata_account.data().len();
-                                        account_deps
-                                            .push((programdata_address, programdata_account));
-                                    } else {
-                                        error_counters.account_not_found += 1;
-                                        return Err(TransactionError::ProgramAccountNotFound);
-                                    }
-                                } else {
-                                    error_counters.invalid_program_for_execution += 1;
-                                    return Err(TransactionError::InvalidProgramForExecution);
-                                }
-                            }
-                        } else if account.executable() && message.is_writable(i) {
+                        validated_fee_payer = true;
+                    }
+
+                    if bpf_loader_upgradeable::check_id(account.owner()) {
+                        if message.is_writable(i) && !message.is_upgradeable_loader_present() {
                             error_counters.invalid_writable_account += 1;
                             return Err(TransactionError::InvalidWritableAccount);
                         }
 
-                        tx_rent += rent;
-                        rent_debits.insert(key, rent, account.lamports());
-
-                        (account, loaded_programdata_account_size)
+                        if account.executable() {
+                            // The upgradeable loader requires the derived ProgramData account
+                            if let Ok(UpgradeableLoaderState::Program {
+                                programdata_address,
+                            }) = account.state()
+                            {
+                                if let Some((programdata_account, _)) = self
+                                    .accounts_db
+                                    .load_with_fixed_root(ancestors, &programdata_address)
+                                {
+                                    Self::accumulate_and_check_loaded_account_data_size(
+                                        &mut accumulated_accounts_data_size,
+                                        programdata_account.data().len(),
+                                        requested_loaded_accounts_data_size_limit,
+                                        error_counters,
+                                    )?;
+                                    account_dep_index =
+                                        Some(account_keys.len().saturating_add(account_deps.len())
+                                            as IndexOfAccount);
+                                    account_deps.push((programdata_address, programdata_account));
+                                } else {
+                                    error_counters.account_not_found += 1;
+                                    return Err(TransactionError::ProgramAccountNotFound);
+                                }
+                            } else {
+                                error_counters.invalid_program_for_execution += 1;
+                                return Err(TransactionError::InvalidProgramForExecution);
+                            }
+                        }
+                    } else if account.executable() && message.is_writable(i) {
+                        error_counters.invalid_writable_account += 1;
+                        return Err(TransactionError::InvalidWritableAccount);
                     }
-                };
-                Self::accumulate_and_check_loaded_account_data_size(
-                    &mut accumulated_accounts_data_size,
-                    account
-                        .data()
-                        .len()
-                        .saturating_add(loaded_programdata_account_size),
-                    requested_loaded_accounts_data_size_limit,
-                    error_counters,
-                )?;
 
+                    tx_rent += rent;
+                    rent_debits.insert(key, rent, account.lamports());
+
+                    account
+                };
+
+                account_found_and_dep_index.push((account_found, account_dep_index));
                 Ok((*key, account))
             })
             .collect::<Result<Vec<_>>>()?;
+
+        if !validated_fee_payer {
+            error_counters.account_not_found += 1;
+            return Err(TransactionError::AccountNotFound);
+        }
 
         // Appends the account_deps at the end of the accounts,
         // this way they can be accessed in a uniform way.
@@ -402,48 +440,82 @@ impl Accounts {
         // accounts.iter().take(message.account_keys.len())
         accounts.append(&mut account_deps);
 
-        if validated_fee_payer {
-            let program_indices = message
-                .instructions()
-                .iter()
-                .map(|instruction| {
-                    self.load_executable_accounts(
-                        ancestors,
-                        &mut accounts,
-                        instruction.program_id_index as IndexOfAccount,
-                        error_counters,
-                        &mut accumulated_accounts_data_size,
-                        requested_loaded_accounts_data_size_limit,
-                    )
-                })
-                .collect::<Result<Vec<Vec<IndexOfAccount>>>>()?;
-
-            Ok(LoadedTransaction {
-                accounts,
-                program_indices,
-                rent: tx_rent,
-                rent_debits,
+        let disable_builtin_loader_ownership_chains =
+            feature_set.is_active(&feature_set::disable_builtin_loader_ownership_chains::ID);
+        let builtins_start_index = accounts.len();
+        let program_indices = message
+            .instructions()
+            .iter()
+            .map(|instruction| {
+                let mut account_indices = Vec::new();
+                let mut program_index = instruction.program_id_index as usize;
+                for _ in 0..5 {
+                    let (program_id, program_account) = accounts
+                        .get(program_index)
+                        .ok_or(TransactionError::ProgramAccountNotFound)?;
+                    let (account_found, account_dep_index) = account_found_and_dep_index
+                        .get(program_index)
+                        .unwrap_or(&(true, None));
+                    if native_loader::check_id(program_id) {
+                        return Ok(account_indices);
+                    }
+                    if !account_found {
+                        error_counters.account_not_found += 1;
+                        return Err(TransactionError::ProgramAccountNotFound);
+                    }
+                    if !program_account.executable() {
+                        error_counters.invalid_program_for_execution += 1;
+                        return Err(TransactionError::InvalidProgramForExecution);
+                    }
+                    account_indices.insert(0, program_index as IndexOfAccount);
+                    if let Some(account_index) = account_dep_index {
+                        account_indices.insert(0, *account_index);
+                    }
+                    let owner_id = program_account.owner();
+                    if native_loader::check_id(owner_id) {
+                        return Ok(account_indices);
+                    }
+                    program_index = if let Some(owner_index) = accounts
+                        .get(builtins_start_index..)
+                        .ok_or(TransactionError::ProgramAccountNotFound)?
+                        .iter()
+                        .position(|(key, _)| key == owner_id)
+                    {
+                        builtins_start_index.saturating_add(owner_index)
+                    } else {
+                        let owner_index = accounts.len();
+                        if let Some((program_account, _)) =
+                            self.accounts_db.load_with_fixed_root(ancestors, owner_id)
+                        {
+                            Self::accumulate_and_check_loaded_account_data_size(
+                                &mut accumulated_accounts_data_size,
+                                program_account.data().len(),
+                                requested_loaded_accounts_data_size_limit,
+                                error_counters,
+                            )?;
+                            accounts.push((*owner_id, program_account));
+                        } else {
+                            error_counters.account_not_found += 1;
+                            return Err(TransactionError::ProgramAccountNotFound);
+                        }
+                        owner_index
+                    };
+                    if disable_builtin_loader_ownership_chains {
+                        account_indices.insert(0, program_index as IndexOfAccount);
+                        return Ok(account_indices);
+                    }
+                }
+                error_counters.call_chain_too_deep += 1;
+                Err(TransactionError::CallChainTooDeep)
             })
-        } else {
-            error_counters.account_not_found += 1;
-            Err(TransactionError::AccountNotFound)
-        }
-    }
+            .collect::<Result<Vec<Vec<IndexOfAccount>>>>()?;
 
-    fn get_requested_loaded_accounts_data_size_limit(
-        tx: &SanitizedTransaction,
-        feature_set: &FeatureSet,
-    ) -> Result<NonZeroUsize> {
-        let mut compute_budget = ComputeBudget::default();
-        let _prioritization_fee_details = compute_budget.process_instructions(
-            tx.message().program_instructions_iter(),
-            feature_set.is_active(&use_default_units_in_fee_calculation::id()),
-            !feature_set.is_active(&remove_deprecated_request_unit_ix::id()),
-            feature_set.is_active(&cap_transaction_accounts_data_size::id()),
-            Bank::get_loaded_accounts_data_limit_type(feature_set),
-        )?;
-        NonZeroUsize::new(compute_budget.accounts_data_size_limit as usize)
-            .ok_or(TransactionError::InvalidLoadedAccountsDataSizeLimit)
+        Ok(LoadedTransaction {
+            accounts,
+            program_indices,
+            rent: tx_rent,
+            rent_debits,
+        })
     }
 
     fn validate_fee_payer(
@@ -492,133 +564,54 @@ impl Accounts {
         )
     }
 
-    fn load_executable_accounts(
+    /// Returns a hash map of executable program accounts (program accounts that are not writable
+    /// in the given transactions), and their owners, for the transactions with a valid
+    /// blockhash or nonce.
+    pub fn filter_executable_program_accounts<'a>(
         &self,
         ancestors: &Ancestors,
-        accounts: &mut Vec<TransactionAccount>,
-        mut program_account_index: IndexOfAccount,
-        error_counters: &mut TransactionErrorMetrics,
-        accumulated_accounts_data_size: &mut usize,
-        requested_loaded_accounts_data_size_limit: Option<NonZeroUsize>,
-    ) -> Result<Vec<IndexOfAccount>> {
-        let mut account_indices = Vec::new();
-        let (mut program_id, already_loaded_as_non_loader) =
-            match accounts.get(program_account_index as usize) {
-                Some(program_account) => (
-                    program_account.0,
-                    // program account is already loaded if it's not empty in `accounts`
-                    program_account.1 != AccountSharedData::default(),
-                ),
-                None => {
-                    error_counters.account_not_found += 1;
-                    return Err(TransactionError::ProgramAccountNotFound);
-                }
-            };
-        let mut depth = 0;
-        while !native_loader::check_id(&program_id) {
-            if depth >= 5 {
-                error_counters.call_chain_too_deep += 1;
-                return Err(TransactionError::CallChainTooDeep);
-            }
-            depth += 1;
-            let mut loaded_account_total_size: usize = 0;
-
-            program_account_index = match self
-                .accounts_db
-                .load_with_fixed_root(ancestors, &program_id)
-            {
-                Some((program_account, _)) => {
-                    let account_index = accounts.len() as IndexOfAccount;
-                    // do not double count account size for program account on top of call chain
-                    // that has already been loaded during load_transaction as non-loader account.
-                    // Other accounts data size in the call chain are counted.
-                    if !(depth == 1 && already_loaded_as_non_loader) {
-                        loaded_account_total_size =
-                            loaded_account_total_size.saturating_add(program_account.data().len());
-                    }
-                    accounts.push((program_id, program_account));
-                    account_index
-                }
-                None => {
-                    error_counters.account_not_found += 1;
-                    return Err(TransactionError::ProgramAccountNotFound);
-                }
-            };
-            let program = &accounts[program_account_index as usize].1;
-            if !program.executable() {
-                error_counters.invalid_program_for_execution += 1;
-                return Err(TransactionError::InvalidProgramForExecution);
-            }
-
-            // Add loader to chain
-            let program_owner = *program.owner();
-            account_indices.insert(0, program_account_index);
-
-            if bpf_loader_upgradeable::check_id(&program_owner) {
-                // The upgradeable loader requires the derived ProgramData account
-                if let Ok(UpgradeableLoaderState::Program {
-                    programdata_address,
-                }) = program.state()
+        txs: &[SanitizedTransaction],
+        lock_results: &mut [TransactionCheckResult],
+        program_owners: &[&'a Pubkey],
+        hash_queue: &BlockhashQueue,
+    ) -> HashMap<Pubkey, &'a Pubkey> {
+        let mut result = HashMap::new();
+        lock_results.iter_mut().zip(txs).for_each(|etx| {
+            if let ((Ok(()), nonce), tx) = etx {
+                if nonce
+                    .as_ref()
+                    .map(|nonce| nonce.lamports_per_signature())
+                    .unwrap_or_else(|| {
+                        hash_queue.get_lamports_per_signature(tx.message().recent_blockhash())
+                    })
+                    .is_some()
                 {
-                    let programdata_account_index = match self
-                        .accounts_db
-                        .load_with_fixed_root(ancestors, &programdata_address)
-                    {
-                        Some((programdata_account, _)) => {
-                            let account_index = accounts.len() as IndexOfAccount;
-                            if !(depth == 1 && already_loaded_as_non_loader) {
-                                loaded_account_total_size = loaded_account_total_size
-                                    .saturating_add(programdata_account.data().len());
+                    tx.message()
+                        .account_keys()
+                        .iter()
+                        .enumerate()
+                        .for_each(|(i, key)| {
+                            if !tx.message().is_writable(i) && !result.contains_key(key) {
+                                if let Ok(index) = self.accounts_db.account_matches_owners(
+                                    ancestors,
+                                    key,
+                                    program_owners,
+                                ) {
+                                    program_owners
+                                        .get(index)
+                                        .and_then(|owner| result.insert(*key, *owner));
+                                }
                             }
-                            accounts.push((programdata_address, programdata_account));
-                            account_index
-                        }
-                        None => {
-                            error_counters.account_not_found += 1;
-                            return Err(TransactionError::ProgramAccountNotFound);
-                        }
-                    };
-                    account_indices.insert(0, programdata_account_index);
+                        });
                 } else {
-                    error_counters.invalid_program_for_execution += 1;
-                    return Err(TransactionError::InvalidProgramForExecution);
+                    // If the transaction's nonce account was not valid, and blockhash is not found,
+                    // the transaction will fail to process. Let's not load any programs from the
+                    // transaction, and update the status of the transaction.
+                    *etx.0 = (Err(TransactionError::BlockhashNotFound), None);
                 }
             }
-            Self::accumulate_and_check_loaded_account_data_size(
-                accumulated_accounts_data_size,
-                loaded_account_total_size,
-                requested_loaded_accounts_data_size_limit,
-                error_counters,
-            )?;
-
-            program_id = program_owner;
-        }
-        Ok(account_indices)
-    }
-
-    /// Accumulate loaded account data size into `accumulated_accounts_data_size`.
-    /// Returns TransactionErr::MaxLoadedAccountsDataSizeExceeded if
-    /// `requested_loaded_accounts_data_size_limit` is specified and
-    /// `accumulated_accounts_data_size` exceeds it.
-    fn accumulate_and_check_loaded_account_data_size(
-        accumulated_loaded_accounts_data_size: &mut usize,
-        account_data_size: usize,
-        requested_loaded_accounts_data_size_limit: Option<NonZeroUsize>,
-        error_counters: &mut TransactionErrorMetrics,
-    ) -> Result<()> {
-        if let Some(requested_loaded_accounts_data_size) = requested_loaded_accounts_data_size_limit
-        {
-            *accumulated_loaded_accounts_data_size =
-                accumulated_loaded_accounts_data_size.saturating_add(account_data_size);
-            if *accumulated_loaded_accounts_data_size > requested_loaded_accounts_data_size.get() {
-                error_counters.max_loaded_accounts_data_size_exceeded += 1;
-                Err(TransactionError::MaxLoadedAccountsDataSizeExceeded)
-            } else {
-                Ok(())
-            }
-        } else {
-            Ok(())
-        }
+        });
+        result
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -651,8 +644,8 @@ impl Accounts {
                             fee_structure,
                             feature_set.is_active(&use_default_units_in_fee_calculation::id()),
                             !feature_set.is_active(&remove_deprecated_request_unit_ix::id()),
-                            feature_set.is_active(&cap_transaction_accounts_data_size::id()),
-                            Bank::get_loaded_accounts_data_limit_type(feature_set),
+                            feature_set.is_active(&remove_congestion_multiplier_from_fee_calculation::id()),
+                            feature_set.is_active(&enable_request_heap_frame_ix::id()) || self.accounts_db.expected_cluster_type() != ClusterType::MainnetBeta,
                         )
                     } else {
                         return (Err(TransactionError::BlockhashNotFound), None);
@@ -768,29 +761,10 @@ impl Accounts {
                 // Cache only has one version per key, don't need to worry about versioning
                 func(loaded_account)
             },
-            |accum: &DashMap<Pubkey, (u64, B)>, loaded_account: LoadedAccount| {
+            |accum: &DashMap<Pubkey, B>, loaded_account: LoadedAccount| {
                 let loaded_account_pubkey = *loaded_account.pubkey();
-                let loaded_write_version = loaded_account.write_version();
-                let should_insert = accum
-                    .get(&loaded_account_pubkey)
-                    .map(|existing_entry| loaded_write_version > existing_entry.value().0)
-                    .unwrap_or(true);
-                if should_insert {
-                    if let Some(val) = func(loaded_account) {
-                        // Detected insertion is necessary, grabs the write lock to commit the write,
-                        match accum.entry(loaded_account_pubkey) {
-                            // Double check in case another thread interleaved a write between the read + write.
-                            Occupied(mut occupied_entry) => {
-                                if loaded_write_version > occupied_entry.get().0 {
-                                    occupied_entry.insert((loaded_write_version, val));
-                                }
-                            }
-
-                            Vacant(vacant_entry) => {
-                                vacant_entry.insert((loaded_write_version, val));
-                            }
-                        }
-                    }
+                if let Some(val) = func(loaded_account) {
+                    accum.insert(loaded_account_pubkey, val);
                 }
             },
         );
@@ -799,7 +773,7 @@ impl Accounts {
             ScanStorageResult::Cached(cached_result) => cached_result,
             ScanStorageResult::Stored(stored_result) => stored_result
                 .into_iter()
-                .map(|(_pubkey, (_latest_write_version, val))| val)
+                .map(|(_pubkey, val)| val)
                 .collect(),
         }
     }
@@ -872,60 +846,18 @@ impl Accounts {
             .collect())
     }
 
-    /// only called at startup vs steady-state runtime
-    pub fn calculate_capitalization(
-        &self,
-        ancestors: &Ancestors,
-        slot: Slot,
-        debug_verify: bool,
-        epoch_schedule: &EpochSchedule,
-        rent_collector: &RentCollector,
-        data_source: CalcAccountsHashDataSource,
-    ) -> u64 {
-        let is_startup = true;
-        self.accounts_db
-            .verify_accounts_hash_in_bg
-            .wait_for_complete();
-        self.accounts_db
-            .update_accounts_hash(
-                data_source,
-                debug_verify,
-                slot,
-                ancestors,
-                None,
-                epoch_schedule,
-                rent_collector,
-                is_startup,
-            )
-            .1
-    }
-
     /// Only called from startup or test code.
     #[must_use]
-    #[allow(clippy::too_many_arguments)]
     pub fn verify_bank_hash_and_lamports(
         &self,
         slot: Slot,
-        ancestors: &Ancestors,
         total_lamports: u64,
-        test_hash_calculation: bool,
-        epoch_schedule: &EpochSchedule,
-        rent_collector: &RentCollector,
-        ignore_mismatch: bool,
-        store_detailed_debug_info: bool,
-        use_bg_thread_pool: bool,
+        config: BankHashLamportsVerifyConfig,
     ) -> bool {
-        if let Err(err) = self.accounts_db.verify_bank_hash_and_lamports_new(
-            slot,
-            ancestors,
-            total_lamports,
-            test_hash_calculation,
-            epoch_schedule,
-            rent_collector,
-            ignore_mismatch,
-            store_detailed_debug_info,
-            use_bg_thread_pool,
-        ) {
+        if let Err(err) =
+            self.accounts_db
+                .verify_bank_hash_and_lamports(slot, total_lamports, config)
+        {
             warn!("verify_bank_hash failed: {:?}, slot: {}", err, slot);
             false
         } else {
@@ -1206,17 +1138,6 @@ impl Accounts {
         }
     }
 
-    pub fn bank_hash_info_at(&self, slot: Slot) -> BankHashInfo {
-        let accounts_delta_hash = self.accounts_db.get_accounts_delta_hash(slot);
-        let bank_hashes = self.accounts_db.bank_hashes.read().unwrap();
-        let mut bank_hash_info = bank_hashes
-            .get(&slot)
-            .expect("No bank hash was found for this bank, that should not be possible")
-            .clone();
-        bank_hash_info.accounts_delta_hash = accounts_delta_hash;
-        bank_hash_info
-    }
-
     /// This function will prevent multiple threads from modifying the same account state at the
     /// same time
     #[must_use]
@@ -1312,7 +1233,7 @@ impl Accounts {
         lamports_per_signature: u64,
         include_slot_in_hash: IncludeSlotInHash,
     ) {
-        let (accounts_to_store, txn_signatures) = self.collect_accounts_to_store(
+        let (accounts_to_store, transactions) = self.collect_accounts_to_store(
             txs,
             res,
             loaded,
@@ -1322,7 +1243,7 @@ impl Accounts {
         );
         self.accounts_db.store_cached(
             (slot, &accounts_to_store[..], include_slot_in_hash),
-            Some(&txn_signatures),
+            Some(&transactions),
         );
     }
 
@@ -1349,10 +1270,10 @@ impl Accounts {
         lamports_per_signature: u64,
     ) -> (
         Vec<(&'a Pubkey, &'a AccountSharedData)>,
-        Vec<Option<&'a Signature>>,
+        Vec<Option<&'a SanitizedTransaction>>,
     ) {
         let mut accounts = Vec::with_capacity(load_results.len());
-        let mut signatures = Vec::with_capacity(load_results.len());
+        let mut transactions = Vec::with_capacity(load_results.len());
         for (i, ((tx_load_result, nonce), tx)) in load_results.iter_mut().zip(txs).enumerate() {
             if tx_load_result.is_err() {
                 // Don't store any accounts if tx failed to load
@@ -1402,12 +1323,12 @@ impl Accounts {
                     if execution_status.is_ok() || is_nonce_account || is_fee_payer {
                         // Add to the accounts to store
                         accounts.push((&*address, &*account));
-                        signatures.push(Some(tx.signature()));
+                        transactions.push(Some(tx));
                     }
                 }
             }
         }
-        (accounts, signatures)
+        (accounts, transactions)
     }
 }
 
@@ -1474,7 +1395,7 @@ mod tests {
         },
         assert_matches::assert_matches,
         solana_address_lookup_table_program::state::LookupTableMeta,
-        solana_program_runtime::{compute_budget, executor_cache::TransactionExecutorCache},
+        solana_program_runtime::executor_cache::TransactionExecutorCache,
         solana_sdk::{
             account::{AccountSharedData, WritableAccount},
             epoch_schedule::EpochSchedule,
@@ -1546,7 +1467,7 @@ mod tests {
             AccountShrinkThreshold::default(),
         );
         for ka in ka.iter() {
-            accounts.store_slow_uncached(0, &ka.0, &ka.1);
+            accounts.store_for_tests(0, &ka.0, &ka.1);
         }
 
         let ancestors = vec![(0, 0)].into_iter().collect();
@@ -1612,7 +1533,7 @@ mod tests {
     #[test]
     fn test_hold_range_in_memory() {
         let accts = Accounts::default_for_tests();
-        let range = Pubkey::new(&[0; 32])..=Pubkey::new(&[0xff; 32]);
+        let range = Pubkey::from([0; 32])..=Pubkey::from([0xff; 32]);
         accts.hold_range_in_memory(&range, true, &test_thread_pool());
         accts.hold_range_in_memory(&range, false, &test_thread_pool());
         accts.hold_range_in_memory(&range, true, &test_thread_pool());
@@ -1624,7 +1545,7 @@ mod tests {
     #[test]
     fn test_hold_range_in_memory2() {
         let accts = Accounts::default_for_tests();
-        let range = Pubkey::new(&[0; 32])..=Pubkey::new(&[0xff; 32]);
+        let range = Pubkey::from([0; 32])..=Pubkey::from([0xff; 32]);
         let idx = &accts.accounts_db.accounts_index;
         let bins = idx.account_maps.len();
         // use bins * 2 to get the first half of the range within bin 0
@@ -1696,7 +1617,7 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
 
         let account = AccountSharedData::new(1, 0, &Pubkey::default());
         accounts.push((key0, account));
@@ -1751,7 +1672,7 @@ mod tests {
             true,
             false,
             true,
-            compute_budget::LoadedAccountsDataLimitType::V0,
+            true,
         );
         assert_eq!(fee, lamports_per_signature);
 
@@ -1889,7 +1810,7 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
 
         let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
         account.set_rent_epoch(1);
@@ -1925,79 +1846,13 @@ mod tests {
     }
 
     #[test]
-    fn test_load_accounts_max_call_depth() {
-        let mut accounts: Vec<TransactionAccount> = Vec::new();
-        let mut error_counters = TransactionErrorMetrics::default();
-
-        let keypair = Keypair::new();
-        let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
-        let key2 = Pubkey::new(&[6u8; 32]);
-        let key3 = Pubkey::new(&[7u8; 32]);
-        let key4 = Pubkey::new(&[8u8; 32]);
-        let key5 = Pubkey::new(&[9u8; 32]);
-        let key6 = Pubkey::new(&[10u8; 32]);
-
-        let account = AccountSharedData::new(1, 0, &Pubkey::default());
-        accounts.push((key0, account));
-
-        let mut account = AccountSharedData::new(40, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(native_loader::id());
-        accounts.push((key1, account));
-
-        let mut account = AccountSharedData::new(41, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(key1);
-        accounts.push((key2, account));
-
-        let mut account = AccountSharedData::new(42, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(key2);
-        accounts.push((key3, account));
-
-        let mut account = AccountSharedData::new(43, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(key3);
-        accounts.push((key4, account));
-
-        let mut account = AccountSharedData::new(44, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(key4);
-        accounts.push((key5, account));
-
-        let mut account = AccountSharedData::new(45, 1, &Pubkey::default());
-        account.set_executable(true);
-        account.set_owner(key5);
-        accounts.push((key6, account));
-
-        let instructions = vec![CompiledInstruction::new(1, &(), vec![0])];
-        let tx = Transaction::new_with_compiled_instructions(
-            &[&keypair],
-            &[],
-            Hash::default(),
-            vec![key6],
-            instructions,
-        );
-
-        let loaded_accounts = load_accounts(tx, &accounts, &mut error_counters);
-
-        assert_eq!(error_counters.call_chain_too_deep, 1);
-        assert_eq!(loaded_accounts.len(), 1);
-        assert_eq!(
-            loaded_accounts[0],
-            (Err(TransactionError::CallChainTooDeep), None,)
-        );
-    }
-
-    #[test]
     fn test_load_accounts_bad_owner() {
         let mut accounts: Vec<TransactionAccount> = Vec::new();
         let mut error_counters = TransactionErrorMetrics::default();
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
 
         let account = AccountSharedData::new(1, 0, &Pubkey::default());
         accounts.push((key0, account));
@@ -2032,7 +1887,7 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
 
         let account = AccountSharedData::new(1, 0, &Pubkey::default());
         accounts.push((key0, account));
@@ -2060,14 +1915,226 @@ mod tests {
     }
 
     #[test]
+    fn test_filter_executable_program_accounts() {
+        let mut tx_accounts: Vec<TransactionAccount> = Vec::new();
+
+        let keypair1 = Keypair::new();
+        let keypair2 = Keypair::new();
+
+        let non_program_pubkey1 = Pubkey::new_unique();
+        let non_program_pubkey2 = Pubkey::new_unique();
+        let program1_pubkey = Pubkey::new_unique();
+        let program2_pubkey = Pubkey::new_unique();
+        let account1_pubkey = Pubkey::new_unique();
+        let account2_pubkey = Pubkey::new_unique();
+        let account3_pubkey = Pubkey::new_unique();
+        let account4_pubkey = Pubkey::new_unique();
+
+        let account5_pubkey = Pubkey::new_unique();
+
+        tx_accounts.push((
+            non_program_pubkey1,
+            AccountSharedData::new(1, 10, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            non_program_pubkey2,
+            AccountSharedData::new(1, 10, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            program1_pubkey,
+            AccountSharedData::new(40, 1, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            program2_pubkey,
+            AccountSharedData::new(40, 1, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            account1_pubkey,
+            AccountSharedData::new(1, 10, &non_program_pubkey1),
+        ));
+        tx_accounts.push((
+            account2_pubkey,
+            AccountSharedData::new(1, 10, &non_program_pubkey2),
+        ));
+        tx_accounts.push((
+            account3_pubkey,
+            AccountSharedData::new(40, 1, &program1_pubkey),
+        ));
+        tx_accounts.push((
+            account4_pubkey,
+            AccountSharedData::new(40, 1, &program2_pubkey),
+        ));
+
+        let accounts = Accounts::new_with_config_for_tests(
+            Vec::new(),
+            &ClusterType::Development,
+            AccountSecondaryIndexes::default(),
+            AccountShrinkThreshold::default(),
+        );
+        for tx_account in tx_accounts.iter() {
+            accounts.store_for_tests(0, &tx_account.0, &tx_account.1);
+        }
+
+        let mut hash_queue = BlockhashQueue::new(100);
+
+        let tx1 = Transaction::new_with_compiled_instructions(
+            &[&keypair1],
+            &[non_program_pubkey1],
+            Hash::new_unique(),
+            vec![account1_pubkey, account2_pubkey, account3_pubkey],
+            vec![CompiledInstruction::new(1, &(), vec![0])],
+        );
+        hash_queue.register_hash(&tx1.message().recent_blockhash, 0);
+        let sanitized_tx1 = SanitizedTransaction::from_transaction_for_tests(tx1);
+
+        let tx2 = Transaction::new_with_compiled_instructions(
+            &[&keypair2],
+            &[non_program_pubkey2],
+            Hash::new_unique(),
+            vec![account4_pubkey, account3_pubkey, account2_pubkey],
+            vec![CompiledInstruction::new(1, &(), vec![0])],
+        );
+        hash_queue.register_hash(&tx2.message().recent_blockhash, 0);
+        let sanitized_tx2 = SanitizedTransaction::from_transaction_for_tests(tx2);
+
+        let ancestors = vec![(0, 0)].into_iter().collect();
+        let programs = accounts.filter_executable_program_accounts(
+            &ancestors,
+            &[sanitized_tx1, sanitized_tx2],
+            &mut [(Ok(()), None), (Ok(()), None)],
+            &[&program1_pubkey, &program2_pubkey],
+            &hash_queue,
+        );
+
+        // The result should contain only account3_pubkey, and account4_pubkey as the program accounts
+        assert_eq!(programs.len(), 2);
+        assert_eq!(
+            programs
+                .get(&account3_pubkey)
+                .expect("failed to find the program account"),
+            &&program1_pubkey
+        );
+        assert_eq!(
+            programs
+                .get(&account4_pubkey)
+                .expect("failed to find the program account"),
+            &&program2_pubkey
+        );
+    }
+
+    #[test]
+    fn test_filter_executable_program_accounts_invalid_blockhash() {
+        let mut tx_accounts: Vec<TransactionAccount> = Vec::new();
+
+        let keypair1 = Keypair::new();
+        let keypair2 = Keypair::new();
+
+        let non_program_pubkey1 = Pubkey::new_unique();
+        let non_program_pubkey2 = Pubkey::new_unique();
+        let program1_pubkey = Pubkey::new_unique();
+        let program2_pubkey = Pubkey::new_unique();
+        let account1_pubkey = Pubkey::new_unique();
+        let account2_pubkey = Pubkey::new_unique();
+        let account3_pubkey = Pubkey::new_unique();
+        let account4_pubkey = Pubkey::new_unique();
+
+        let account5_pubkey = Pubkey::new_unique();
+
+        tx_accounts.push((
+            non_program_pubkey1,
+            AccountSharedData::new(1, 10, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            non_program_pubkey2,
+            AccountSharedData::new(1, 10, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            program1_pubkey,
+            AccountSharedData::new(40, 1, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            program2_pubkey,
+            AccountSharedData::new(40, 1, &account5_pubkey),
+        ));
+        tx_accounts.push((
+            account1_pubkey,
+            AccountSharedData::new(1, 10, &non_program_pubkey1),
+        ));
+        tx_accounts.push((
+            account2_pubkey,
+            AccountSharedData::new(1, 10, &non_program_pubkey2),
+        ));
+        tx_accounts.push((
+            account3_pubkey,
+            AccountSharedData::new(40, 1, &program1_pubkey),
+        ));
+        tx_accounts.push((
+            account4_pubkey,
+            AccountSharedData::new(40, 1, &program2_pubkey),
+        ));
+
+        let accounts = Accounts::new_with_config_for_tests(
+            Vec::new(),
+            &ClusterType::Development,
+            AccountSecondaryIndexes::default(),
+            AccountShrinkThreshold::default(),
+        );
+        for tx_account in tx_accounts.iter() {
+            accounts.store_for_tests(0, &tx_account.0, &tx_account.1);
+        }
+
+        let mut hash_queue = BlockhashQueue::new(100);
+
+        let tx1 = Transaction::new_with_compiled_instructions(
+            &[&keypair1],
+            &[non_program_pubkey1],
+            Hash::new_unique(),
+            vec![account1_pubkey, account2_pubkey, account3_pubkey],
+            vec![CompiledInstruction::new(1, &(), vec![0])],
+        );
+        hash_queue.register_hash(&tx1.message().recent_blockhash, 0);
+        let sanitized_tx1 = SanitizedTransaction::from_transaction_for_tests(tx1);
+
+        let tx2 = Transaction::new_with_compiled_instructions(
+            &[&keypair2],
+            &[non_program_pubkey2],
+            Hash::new_unique(),
+            vec![account4_pubkey, account3_pubkey, account2_pubkey],
+            vec![CompiledInstruction::new(1, &(), vec![0])],
+        );
+        // Let's not register blockhash from tx2. This should cause the tx2 to fail
+        let sanitized_tx2 = SanitizedTransaction::from_transaction_for_tests(tx2);
+
+        let ancestors = vec![(0, 0)].into_iter().collect();
+        let mut lock_results = vec![(Ok(()), None), (Ok(()), None)];
+        let programs = accounts.filter_executable_program_accounts(
+            &ancestors,
+            &[sanitized_tx1, sanitized_tx2],
+            &mut lock_results,
+            &[&program1_pubkey, &program2_pubkey],
+            &hash_queue,
+        );
+
+        // The result should contain only account3_pubkey as the program accounts
+        assert_eq!(programs.len(), 1);
+        assert_eq!(
+            programs
+                .get(&account3_pubkey)
+                .expect("failed to find the program account"),
+            &&program1_pubkey
+        );
+        assert_eq!(lock_results[1].0, Err(TransactionError::BlockhashNotFound));
+    }
+
+    #[test]
     fn test_load_accounts_multiple_loaders() {
         let mut accounts: Vec<TransactionAccount> = Vec::new();
         let mut error_counters = TransactionErrorMetrics::default();
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
-        let key2 = Pubkey::new(&[6u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
+        let key2 = Pubkey::from([6u8; 32]);
 
         let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
         account.set_rent_epoch(1);
@@ -2104,7 +2171,7 @@ mod tests {
         assert_eq!(loaded_accounts.len(), 1);
         match &loaded_accounts[0] {
             (Ok(loaded_transaction), _nonce) => {
-                assert_eq!(loaded_transaction.accounts.len(), 6);
+                assert_eq!(loaded_transaction.accounts.len(), 4);
                 assert_eq!(loaded_transaction.accounts[0].1, accounts[0].1);
                 assert_eq!(loaded_transaction.program_indices.len(), 2);
                 assert_eq!(loaded_transaction.program_indices[0].len(), 1);
@@ -2273,20 +2340,20 @@ mod tests {
 
         // Load accounts owned by various programs into AccountsDb
         let pubkey0 = solana_sdk::pubkey::new_rand();
-        let account0 = AccountSharedData::new(1, 0, &Pubkey::new(&[2; 32]));
+        let account0 = AccountSharedData::new(1, 0, &Pubkey::from([2; 32]));
         accounts.store_slow_uncached(0, &pubkey0, &account0);
         let pubkey1 = solana_sdk::pubkey::new_rand();
-        let account1 = AccountSharedData::new(1, 0, &Pubkey::new(&[2; 32]));
+        let account1 = AccountSharedData::new(1, 0, &Pubkey::from([2; 32]));
         accounts.store_slow_uncached(0, &pubkey1, &account1);
         let pubkey2 = solana_sdk::pubkey::new_rand();
-        let account2 = AccountSharedData::new(1, 0, &Pubkey::new(&[3; 32]));
+        let account2 = AccountSharedData::new(1, 0, &Pubkey::from([3; 32]));
         accounts.store_slow_uncached(0, &pubkey2, &account2);
 
-        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::new(&[2; 32])));
+        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::from([2; 32])));
         assert_eq!(loaded.len(), 2);
-        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::new(&[3; 32])));
+        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::from([3; 32])));
         assert_eq!(loaded, vec![(pubkey2, account2)]);
-        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::new(&[4; 32])));
+        let loaded = accounts.load_by_program_slot(0, Some(&Pubkey::from([4; 32])));
         assert_eq!(loaded, vec![]);
     }
 
@@ -2297,8 +2364,8 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
-        let key2 = Pubkey::new(&[6u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
+        let key2 = Pubkey::from([6u8; 32]);
 
         let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
         account.set_rent_epoch(1);
@@ -2358,10 +2425,10 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
-        let key2 = Pubkey::new(&[6u8; 32]);
-        let programdata_key1 = Pubkey::new(&[7u8; 32]);
-        let programdata_key2 = Pubkey::new(&[8u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
+        let key2 = Pubkey::from([6u8; 32]);
+        let programdata_key1 = Pubkey::from([7u8; 32]);
+        let programdata_key2 = Pubkey::from([8u8; 32]);
 
         let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
         account.set_rent_epoch(1);
@@ -2470,8 +2537,8 @@ mod tests {
 
         let keypair = Keypair::new();
         let key0 = keypair.pubkey();
-        let key1 = Pubkey::new(&[5u8; 32]);
-        let key2 = Pubkey::new(&[6u8; 32]);
+        let key1 = Pubkey::from([5u8; 32]);
+        let key2 = Pubkey::from([6u8; 32]);
 
         let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
         account.set_rent_epoch(1);
@@ -2556,45 +2623,15 @@ mod tests {
     }
 
     #[test]
-    fn test_accounts_account_not_found() {
+    fn test_accounts_empty_bank_hash_stats() {
         let accounts = Accounts::new_with_config_for_tests(
             Vec::new(),
             &ClusterType::Development,
             AccountSecondaryIndexes::default(),
             AccountShrinkThreshold::default(),
         );
-        let mut error_counters = TransactionErrorMetrics::default();
-        let ancestors = vec![(0, 0)].into_iter().collect();
-
-        let keypair = Keypair::new();
-        let mut account = AccountSharedData::new(1, 0, &Pubkey::default());
-        account.set_executable(true);
-        accounts.store_slow_uncached(0, &keypair.pubkey(), &account);
-
-        assert_eq!(
-            accounts.load_executable_accounts(
-                &ancestors,
-                &mut vec![(keypair.pubkey(), account)],
-                0,
-                &mut error_counters,
-                &mut 0,
-                None,
-            ),
-            Err(TransactionError::ProgramAccountNotFound)
-        );
-        assert_eq!(error_counters.account_not_found, 1);
-    }
-
-    #[test]
-    #[should_panic]
-    fn test_accounts_empty_bank_hash() {
-        let accounts = Accounts::new_with_config_for_tests(
-            Vec::new(),
-            &ClusterType::Development,
-            AccountSecondaryIndexes::default(),
-            AccountShrinkThreshold::default(),
-        );
-        accounts.bank_hash_info_at(1);
+        assert!(accounts.accounts_db.get_bank_hash_stats(0).is_some());
+        assert!(accounts.accounts_db.get_bank_hash_stats(1).is_none());
     }
 
     #[test]
@@ -2694,10 +2731,10 @@ mod tests {
             AccountSecondaryIndexes::default(),
             AccountShrinkThreshold::default(),
         );
-        accounts.store_slow_uncached(0, &keypair0.pubkey(), &account0);
-        accounts.store_slow_uncached(0, &keypair1.pubkey(), &account1);
-        accounts.store_slow_uncached(0, &keypair2.pubkey(), &account2);
-        accounts.store_slow_uncached(0, &keypair3.pubkey(), &account3);
+        accounts.store_for_tests(0, &keypair0.pubkey(), &account0);
+        accounts.store_for_tests(0, &keypair1.pubkey(), &account1);
+        accounts.store_for_tests(0, &keypair2.pubkey(), &account2);
+        accounts.store_for_tests(0, &keypair3.pubkey(), &account3);
 
         let instructions = vec![CompiledInstruction::new(2, &(), vec![0, 1])];
         let message = Message::new_with_compiled_instructions(
@@ -2803,9 +2840,9 @@ mod tests {
             AccountSecondaryIndexes::default(),
             AccountShrinkThreshold::default(),
         );
-        accounts.store_slow_uncached(0, &keypair0.pubkey(), &account0);
-        accounts.store_slow_uncached(0, &keypair1.pubkey(), &account1);
-        accounts.store_slow_uncached(0, &keypair2.pubkey(), &account2);
+        accounts.store_for_tests(0, &keypair0.pubkey(), &account0);
+        accounts.store_for_tests(0, &keypair1.pubkey(), &account1);
+        accounts.store_for_tests(0, &keypair2.pubkey(), &account2);
 
         let accounts_arc = Arc::new(accounts);
 
@@ -2888,10 +2925,10 @@ mod tests {
             AccountSecondaryIndexes::default(),
             AccountShrinkThreshold::default(),
         );
-        accounts.store_slow_uncached(0, &keypair0.pubkey(), &account0);
-        accounts.store_slow_uncached(0, &keypair1.pubkey(), &account1);
-        accounts.store_slow_uncached(0, &keypair2.pubkey(), &account2);
-        accounts.store_slow_uncached(0, &keypair3.pubkey(), &account3);
+        accounts.store_for_tests(0, &keypair0.pubkey(), &account0);
+        accounts.store_for_tests(0, &keypair1.pubkey(), &account1);
+        accounts.store_for_tests(0, &keypair2.pubkey(), &account2);
+        accounts.store_for_tests(0, &keypair3.pubkey(), &account3);
 
         let instructions = vec![CompiledInstruction::new(2, &(), vec![0, 1])];
         let message = Message::new_with_compiled_instructions(
@@ -2932,6 +2969,20 @@ mod tests {
             .contains(&keypair1.pubkey()));
     }
 
+    impl Accounts {
+        /// callers used to call store_uncached. But, this is not allowed anymore.
+        pub fn store_for_tests(&self, slot: Slot, pubkey: &Pubkey, account: &AccountSharedData) {
+            self.accounts_db.store_for_tests(slot, &[(pubkey, account)])
+        }
+
+        /// useful to adapt tests written prior to introduction of the write cache
+        /// to use the write cache
+        pub fn add_root_and_flush_write_cache(&self, slot: Slot) {
+            self.add_root(slot);
+            self.accounts_db.flush_accounts_cache_slot_for_tests(slot);
+        }
+    }
+
     #[test]
     fn test_accounts_locks_with_results() {
         let keypair0 = Keypair::new();
@@ -2950,10 +3001,10 @@ mod tests {
             AccountSecondaryIndexes::default(),
             AccountShrinkThreshold::default(),
         );
-        accounts.store_slow_uncached(0, &keypair0.pubkey(), &account0);
-        accounts.store_slow_uncached(0, &keypair1.pubkey(), &account1);
-        accounts.store_slow_uncached(0, &keypair2.pubkey(), &account2);
-        accounts.store_slow_uncached(0, &keypair3.pubkey(), &account3);
+        accounts.store_for_tests(0, &keypair0.pubkey(), &account0);
+        accounts.store_for_tests(0, &keypair1.pubkey(), &account1);
+        accounts.store_for_tests(0, &keypair2.pubkey(), &account2);
+        accounts.store_for_tests(0, &keypair3.pubkey(), &account3);
 
         let instructions = vec![CompiledInstruction::new(2, &(), vec![0, 1])];
         let message = Message::new_with_compiled_instructions(
@@ -3065,7 +3116,6 @@ mod tests {
             (message.account_keys[1], account2.clone()),
         ];
         let tx0 = new_sanitized_tx(&[&keypair0], message, Hash::default());
-        let tx0_sign = *tx0.signature();
 
         let instructions = vec![CompiledInstruction::new(2, &(), vec![0, 1])];
         let message = Message::new_with_compiled_instructions(
@@ -3081,7 +3131,6 @@ mod tests {
             (message.account_keys[1], account2),
         ];
         let tx1 = new_sanitized_tx(&[&keypair1], message, Hash::default());
-        let tx1_sign = *tx1.signature();
 
         let loaded0 = (
             Ok(LoadedTransaction {
@@ -3118,9 +3167,9 @@ mod tests {
                 .unwrap()
                 .insert_new_readonly(&pubkey);
         }
-        let txs = vec![tx0, tx1];
+        let txs = vec![tx0.clone(), tx1.clone()];
         let execution_results = vec![new_execution_result(Ok(()), None); 2];
-        let (collected_accounts, txn_signatures) = accounts.collect_accounts_to_store(
+        let (collected_accounts, transactions) = accounts.collect_accounts_to_store(
             &txs,
             &execution_results,
             loaded.as_mut_slice(),
@@ -3136,13 +3185,9 @@ mod tests {
             .iter()
             .any(|(pubkey, _account)| *pubkey == &keypair1.pubkey()));
 
-        assert_eq!(txn_signatures.len(), 2);
-        assert!(txn_signatures
-            .iter()
-            .any(|signature| signature.unwrap().to_string().eq(&tx0_sign.to_string())));
-        assert!(txn_signatures
-            .iter()
-            .any(|signature| signature.unwrap().to_string().eq(&tx1_sign.to_string())));
+        assert_eq!(transactions.len(), 2);
+        assert!(transactions.iter().any(|txn| txn.unwrap().eq(&tx0)));
+        assert!(transactions.iter().any(|txn| txn.unwrap().eq(&tx1)));
 
         // Ensure readonly_lock reflects lock
         assert_eq!(
@@ -3172,10 +3217,11 @@ mod tests {
         for i in 0..2_000 {
             let pubkey = solana_sdk::pubkey::new_rand();
             let account = AccountSharedData::new(i + 1, 0, AccountSharedData::default().owner());
-            accounts.store_slow_uncached(i, &pubkey, &account);
-            accounts.store_slow_uncached(i, &old_pubkey, &zero_account);
+            accounts.store_for_tests(i, &pubkey, &account);
+            accounts.store_for_tests(i, &old_pubkey, &zero_account);
             old_pubkey = pubkey;
-            accounts.add_root(i);
+            accounts.add_root_and_flush_write_cache(i);
+
             if i % 1_000 == 0 {
                 info!("  store {}", i);
             }
@@ -3404,7 +3450,7 @@ mod tests {
         let expect_account = post_account.clone();
         // Wrong key
         assert!(run_prepare_if_nonce_account_test(
-            &Pubkey::new(&[1u8; 32]),
+            &Pubkey::from([1u8; 32]),
             &mut post_account,
             &Ok(()),
             false,
@@ -3763,11 +3809,11 @@ mod tests {
         let pubkey1 = keys.pop().unwrap();
         let pubkey0 = keys.pop().unwrap();
         let account0 = AccountSharedData::new(42, 0, &Pubkey::default());
-        accounts.store_slow_uncached(0, &pubkey0, &account0);
+        accounts.store_for_tests(0, &pubkey0, &account0);
         let account1 = AccountSharedData::new(42, 0, &Pubkey::default());
-        accounts.store_slow_uncached(0, &pubkey1, &account1);
+        accounts.store_for_tests(0, &pubkey1, &account1);
         let account2 = AccountSharedData::new(41, 0, &Pubkey::default());
-        accounts.store_slow_uncached(0, &pubkey2, &account2);
+        accounts.store_for_tests(0, &pubkey2, &account2);
 
         let ancestors = vec![(0, 0)].into_iter().collect();
         let all_pubkeys: HashSet<_> = vec![pubkey0, pubkey1, pubkey2].into_iter().collect();
@@ -4013,13 +4059,13 @@ mod tests {
             .is_ok());
         }
 
-        // assert accounts are accumulated and check properly
+        // assert check will fail with correct error if loaded data exceeds limit
         {
             let mut accumulated_data_size: usize = 0;
             let data_size: usize = 123;
             let requested_data_size_limit = NonZeroUsize::new(data_size);
 
-            // OK
+            // OK - loaded data size is up to limit
             assert!(Accounts::accumulate_and_check_loaded_account_data_size(
                 &mut accumulated_data_size,
                 data_size,
@@ -4029,7 +4075,7 @@ mod tests {
             .is_ok());
             assert_eq!(data_size, accumulated_data_size);
 
-            // exceeds
+            // fail - loading more data that would exceed limit
             let another_byte: usize = 1;
             assert_eq!(
                 Accounts::accumulate_and_check_loaded_account_data_size(
@@ -4039,181 +4085,6 @@ mod tests {
                     &mut error_counter
                 ),
                 Err(TransactionError::MaxLoadedAccountsDataSizeExceeded)
-            );
-        }
-    }
-
-    #[test]
-    fn test_load_executable_accounts() {
-        solana_logger::setup();
-        let accounts = Accounts::new_with_config_for_tests(
-            Vec::new(),
-            &ClusterType::Development,
-            AccountSecondaryIndexes::default(),
-            AccountShrinkThreshold::default(),
-        );
-        let mut error_counters = TransactionErrorMetrics::default();
-        let ancestors = vec![(0, 0)].into_iter().collect();
-
-        let space: usize = 9;
-        let keypair = Keypair::new();
-        let mut account = AccountSharedData::new(1, space, &native_loader::id());
-        account.set_executable(true);
-        accounts.store_slow_uncached(0, &keypair.pubkey(), &account);
-
-        let mut accumulated_accounts_data_size: usize = 0;
-        let mut expect_accumulated_accounts_data_size: usize;
-
-        // test: program account has been loaded as non-loader, load_executable_accounts
-        //       will not double count its data size
-        {
-            let mut loaded_accounts = vec![(keypair.pubkey(), account)];
-            accumulated_accounts_data_size += space;
-            expect_accumulated_accounts_data_size = accumulated_accounts_data_size;
-            assert!(accounts
-                .load_executable_accounts(
-                    &ancestors,
-                    &mut loaded_accounts,
-                    0,
-                    &mut error_counters,
-                    &mut accumulated_accounts_data_size,
-                    NonZeroUsize::new(expect_accumulated_accounts_data_size),
-                )
-                .is_ok());
-            assert_eq!(
-                expect_accumulated_accounts_data_size,
-                accumulated_accounts_data_size
-            );
-        }
-
-        // test: program account has not been loaded cause it's loader, load_executable_accounts
-        //       will accumulate its data size
-        {
-            let mut loaded_accounts = vec![(keypair.pubkey(), AccountSharedData::default())];
-            expect_accumulated_accounts_data_size = accumulated_accounts_data_size + space;
-            assert!(accounts
-                .load_executable_accounts(
-                    &ancestors,
-                    &mut loaded_accounts,
-                    0,
-                    &mut error_counters,
-                    &mut accumulated_accounts_data_size,
-                    NonZeroUsize::new(expect_accumulated_accounts_data_size),
-                )
-                .is_ok());
-            assert_eq!(
-                expect_accumulated_accounts_data_size,
-                accumulated_accounts_data_size
-            );
-        }
-
-        // test: try to load one more account will accumulate additional `space` bytes, therefore
-        //       exceed limit of `expect_accumulated_accounts_data_size` set above.
-        {
-            let mut loaded_accounts = vec![(keypair.pubkey(), AccountSharedData::default())];
-            assert_eq!(
-                accounts.load_executable_accounts(
-                    &ancestors,
-                    &mut loaded_accounts,
-                    0,
-                    &mut error_counters,
-                    &mut accumulated_accounts_data_size,
-                    NonZeroUsize::new(expect_accumulated_accounts_data_size),
-                ),
-                Err(TransactionError::MaxLoadedAccountsDataSizeExceeded)
-            );
-        }
-    }
-
-    #[test]
-    fn test_load_executable_accounts_with_upgradeable_program() {
-        solana_logger::setup();
-        let accounts = Accounts::new_with_config_for_tests(
-            Vec::new(),
-            &ClusterType::Development,
-            AccountSecondaryIndexes::default(),
-            AccountShrinkThreshold::default(),
-        );
-        let mut error_counters = TransactionErrorMetrics::default();
-        let ancestors = vec![(0, 0)].into_iter().collect();
-
-        // call chain: native_loader -> key0 -> upgradeable bpf loader -> program_key (that has programdata_key)
-        let programdata_key = Pubkey::new(&[3u8; 32]);
-        let program_data = UpgradeableLoaderState::ProgramData {
-            slot: 0,
-            upgrade_authority_address: None,
-        };
-        let mut program_data_account =
-            AccountSharedData::new_data(1, &program_data, &Pubkey::default()).unwrap();
-        let program_data_account_size = program_data_account.data().len();
-        program_data_account.set_executable(true);
-        program_data_account.set_rent_epoch(0);
-        accounts.store_slow_uncached(0, &programdata_key, &program_data_account);
-
-        let program_key = Pubkey::new(&[2u8; 32]);
-        let program = UpgradeableLoaderState::Program {
-            programdata_address: programdata_key,
-        };
-        let mut program_account =
-            AccountSharedData::new_data(1, &program, &bpf_loader_upgradeable::id()).unwrap();
-        let program_account_size = program_account.data().len();
-        program_account.set_executable(true);
-        program_account.set_rent_epoch(0);
-        accounts.store_slow_uncached(0, &program_key, &program_account);
-
-        let key0 = Pubkey::new(&[1u8; 32]);
-        let mut bpf_loader_account = AccountSharedData::new(1, 0, &key0);
-        bpf_loader_account.set_executable(true);
-        accounts.store_slow_uncached(0, &bpf_loader_upgradeable::id(), &bpf_loader_account);
-
-        let space: usize = 9;
-        let mut account = AccountSharedData::new(1, space, &native_loader::id());
-        account.set_executable(true);
-        accounts.store_slow_uncached(0, &key0, &account);
-
-        // test:  program_key account has been loaded as non-loader, load_executable_accounts
-        //       will not double count its data size, but still accumulate data size from
-        //       callchain
-        {
-            let expect_accumulated_accounts_data_size: usize = space;
-            let mut accumulated_accounts_data_size: usize = 0;
-            let mut loaded_accounts = vec![(program_key, program_account)];
-            assert!(accounts
-                .load_executable_accounts(
-                    &ancestors,
-                    &mut loaded_accounts,
-                    0,
-                    &mut error_counters,
-                    &mut accumulated_accounts_data_size,
-                    NonZeroUsize::new(expect_accumulated_accounts_data_size),
-                )
-                .is_ok());
-            assert_eq!(
-                expect_accumulated_accounts_data_size,
-                accumulated_accounts_data_size
-            );
-        }
-
-        // test: program account has not been loaded cause it's loader, load_executable_accounts
-        //       will accumulate entire callchain data size.
-        {
-            let mut loaded_accounts = vec![(program_key, AccountSharedData::default())];
-            let mut accumulated_accounts_data_size: usize = 0;
-            let expect_accumulated_accounts_data_size =
-                program_account_size + program_data_account_size + space;
-            assert!(accounts
-                .load_executable_accounts(
-                    &ancestors,
-                    &mut loaded_accounts,
-                    0,
-                    &mut error_counters,
-                    &mut accumulated_accounts_data_size,
-                    NonZeroUsize::new(expect_accumulated_accounts_data_size),
-                )
-                .is_ok());
-            assert_eq!(
-                expect_accumulated_accounts_data_size,
-                accumulated_accounts_data_size
             );
         }
     }

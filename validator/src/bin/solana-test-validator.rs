@@ -177,10 +177,7 @@ fn main() {
     });
     let compute_unit_limit = value_t!(matches, "compute_unit_limit", u64).ok();
 
-    let faucet_addr = Some(SocketAddr::new(
-        IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)),
-        faucet_port,
-    ));
+    let faucet_addr = SocketAddr::new(IpAddr::V4(Ipv4Addr::UNSPECIFIED), faucet_port);
 
     let mut programs_to_load = vec![];
     if let Some(values) = matches.values_of("bpf_program") {
@@ -251,6 +248,11 @@ fn main() {
         .map(|v| v.into_iter().collect())
         .unwrap_or_default();
 
+    let upgradeable_programs_to_clone: HashSet<_> =
+        pubkeys_of(&matches, "clone_upgradeable_program")
+            .map(|v| v.into_iter().collect())
+            .unwrap_or_default();
+
     let warp_slot = if matches.is_present("warp_slot") {
         Some(match matches.value_of("warp_slot") {
             Some(_) => value_t_or_exit!(matches, "warp_slot", Slot),
@@ -296,14 +298,27 @@ fn main() {
         });
     let faucet_pubkey = faucet_keypair.pubkey();
 
-    if let Some(faucet_addr) = &faucet_addr {
-        let (sender, receiver) = unbounded();
-        run_local_faucet_with_port(faucet_keypair, sender, None, faucet_addr.port());
-        let _ = receiver.recv().expect("run faucet").unwrap_or_else(|err| {
-            println!("Error: failed to start faucet: {err}");
-            exit(1);
-        });
-    }
+    let faucet_time_slice_secs = value_t_or_exit!(matches, "faucet_time_slice_secs", u64);
+    let faucet_per_time_cap = value_t!(matches, "faucet_per_time_sol_cap", f64)
+        .ok()
+        .map(sol_to_lamports);
+    let faucet_per_request_cap = value_t!(matches, "faucet_per_request_sol_cap", f64)
+        .ok()
+        .map(sol_to_lamports);
+
+    let (sender, receiver) = unbounded();
+    run_local_faucet_with_port(
+        faucet_keypair,
+        sender,
+        Some(faucet_time_slice_secs),
+        faucet_per_time_cap,
+        faucet_per_request_cap,
+        faucet_addr.port(),
+    );
+    let _ = receiver.recv().expect("run faucet").unwrap_or_else(|err| {
+        println!("Error: failed to start faucet: {err}");
+        exit(1);
+    });
 
     let features_to_deactivate = pubkeys_of(&matches, "deactivate_feature").unwrap_or_default();
 
@@ -342,10 +357,7 @@ fn main() {
     admin_rpc_service::run(
         &ledger_path,
         admin_rpc_service::AdminRpcRequestMetadata {
-            rpc_addr: Some(SocketAddr::new(
-                IpAddr::V4(Ipv4Addr::new(127, 0, 0, 1)),
-                rpc_port,
-            )),
+            rpc_addr: Some(SocketAddr::new(IpAddr::V4(Ipv4Addr::LOCALHOST), rpc_port)),
             start_progress: genesis.start_progress.clone(),
             start_time: std::time::SystemTime::now(),
             validator_exit: genesis.validator_exit.clone(),
@@ -413,7 +425,7 @@ fn main() {
         enable_rpc_transaction_history: true,
         enable_extended_tx_metadata_storage: true,
         rpc_bigtable_config,
-        faucet_addr,
+        faucet_addr: Some(faucet_addr),
         account_indexes,
         ..JsonRpcConfig::default_for_test()
     });
@@ -440,6 +452,18 @@ fn main() {
             true,
         ) {
             println!("Error: clone_accounts failed: {e}");
+            exit(1);
+        }
+    }
+
+    if !upgradeable_programs_to_clone.is_empty() {
+        if let Err(e) = genesis.clone_upgradeable_programs(
+            upgradeable_programs_to_clone,
+            cluster_rpc_client
+                .as_ref()
+                .expect("bug: --url argument missing?"),
+        ) {
+            println!("Error: clone_upgradeable_programs failed: {e}");
             exit(1);
         }
     }

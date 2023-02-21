@@ -1,16 +1,20 @@
 [package]
 authors = ["Solana Maintainers <maintainers@solana.com>"]
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
+description = "Blockchain, Rebuilt for Scale"
 edition = "2021"
 homepage = "https://waffles.so/"
 license = "Apache-2.0"
 name = "proto"
 publish = false
 repository = "https://github.com/waffles-labs/solana"
-version = "1.15.0-2"
+version = "1.16.0"
+repository = "https://github.com/solana-labs/solana"
+version = "1.16.0"
 
 [dependencies]
-tonic-build = "0.8.0"
+tonic-build = "0.8.4"
 
 # windows users should install the protobuf compiler manually and set the PROTOC
 # envar to point to the installed binary

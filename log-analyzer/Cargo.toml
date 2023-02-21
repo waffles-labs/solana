@@ -1,10 +1,14 @@
 [package]
-authors = ["Solana Maintainers <maintainers@solana.com>"]
+authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
 edition = "2021"
 name = "waffles-solana-log-analyzer"
 description = "Waffle Labs maintained The solana cluster network analysis tool"
-version = "1.15.0-2"
+version = "1.16.0"
 repository = "https://github.com/waffles-labs/solana"
+name = "solana-log-analyzer"
+description = "The solana cluster network analysis tool"
+version = "1.16.0"
+repository = "https://github.com/solana-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
 publish = false
@@ -12,10 +16,12 @@ publish = false
 [dependencies]
 byte-unit = "4.0.14"
 clap = { version = "3.1.5", features = ["cargo"] }
-serde = "1.0.144"
+serde = "1.0.152"
 serde_json = "1.0.83"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.15.0-2" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.15.0-2" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
+solana-logger = { path = "../logger", version = "=1.16.0" }
+solana-version = { path = "../version", version = "=1.16.0" }
 
 [[bin]]
 name = "solana-log-analyzer"

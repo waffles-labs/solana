@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-logger"
-version = "1.15.0-2"
+version = "1.16.0"
 description = "Waffle Labs maintained Solana Logger"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

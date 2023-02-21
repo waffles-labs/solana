@@ -1,9 +1,14 @@
 use {
-    crate::{accounts_db::AccountsDb, append_vec::StoredAccountMeta},
+    crate::{
+        accounts_db::AccountsDb,
+        append_vec::{StoredAccountMeta, StoredMeta},
+    },
     solana_measure::measure::Measure,
     solana_metrics::*,
-    solana_sdk::{account::AccountSharedData, clock::Slot, pubkey::Pubkey, signature::Signature},
-    std::collections::{hash_map::Entry, HashMap, HashSet},
+    solana_sdk::{
+        account::AccountSharedData, clock::Slot, pubkey::Pubkey, transaction::SanitizedTransaction,
+    },
+    std::collections::{HashMap, HashSet},
 };
 
 #[derive(Default)]
@@ -60,7 +65,7 @@ impl AccountsDb {
         &self,
         slot: Slot,
         account: &AccountSharedData,
-        txn_signature: &Option<&Signature>,
+        txn: &Option<&SanitizedTransaction>,
         pubkey: &Pubkey,
         write_version_producer: &mut P,
     ) where
@@ -71,7 +76,7 @@ impl AccountsDb {
             notifier.notify_account_update(
                 slot,
                 account,
-                txn_signature,
+                txn,
                 pubkey,
                 write_version_producer.next().unwrap(),
             );
@@ -84,45 +89,36 @@ impl AccountsDb {
         notified_accounts: &mut HashSet<Pubkey>,
         notify_stats: &mut GeyserPluginNotifyAtSnapshotRestoreStats,
     ) {
-        let slot_stores = self.storage.get_slot_stores(slot).unwrap();
+        let storage_entry = self.storage.get_slot_storage_entry(slot).unwrap();
 
-        let slot_stores = slot_stores.read().unwrap();
         let mut accounts_to_stream: HashMap<Pubkey, StoredAccountMeta> = HashMap::default();
         let mut measure_filter = Measure::start("accountsdb-plugin-filtering-accounts");
-        for (_, storage_entry) in slot_stores.iter() {
-            let accounts = storage_entry.accounts.account_iter();
-            let mut account_len = 0;
-            accounts.for_each(|account| {
-                account_len += 1;
-                if notified_accounts.contains(&account.meta.pubkey) {
-                    notify_stats.skipped_accounts += 1;
-                    return;
-                }
-                match accounts_to_stream.entry(account.meta.pubkey) {
-                    Entry::Occupied(mut entry) => {
-                        // later entries in the same slot are more recent and override earlier accounts for the same pubkey
-                        // We can pass an incrementing number here for write_version in the future, if the storage does not have a write_version.
-                        // As long as all accounts for this slot are in 1 append vec that can be itereated olest to newest.
-                        entry.insert(account);
-                    }
-                    Entry::Vacant(entry) => {
-                        entry.insert(account);
-                    }
-                }
-            });
-            notify_stats.total_accounts += account_len;
-        }
+        let accounts = storage_entry.accounts.account_iter();
+        let mut account_len = 0;
+        accounts.for_each(|account| {
+            account_len += 1;
+            if notified_accounts.contains(&account.meta.pubkey) {
+                notify_stats.skipped_accounts += 1;
+                return;
+            }
+
+            // later entries in the same slot are more recent and override earlier accounts for the same pubkey
+            // We can pass an incrementing number here for write_version in the future, if the storage does not have a write_version.
+            // As long as all accounts for this slot are in 1 append vec that can be itereated olest to newest.
+            accounts_to_stream.insert(account.meta.pubkey, account);
+        });
+        notify_stats.total_accounts += account_len;
         measure_filter.stop();
         notify_stats.elapsed_filtering_us += measure_filter.as_us() as usize;
 
-        self.notify_filtered_accounts(slot, notified_accounts, &accounts_to_stream, notify_stats);
+        self.notify_filtered_accounts(slot, notified_accounts, accounts_to_stream, notify_stats);
     }
 
     fn notify_filtered_accounts(
         &self,
         slot: Slot,
         notified_accounts: &mut HashSet<Pubkey>,
-        accounts_to_stream: &HashMap<Pubkey, StoredAccountMeta>,
+        mut accounts_to_stream: HashMap<Pubkey, StoredAccountMeta>,
         notify_stats: &mut GeyserPluginNotifyAtSnapshotRestoreStats,
     ) {
         let notifier = self
@@ -133,9 +129,20 @@ impl AccountsDb {
             .unwrap();
 
         let mut measure_notify = Measure::start("accountsdb-plugin-notifying-accounts");
-        for account in accounts_to_stream.values() {
+        let local_write_version = 0;
+        for (_, mut account) in accounts_to_stream.drain() {
+            // We do not need to rely on the specific write_version read from the append vec.
+            // So, overwrite the write_version with something that works.
+            // 'accounts_to_stream' is already a hashmap, so there is already only entry per pubkey.
+            // write_version is only used to order multiple entries with the same pubkey, so it doesn't matter what value it gets here.
+            // Passing 0 for everyone's write_version is sufficiently correct.
+            let meta = StoredMeta {
+                write_version_obsolete: local_write_version,
+                ..*account.meta
+            };
+            account.meta = &meta;
             let mut measure_pure_notify = Measure::start("accountsdb-plugin-notifying-accounts");
-            notifier.notify_account_restore_from_snapshot(slot, account);
+            notifier.notify_account_restore_from_snapshot(slot, &account);
             measure_pure_notify.stop();
 
             notify_stats.total_pure_notify += measure_pure_notify.as_us() as usize;
@@ -166,7 +173,7 @@ pub mod tests {
             account::{AccountSharedData, ReadableAccount},
             clock::Slot,
             pubkey::Pubkey,
-            signature::Signature,
+            transaction::SanitizedTransaction,
         },
         std::sync::{
             atomic::{AtomicBool, Ordering},
@@ -192,7 +199,7 @@ pub mod tests {
             &self,
             slot: Slot,
             account: &AccountSharedData,
-            _txn_signature: &Option<&Signature>,
+            _txn: &Option<&SanitizedTransaction>,
             pubkey: &Pubkey,
             _write_version: u64,
         ) {

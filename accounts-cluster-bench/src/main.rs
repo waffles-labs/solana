@@ -6,7 +6,7 @@ use {
     rayon::prelude::*,
     solana_account_decoder::parse_token::spl_token_pubkey,
     solana_clap_utils::input_parsers::pubkey_of,
-    solana_client::{rpc_client::SerializableMessage, transaction_executor::TransactionExecutor},
+    solana_client::transaction_executor::TransactionExecutor,
     solana_faucet::faucet::{request_airdrop_transaction, FAUCET_PORT},
     solana_gossip::gossip_service::discover,
     solana_rpc_client::rpc_client::RpcClient,
@@ -26,7 +26,7 @@ use {
     solana_transaction_status::parse_token::spl_token_instruction,
     std::{
         cmp::min,
-        net::SocketAddr,
+        net::{Ipv4Addr, SocketAddr},
         process::exit,
         sync::{
             atomic::{AtomicU64, Ordering},
@@ -42,10 +42,15 @@ pub const MAX_RPC_CALL_RETRIES: usize = 5;
 pub fn poll_get_latest_blockhash(client: &RpcClient) -> Option<Hash> {
     let mut num_retries = MAX_RPC_CALL_RETRIES;
     loop {
-        if let Ok(blockhash) = client.get_latest_blockhash() {
+        let response = client.get_latest_blockhash();
+        if let Ok(blockhash) = response {
             return Some(blockhash);
         } else {
             num_retries -= 1;
+            warn!(
+                "get_latest_blockhash failure: {:?}. remaining retries {}",
+                response, num_retries
+            );
         }
         if num_retries == 0 {
             panic!("failed to get_latest_blockhash(), rpc node down?")
@@ -54,16 +59,22 @@ pub fn poll_get_latest_blockhash(client: &RpcClient) -> Option<Hash> {
     }
 }
 
-pub fn poll_get_fee_for_message(
-    client: &RpcClient,
-    message: &impl SerializableMessage,
-) -> Option<u64> {
+pub fn poll_get_fee_for_message(client: &RpcClient, message: &mut Message) -> (Option<u64>, Hash) {
     let mut num_retries = MAX_RPC_CALL_RETRIES;
     loop {
-        if let Ok(fee) = client.get_fee_for_message(message) {
-            return Some(fee);
+        let response = client.get_fee_for_message(message);
+
+        if let Ok(fee) = response {
+            return (Some(fee), message.recent_blockhash);
         } else {
             num_retries -= 1;
+            warn!(
+                "get_fee_for_message failure: {:?}. remaining retries {}",
+                response, num_retries
+            );
+
+            let blockhash = poll_get_latest_blockhash(client).expect("blockhash");
+            message.recent_blockhash = blockhash;
         }
         if num_retries == 0 {
             panic!("failed to get_fee_for_message(), rpc node down?")
@@ -318,7 +329,8 @@ fn run_accounts_bench(
         }
 
         message.recent_blockhash = blockhash;
-        let fee = poll_get_fee_for_message(&client, &message).expect("get_fee_for_message");
+        let (fee, blockhash) = poll_get_fee_for_message(&client, &mut message);
+        let fee = fee.expect("get_fee_for_message");
         let lamports = min_balance + fee;
 
         for (i, balance) in balances.iter_mut().enumerate() {
@@ -443,7 +455,8 @@ fn run_accounts_bench(
                 latest_blockhash = Instant::now();
             }
             message.recent_blockhash = blockhash;
-            let fee = poll_get_fee_for_message(&client, &message).expect("get_fee_for_message");
+            let (fee, blockhash) = poll_get_fee_for_message(&client, &mut message);
+            let fee = fee.expect("get_fee_for_message");
 
             let sigs_len = executor.num_outstanding();
             if sigs_len < batch_size && max_closed_seed < max_created_seed {
@@ -605,14 +618,14 @@ fn main() {
     let skip_gossip = !matches.is_present("check_gossip");
 
     let port = if skip_gossip { DEFAULT_RPC_PORT } else { 8001 };
-    let mut entrypoint_addr = SocketAddr::from(([127, 0, 0, 1], port));
+    let mut entrypoint_addr = SocketAddr::from((Ipv4Addr::LOCALHOST, port));
     if let Some(addr) = matches.value_of("entrypoint") {
         entrypoint_addr = solana_net_utils::parse_host_port(addr).unwrap_or_else(|e| {
             eprintln!("failed to parse entrypoint address: {e}");
             exit(1)
         });
     }
-    let mut faucet_addr = SocketAddr::from(([127, 0, 0, 1], FAUCET_PORT));
+    let mut faucet_addr = SocketAddr::from((Ipv4Addr::LOCALHOST, FAUCET_PORT));
     if let Some(addr) = matches.value_of("faucet_addr") {
         faucet_addr = solana_net_utils::parse_host_port(addr).unwrap_or_else(|e| {
             eprintln!("failed to parse entrypoint address: {e}");
@@ -717,7 +730,7 @@ pub mod test {
             ..ClusterConfig::default()
         };
 
-        let faucet_addr = SocketAddr::from(([127, 0, 0, 1], 9900));
+        let faucet_addr = SocketAddr::from((Ipv4Addr::LOCALHOST, 9900));
         let cluster = LocalCluster::new(&mut config, SocketAddrSpace::Unspecified);
         let iterations = 10;
         let maybe_space = None;
@@ -727,7 +740,7 @@ pub mod test {
         let num_instructions = 2;
         let mut start = Measure::start("total accounts run");
         run_accounts_bench(
-            cluster.entry_point_info.rpc,
+            cluster.entry_point_info.rpc().unwrap(),
             faucet_addr,
             &[&cluster.funding_keypair],
             iterations,

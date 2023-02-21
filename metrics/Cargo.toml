@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-metrics"
-version = "1.15.0-2"
+version = "1.16.0"
 description = "Waffle Labs maintained Solana Metrics"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -15,7 +15,7 @@ gethostname = "0.2.3"
 lazy_static = "1.4.0"
 log = "0.4.17"
 reqwest = { version = "0.11.12", default-features = false, features = ["blocking", "brotli", "deflate", "gzip", "rustls-tls", "json"] }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.15.0-2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
 
 [dev-dependencies]
 env_logger = "0.9.3"

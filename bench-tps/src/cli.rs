@@ -1,17 +1,19 @@
 use {
     crate::spl_convert::FromOtherSolana,
     clap::{crate_description, crate_name, App, Arg, ArgMatches},
-    solana_clap_utils::input_validators::{is_url, is_url_or_moniker},
+    solana_clap_utils::input_validators::{is_keypair, is_url, is_url_or_moniker, is_within_range},
     solana_cli_config::{ConfigInput, CONFIG_FILE},
     solana_sdk::{
         fee_calculator::FeeRateGovernor,
         pubkey::Pubkey,
         signature::{read_keypair_file, Keypair},
     },
-    solana_tpu_client::tpu_connection_cache::{
-        DEFAULT_TPU_CONNECTION_POOL_SIZE, DEFAULT_TPU_USE_QUIC,
+    solana_tpu_client::tpu_client::{DEFAULT_TPU_CONNECTION_POOL_SIZE, DEFAULT_TPU_USE_QUIC},
+    std::{
+        net::{IpAddr, Ipv4Addr, SocketAddr},
+        process::exit,
+        time::Duration,
     },
-    std::{net::SocketAddr, process::exit, time::Duration},
 };
 
 const NUM_LAMPORTS_PER_ACCOUNT_DEFAULT: u64 = solana_sdk::native_token::LAMPORTS_PER_SOL;
@@ -65,12 +67,15 @@ pub struct Config {
     pub use_randomized_compute_unit_price: bool,
     pub use_durable_nonce: bool,
     pub instruction_padding_config: Option<InstructionPaddingConfig>,
+    pub num_conflict_groups: Option<usize>,
+    pub bind_address: IpAddr,
+    pub client_node_id: Option<Keypair>,
 }
 
 impl Default for Config {
     fn default() -> Config {
         Config {
-            entrypoint_addr: SocketAddr::from(([127, 0, 0, 1], 8001)),
+            entrypoint_addr: SocketAddr::from((Ipv4Addr::LOCALHOST, 8001)),
             json_rpc_url: ConfigInput::default().json_rpc_url,
             websocket_url: ConfigInput::default().websocket_url,
             id: Keypair::new(),
@@ -95,6 +100,9 @@ impl Default for Config {
             use_randomized_compute_unit_price: false,
             use_durable_nonce: false,
             instruction_padding_config: None,
+            num_conflict_groups: None,
+            bind_address: IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)),
+            client_node_id: None,
         }
     }
 }
@@ -342,6 +350,31 @@ pub fn build_args<'a>(version: &'_ str) -> App<'a, '_> {
                 .takes_value(true)
                 .help("If set, wraps all instructions in the instruction padding program, with the given amount of padding bytes in instruction data."),
         )
+        .arg(
+            Arg::with_name("num_conflict_groups")
+                .long("num-conflict-groups")
+                .takes_value(true)
+                .validator(|arg| is_within_range(arg, 1..))
+                .help("The number of unique destination accounts per transactions 'chunk'. Lower values will result in more transaction conflicts.")
+        )
+        .arg(
+            Arg::with_name("bind_address")
+                .long("bind-address")
+                .value_name("HOST")
+                .takes_value(true)
+                .validator(solana_net_utils::is_host)
+                .requires("client_node_id")
+                .help("IP address to use with connection cache"),
+        )
+        .arg(
+            Arg::with_name("client_node_id")
+                .long("client-node-id")
+                .value_name("PATH")
+                .takes_value(true)
+                .requires("json_rpc_url")
+                .validator(is_keypair)
+                .help("File containing the node identity (keypair) of a validator with active stake. This allows communicating with network using staked connection"),
+        )
 }
 
 /// Parses a clap `ArgMatches` structure into a `Config`
@@ -494,5 +527,62 @@ pub fn extract_args(matches: &ArgMatches) -> Config {
         });
     }
 
+    if let Some(num_conflict_groups) = matches.value_of("num_conflict_groups") {
+        args.num_conflict_groups = Some(
+            num_conflict_groups
+                .parse()
+                .expect("Can't parse conflict groups"),
+        );
+    }
+
+    if let Some(addr) = matches.value_of("bind_address") {
+        args.bind_address = solana_net_utils::parse_host(addr).unwrap_or_else(|e| {
+            eprintln!("Failed to parse bind_address: {e}");
+            exit(1)
+        });
+    }
+    let (_, node_id_path) = ConfigInput::compute_keypair_path_setting(
+        matches.value_of("client_node_id").unwrap_or(""),
+        &config.keypair_path,
+    );
+    // error is checked by arg validator
+    if let Ok(node_id) = read_keypair_file(node_id_path) {
+        args.client_node_id = Some(node_id);
+    }
+
     args
+}
+
+#[cfg(test)]
+mod tests {
+    use {
+        super::*,
+        std::{fs::File, io::prelude::*, path::Path},
+    };
+
+    fn write_keypair_to_file(keypair: &Keypair, file_name: &str) {
+        let serialized = serde_json::to_string(&keypair.to_bytes().to_vec()).unwrap();
+        let path = Path::new(file_name);
+        let mut file = File::create(path).unwrap();
+        file.write_all(&serialized.into_bytes()).unwrap();
+    }
+
+    #[test]
+    fn test_cli_parse_with_client_node_id() {
+        let keypair = Keypair::new();
+        let keypair_file_name = "./keypair.json";
+        write_keypair_to_file(&keypair, keypair_file_name);
+
+        let matches = build_args("1.0.0").get_matches_from(vec![
+            "solana-bench-tps",
+            "-u http://192.0.0.1:8899",
+            "--bind-address",
+            "192.0.0.1",
+            "--client-node-id",
+            keypair_file_name,
+        ]);
+        let result = extract_args(&matches);
+        assert_eq!(result.bind_address, IpAddr::V4(Ipv4Addr::new(192, 0, 0, 1)));
+        assert_eq!(result.client_node_id, Some(keypair));
+    }
 }

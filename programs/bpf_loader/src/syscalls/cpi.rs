@@ -3,6 +3,7 @@ use {
     crate::declare_syscall,
     solana_sdk::{
         feature_set::enable_bpf_loader_set_authority_checked_ix,
+        stable_layout::stable_instruction::StableInstruction,
         syscalls::{
             MAX_CPI_ACCOUNT_INFOS, MAX_CPI_INSTRUCTION_ACCOUNTS, MAX_CPI_INSTRUCTION_DATA_LEN,
         },
@@ -24,6 +25,8 @@ struct CallerAccount<'a> {
     // the pointer field and ref_to_len_in_vm points to the length field.
     vm_data_addr: u64,
     ref_to_len_in_vm: &'a mut u64,
+    // To be removed once `feature_set::move_serialized_len_ptr_in_cpi` is active everywhere
+    serialized_len_ptr: *mut u64,
     executable: bool,
     rent_epoch: u64,
 }
@@ -55,7 +58,7 @@ impl<'a> CallerAccount<'a> {
             invoke_context.get_check_aligned(),
         )?;
 
-        let (data, vm_data_addr, ref_to_len_in_vm) = {
+        let (data, vm_data_addr, ref_to_len_in_vm, serialized_len_ptr) = {
             // Double translate data out of RefCell
             let data = *translate_type::<&[u8]>(
                 memory_mapping,
@@ -77,6 +80,20 @@ impl<'a> CallerAccount<'a> {
                 8,
             )? as *mut u64;
             let ref_to_len_in_vm = unsafe { &mut *translated };
+            let serialized_len_ptr = if invoke_context
+                .feature_set
+                .is_active(&feature_set::move_serialized_len_ptr_in_cpi::id())
+            {
+                std::ptr::null_mut()
+            } else {
+                let ref_of_len_in_input_buffer =
+                    (data.as_ptr() as *const _ as u64).saturating_sub(8);
+                translate_type_mut::<u64>(
+                    memory_mapping,
+                    ref_of_len_in_input_buffer,
+                    invoke_context.get_check_aligned(),
+                )?
+            };
             let vm_data_addr = data.as_ptr() as u64;
             (
                 translate_slice_mut::<u8>(
@@ -88,6 +105,7 @@ impl<'a> CallerAccount<'a> {
                 )?,
                 vm_data_addr,
                 ref_to_len_in_vm,
+                serialized_len_ptr,
             )
         };
 
@@ -98,6 +116,7 @@ impl<'a> CallerAccount<'a> {
             data,
             vm_data_addr,
             ref_to_len_in_vm,
+            serialized_len_ptr,
             executable: account_info.executable,
             rent_epoch: account_info.rent_epoch,
         })
@@ -156,6 +175,21 @@ impl<'a> CallerAccount<'a> {
         )?;
         let ref_to_len_in_vm = unsafe { &mut *(data_len_addr as *mut u64) };
 
+        let ref_of_len_in_input_buffer =
+            (account_info.data_addr as *mut u8 as u64).saturating_sub(8);
+        let serialized_len_ptr = if invoke_context
+            .feature_set
+            .is_active(&feature_set::move_serialized_len_ptr_in_cpi::id())
+        {
+            std::ptr::null_mut()
+        } else {
+            translate_type_mut::<u64>(
+                memory_mapping,
+                ref_of_len_in_input_buffer,
+                invoke_context.get_check_aligned(),
+            )?
+        };
+
         Ok(CallerAccount {
             lamports,
             owner,
@@ -163,6 +197,7 @@ impl<'a> CallerAccount<'a> {
             data,
             vm_data_addr,
             ref_to_len_in_vm,
+            serialized_len_ptr,
             executable: account_info.executable,
             rent_epoch: account_info.rent_epoch,
         })
@@ -177,7 +212,7 @@ trait SyscallInvokeSigned {
         addr: u64,
         memory_mapping: &mut MemoryMapping,
         invoke_context: &mut InvokeContext,
-    ) -> Result<Instruction, EbpfError>;
+    ) -> Result<StableInstruction, EbpfError>;
     fn translate_accounts<'a>(
         instruction_accounts: &[InstructionAccount],
         program_indices: &[IndexOfAccount],
@@ -224,8 +259,8 @@ impl SyscallInvokeSigned for SyscallInvokeSignedRust {
         addr: u64,
         memory_mapping: &mut MemoryMapping,
         invoke_context: &mut InvokeContext,
-    ) -> Result<Instruction, EbpfError> {
-        let ix = translate_type::<Instruction>(
+    ) -> Result<StableInstruction, EbpfError> {
+        let ix = translate_type::<StableInstruction>(
             memory_mapping,
             addr,
             invoke_context.get_check_aligned(),
@@ -262,10 +297,11 @@ impl SyscallInvokeSigned for SyscallInvokeSignedRust {
             invoke_context.get_check_size(),
         )?
         .to_vec();
-        Ok(Instruction {
+
+        Ok(StableInstruction {
+            accounts: accounts.into(),
+            data: data.into(),
             program_id: ix.program_id,
-            accounts,
-            data,
         })
     }
 
@@ -435,7 +471,7 @@ impl SyscallInvokeSigned for SyscallInvokeSignedC {
         addr: u64,
         memory_mapping: &mut MemoryMapping,
         invoke_context: &mut InvokeContext,
-    ) -> Result<Instruction, EbpfError> {
+    ) -> Result<StableInstruction, EbpfError> {
         let ix_c = translate_type::<SolInstruction>(
             memory_mapping,
             addr,
@@ -496,10 +532,10 @@ impl SyscallInvokeSigned for SyscallInvokeSignedC {
             })
             .collect::<Result<Vec<AccountMeta>, EbpfError>>()?;
 
-        Ok(Instruction {
+        Ok(StableInstruction {
+            accounts: accounts.into(),
+            data: data.into(),
             program_id: *program_id,
-            accounts,
-            data,
         })
     }
 
@@ -1049,14 +1085,23 @@ fn update_caller_account(
         *caller_account.ref_to_len_in_vm = new_len as u64;
 
         // this is the len field in the serialized parameters
-        let serialized_len_ptr = translate_type_mut::<u64>(
-            memory_mapping,
-            caller_account
-                .vm_data_addr
-                .saturating_sub(std::mem::size_of::<u64>() as u64),
-            invoke_context.get_check_aligned(),
-        )?;
-        *serialized_len_ptr = new_len as u64;
+        if invoke_context
+            .feature_set
+            .is_active(&feature_set::move_serialized_len_ptr_in_cpi::id())
+        {
+            let serialized_len_ptr = translate_type_mut::<u64>(
+                memory_mapping,
+                caller_account
+                    .vm_data_addr
+                    .saturating_sub(std::mem::size_of::<u64>() as u64),
+                invoke_context.get_check_aligned(),
+            )?;
+            *serialized_len_ptr = new_len as u64;
+        } else {
+            unsafe {
+                *caller_account.serialized_len_ptr = new_len as u64;
+            }
+        }
     }
     let to_slice = &mut caller_account.data;
     let from_slice = callee_account
@@ -1085,6 +1130,7 @@ mod tests {
         solana_sdk::{
             account::{Account, AccountSharedData},
             clock::Epoch,
+            instruction::Instruction,
             rent::Rent,
             transaction_context::{TransactionAccount, TransactionContext},
         },
@@ -1608,6 +1654,7 @@ mod tests {
                 data,
                 vm_data_addr: self.vm_addr + mem::size_of::<u64>() as u64,
                 ref_to_len_in_vm: &mut self.len,
+                serialized_len_ptr: std::ptr::null_mut(),
                 executable: false,
                 rent_epoch: 0,
             }
@@ -1649,12 +1696,12 @@ mod tests {
         fn into_region(self, vm_addr: u64) -> (Vec<u8>, MemoryRegion) {
             let accounts_len = mem::size_of::<AccountMeta>() * self.accounts.len();
 
-            let size = mem::size_of::<Instruction>() + accounts_len + self.data.len();
+            let size = mem::size_of::<StableInstruction>() + accounts_len + self.data.len();
 
             let mut data = vec![0; size];
 
             let vm_addr = vm_addr as usize;
-            let accounts_addr = vm_addr + mem::size_of::<Instruction>();
+            let accounts_addr = vm_addr + mem::size_of::<StableInstruction>();
             let data_addr = accounts_addr + accounts_len;
 
             let ins = Instruction {
@@ -1670,6 +1717,7 @@ mod tests {
                     Vec::from_raw_parts(data_addr as *mut _, self.data.len(), self.data.len())
                 },
             };
+            let ins = StableInstruction::from(ins);
 
             unsafe {
                 ptr::write_unaligned(data.as_mut_ptr().cast(), ins);

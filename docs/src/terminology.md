@@ -1,7 +1,12 @@
 ---
 title: Terminology
-description: "Learn the essential terminology used thoughtout the Solana blockchain and development models."
-keywords: "terms, dictionary, definitions, define, programming models"
+description: "Learn the essential terminology used throughout the Solana blockchain and development models."
+keywords:
+  - terms
+  - dictionary
+  - definitions
+  - define
+  - programming models
 ---
 
 The following terms are used throughout the Solana documentation and development ecosystem.
@@ -339,6 +344,10 @@ A digitally transferable asset.
 
 [Transactions](#transaction) per second.
 
+## tpu
+
+[Transaction processing unit](validator/tpu.md).
+
 ## transaction
 
 One or more [instructions](#instruction) signed by a [client](#client) using one or more [keypairs](#keypair) and executed atomically with only two possible outcomes: success or failure.
@@ -354,6 +363,10 @@ The number of [confirmed blocks](#confirmed-block) since the transaction was acc
 ## transactions entry
 
 A set of [transactions](#transaction) that may be executed in parallel.
+
+## tvu
+
+[Transaction validation unit](validator/tvu.md).
 
 ## validator
 
