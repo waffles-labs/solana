@@ -26,4 +26,4 @@ extern crate serde_derive;
 extern crate serde_json;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;

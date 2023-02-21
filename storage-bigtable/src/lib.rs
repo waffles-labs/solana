@@ -31,7 +31,7 @@ use {
 };
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 
 #[macro_use]
 extern crate serde_derive;

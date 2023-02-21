@@ -98,7 +98,7 @@ extern crate log;
 extern crate serde_derive;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 
 #[macro_use]
 extern crate solana_frozen_abi_macro;

@@ -40,4 +40,4 @@ extern crate serde_derive;
 extern crate solana_frozen_abi_macro;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;

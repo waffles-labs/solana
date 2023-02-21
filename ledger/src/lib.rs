@@ -31,7 +31,7 @@ mod staking_utils;
 pub mod token_balances;
 
 #[macro_use]
-extern crate waffles_solana_metrics;
+extern crate solana_metrics;
 
 #[macro_use]
 extern crate log;
