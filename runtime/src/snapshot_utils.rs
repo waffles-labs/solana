@@ -75,7 +75,7 @@ use dashmap::DashMap;
 
 use crate::serde_snapshot::SnapshotAccountsDbFields;
 use crate::{
-    accounts_db::AccountStorageEntry, serde_snapshot::storage::SerializableAccountStorageEntry,
+    serde_snapshot::storage::SerializableAccountStorageEntry,
 };
 
 pub const SNAPSHOT_STATUS_CACHE_FILENAME: &str = "status_cache";
