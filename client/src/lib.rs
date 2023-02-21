@@ -11,7 +11,6 @@ pub mod udp_client;
 
 #[macro_use]
 extern crate solana_metrics;
-extern crate solana_metrics;
 
 pub use solana_rpc_client::mock_sender_for_cli;
 
