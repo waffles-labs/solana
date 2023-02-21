@@ -144,7 +144,6 @@ impl<'a: 'b, 'b, T: ReadableAccount + Sync + 'b, U: StorableAccounts<'a, T>, V: 
 /// This struct will be backed by mmaped and snapshotted data files.
 /// So the data layout must be stable and consistent across the entire cluster!
 #[derive(Serialize, Deserialize, Clone, PartialEq, Eq, Debug)]
-#[derive(Clone, PartialEq, Eq, Debug)]
 #[repr(C)]
 pub struct StoredMeta {
     /// global write version
