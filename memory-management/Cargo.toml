@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-memory-management"
-version = "1.16.0"
+version = "1.16.0-alpha.1"
 description = "Waffle Labs maintained Solana memory management"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

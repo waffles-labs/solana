@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-poh-bench"
-version = "1.16.0"
+version = "1.16.0-alpha.1"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -14,12 +14,12 @@ clap = { version = "3.1.5", features = ["cargo"] }
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0" }
+solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.1" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.1" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.1" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.1" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.1" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

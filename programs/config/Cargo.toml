@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-config-program"
-version = "1.16.0"
+version = "1.16.0-alpha.1"
 description = "Waffle Labs maintained Solana Config program"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -14,11 +14,11 @@ bincode = "1.3.3"
 chrono = { version = "0.4.22", features = ["serde"] }
 serde = "1.0.152"
 serde_derive = "1.0.103"
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.1" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.1" }
 
 [dev-dependencies]
-solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0" }
+solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0-alpha.1" }
 
 [lib]
 crate-type = ["lib"]
