@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-local-cluster"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -16,30 +16,30 @@ itertools = "0.10.5"
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.1" }
-solana-config-program = { package = "waffles-solana-config-program", path = "../programs/config", version = "=1.16.0-alpha.1" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.1" }
-solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.1" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.1" }
-solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.1" }
-solana-pubsub-client = { package = "waffles-solana-pubsub-client", path = "../pubsub-client", version = "=1.16.0-alpha.1" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.1", default-features = false }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.1" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.1" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.1" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.1" }
-solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.1" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.1", default-features = false }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.1" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.2" }
+solana-config-program = { package = "waffles-solana-config-program", path = "../programs/config", version = "=1.16.0-alpha.2" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.2" }
+solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.2" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.2" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.2" }
+solana-pubsub-client = { package = "waffles-solana-pubsub-client", path = "../pubsub-client", version = "=1.16.0-alpha.2" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.2", default-features = false }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.2" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.2" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.2" }
+solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.2" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.2", default-features = false }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.2" }
 tempfile = "3.3.0"
 
 [dev-dependencies]
 assert_matches = "1.5.0"
 gag = "1.0.0"
 serial_test = "0.9.0"
-solana-download-utils = { package = "waffles-solana-download-utils", path = "../download-utils", version = "=1.16.0-alpha.1" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.1" }
+solana-download-utils = { package = "waffles-solana-download-utils", path = "../download-utils", version = "=1.16.0-alpha.2" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.2" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

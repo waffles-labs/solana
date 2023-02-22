@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-rpc"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Waffle Labs maintained Solana RPC"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -29,28 +29,28 @@ serde = "1.0.152"
 serde_derive = "1.0.103"
 serde_json = "1.0.83"
 soketto = "0.7"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.1" }
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.1" }
-solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.1" }
-solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.1" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.1" }
-solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.1" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.1" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.1" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.1" }
-solana-poh = { package = "waffles-solana-poh", path = "../poh", version = "=1.16.0-alpha.1" }
-solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.1" }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.1" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.1" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
-solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.16.0-alpha.1" }
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.1" }
-solana-storage-bigtable = { package = "waffles-solana-storage-bigtable", path = "../storage-bigtable", version = "=1.16.0-alpha.1" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.1" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.1", default-features = false }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.1" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.1" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.1" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.2" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.2" }
+solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.2" }
+solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.2" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.2" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.2" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.2" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.2" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.2" }
+solana-poh = { package = "waffles-solana-poh", path = "../poh", version = "=1.16.0-alpha.2" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.2" }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.2" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
+solana-send-transaction-service = { package = "waffles-solana-send-transaction-service", path = "../send-transaction-service", version = "=1.16.0-alpha.2" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.2" }
+solana-storage-bigtable = { package = "waffles-solana-storage-bigtable", path = "../storage-bigtable", version = "=1.16.0-alpha.2" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.2" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.2", default-features = false }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.2" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.2" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.2" }
 spl-token = { version = "=3.5.0", features = ["no-entrypoint"] }
 spl-token-2022 = { version = "=0.5.0", features = ["no-entrypoint"] }
 stream-cancel = "0.8.1"
@@ -60,9 +60,9 @@ tokio-util = { version = "0.6", features = ["codec", "compat"] }
 
 [dev-dependencies]
 serial_test = "0.9.0"
-solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../programs/address-lookup-table", version = "=1.16.0-alpha.1" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.1" }
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.1" }
+solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../programs/address-lookup-table", version = "=1.16.0-alpha.2" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.2" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.2" }
 symlink = "0.1.0"
 
 [lib]

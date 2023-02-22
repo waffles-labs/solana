@@ -1,11 +1,11 @@
 [package]
 name = "waffles-solana-sbf-rust-invoke-and-ok"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Waffle Labs maintained Solana SBF test program written in Rust"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
 name = "solana-sbf-rust-invoke-and-ok"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Solana SBF test program written in Rust"
 authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
 repository = "https://github.com/solana-labs/solana"
@@ -15,8 +15,8 @@ documentation = "https://docs.rs/waffles-solana-sbf-rust-invoke-and-ok"
 edition = "2021"
 
 [dependencies]
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.1" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.1" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
 
 [lib]
 crate-type = ["cdylib"]

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-bucket-map"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Waffle Labs maintained solana-bucket-map"
 homepage = "https://waffles.so/"
 documentation = "https://docs.rs/waffles-solana-bucket-map"
@@ -15,14 +15,14 @@ log = { version = "0.4.17" }
 memmap2 = "0.5.8"
 modular-bitfield = "0.11.2"
 rand = "0.7.0"
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.1" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
 tempfile = "3.3.0"
 
 [dev-dependencies]
 fs_extra = "1.2.0"
 rayon = "1.5.3"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.1" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.2" }
 
 [lib]
 crate-type = ["lib"]

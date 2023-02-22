@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-entry"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Waffle Labs maintained Solana Entry"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -19,17 +19,17 @@ log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
 serde = "1.0.152"
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.1" }
-solana-merkle-tree = { package = "waffles-solana-merkle-tree", ppath = "../merkle-tree", version = "=1.16.0-alpha.1" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.1" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.1" }
-solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.1" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.2" }
+solana-merkle-tree = { package = "waffles-solana-merkle-tree", ppath = "../merkle-tree", version = "=1.16.0-alpha.2" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.2" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.2" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
 
 [dev-dependencies]
 matches = "0.1.9"
 serde = "1.0.152"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.1" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.2" }
 
 [lib]
 crate-type = ["lib"]

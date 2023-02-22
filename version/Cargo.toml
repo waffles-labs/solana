@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-version"
-version = "1.16.0-alpha.1"
+version = "1.16.0-alpha.2"
 description = "Waffle Labs maintained Solana Version"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -14,9 +14,9 @@ log = "0.4.17"
 semver = "1.0.16"
 serde = "1.0.152"
 serde_derive = "1.0.103"
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.1" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.1" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.1" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.2" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
 
 [lib]
 name = "solana_version"
