@@ -2,6 +2,7 @@
 //! Proof of History ledger as well as iterative read, append write, and random
 //! access read to a persistent file-based ledger.
 
+use sha2::digest::core_api::Block;
 use {
     crate::{
         ancestor_iterator::AncestorIterator,
@@ -78,7 +79,9 @@ use {
     thiserror::Error,
     trees::{Tree, TreeWalk},
 };
+
 pub mod blockstore_purge;
+
 pub use {
     crate::{
         blockstore_db::BlockstoreError,
@@ -480,7 +483,7 @@ impl Blockstore {
     pub fn slot_meta_iterator(
         &self,
         slot: Slot,
-    ) -> Result<impl Iterator<Item = (Slot, SlotMeta)> + '_> {
+    ) -> Result<impl Iterator<Item=(Slot, SlotMeta)> + '_> {
         let meta_iter = self
             .db
             .iter::<cf::SlotMeta>(IteratorMode::From(slot, IteratorDirection::Forward))?;
@@ -495,7 +498,7 @@ impl Blockstore {
     }
 
     #[allow(dead_code)]
-    pub fn live_slots_iterator(&self, root: Slot) -> impl Iterator<Item = (Slot, SlotMeta)> + '_ {
+    pub fn live_slots_iterator(&self, root: Slot) -> impl Iterator<Item=(Slot, SlotMeta)> + '_ {
         let root_forks = NextSlotsIterator::new(root, self);
 
         let orphans_iter = self.orphans_iterator(root + 1).unwrap();
@@ -510,7 +513,7 @@ impl Blockstore {
         &self,
         slot: Slot,
         index: u64,
-    ) -> Result<impl Iterator<Item = ((u64, u64), Box<[u8]>)> + '_> {
+    ) -> Result<impl Iterator<Item=((u64, u64), Box<[u8]>)> + '_> {
         let slot_iterator = self.db.iter::<cf::ShredData>(IteratorMode::From(
             (slot, index),
             IteratorDirection::Forward,
@@ -522,7 +525,7 @@ impl Blockstore {
         &self,
         slot: Slot,
         index: u64,
-    ) -> Result<impl Iterator<Item = ((u64, u64), Box<[u8]>)> + '_> {
+    ) -> Result<impl Iterator<Item=((u64, u64), Box<[u8]>)> + '_> {
         let slot_iterator = self.db.iter::<cf::ShredCode>(IteratorMode::From(
             (slot, index),
             IteratorDirection::Forward,
@@ -534,21 +537,21 @@ impl Blockstore {
         &self,
         slot: Slot,
         direction: IteratorDirection,
-    ) -> Result<impl Iterator<Item = Slot> + '_> {
+    ) -> Result<impl Iterator<Item=Slot> + '_> {
         let slot_iterator = self
             .db
             .iter::<cf::Root>(IteratorMode::From(slot, direction))?;
         Ok(slot_iterator.map(move |(rooted_slot, _)| rooted_slot))
     }
 
-    pub fn rooted_slot_iterator(&self, slot: Slot) -> Result<impl Iterator<Item = Slot> + '_> {
+    pub fn rooted_slot_iterator(&self, slot: Slot) -> Result<impl Iterator<Item=Slot> + '_> {
         self.prepare_rooted_slot_iterator(slot, IteratorDirection::Forward)
     }
 
     pub fn reversed_rooted_slot_iterator(
         &self,
         slot: Slot,
-    ) -> Result<impl Iterator<Item = Slot> + '_> {
+    ) -> Result<impl Iterator<Item=Slot> + '_> {
         self.prepare_rooted_slot_iterator(slot, IteratorDirection::Reverse)
     }
 
@@ -583,7 +586,7 @@ impl Blockstore {
         erasure_meta: &'a ErasureMeta,
         prev_inserted_shreds: &'a HashMap<ShredId, Shred>,
         data_cf: &'a LedgerColumn<cf::ShredData>,
-    ) -> impl Iterator<Item = Shred> + 'a {
+    ) -> impl Iterator<Item=Shred> + 'a {
         erasure_meta.data_shreds_indices().filter_map(move |i| {
             let key = ShredId::new(slot, u32::try_from(i).unwrap(), ShredType::Data);
             if let Some(shred) = prev_inserted_shreds.get(&key) {
@@ -608,7 +611,7 @@ impl Blockstore {
         erasure_meta: &'a ErasureMeta,
         prev_inserted_shreds: &'a HashMap<ShredId, Shred>,
         code_cf: &'a LedgerColumn<cf::ShredCode>,
-    ) -> impl Iterator<Item = Shred> + 'a {
+    ) -> impl Iterator<Item=Shred> + 'a {
         erasure_meta.coding_shreds_indices().filter_map(move |i| {
             let key = ShredId::new(slot, u32::try_from(i).unwrap(), ShredType::Code);
             if let Some(shred) = prev_inserted_shreds.get(&key) {
@@ -645,14 +648,14 @@ impl Blockstore {
             prev_inserted_shreds,
             data_cf,
         )
-        .chain(Self::get_recovery_coding_shreds(
-            index,
-            slot,
-            erasure_meta,
-            prev_inserted_shreds,
-            code_cf,
-        ))
-        .collect();
+            .chain(Self::get_recovery_coding_shreds(
+                index,
+                slot,
+                erasure_meta,
+                prev_inserted_shreds,
+                code_cf,
+            ))
+            .collect();
         if let Ok(mut result) = shred::recover(available_shreds, reed_solomon_cache) {
             Self::submit_metrics(slot, erasure_meta, true, "complete".into(), result.len());
             recovered_shreds.append(&mut result);
@@ -818,8 +821,8 @@ impl Blockstore {
         reed_solomon_cache: &ReedSolomonCache,
         metrics: &mut BlockstoreInsertionMetrics,
     ) -> Result<Vec<CompletedDataSetInfo>>
-    where
-        F: Fn(Shred),
+        where
+            F: Fn(Shred),
     {
         assert_eq!(shreds.len(), is_repaired.len());
         let mut total_start = Measure::start("Total elapsed");
@@ -1129,8 +1132,8 @@ impl Blockstore {
         shred_source: ShredSource,
         metrics: &mut BlockstoreInsertionMetrics,
     ) -> bool
-    where
-        F: Fn(Shred),
+        where
+            F: Fn(Shred),
     {
         let slot = shred.slot();
         let shred_index = u64::from(shred.index());
@@ -1304,8 +1307,8 @@ impl Blockstore {
         leader_schedule: Option<&LeaderScheduleCache>,
         shred_source: ShredSource,
     ) -> std::result::Result<Vec<CompletedDataSetInfo>, InsertDataShredError>
-    where
-        F: Fn(Shred),
+        where
+            F: Fn(Shred),
     {
         let slot = shred.slot();
         let shred_index = u64::from(shred.index());
@@ -1591,13 +1594,13 @@ impl Blockstore {
             shred.reference_tick(),
             data_index,
         )
-        .into_iter()
-        .map(|(start_index, end_index)| CompletedDataSetInfo {
-            slot,
-            start_index,
-            end_index,
-        })
-        .collect();
+            .into_iter()
+            .map(|(start_index, end_index)| CompletedDataSetInfo {
+                slot,
+                start_index,
+                end_index,
+            })
+            .collect();
 
         self.slots_stats.record_shred(
             shred.slot(),
@@ -1749,7 +1752,7 @@ impl Blockstore {
                     (ticks_per_slot - remaining_ticks_in_slot) as u8,
                     version,
                 )
-                .unwrap();
+                    .unwrap();
             }
 
             if entry.is_tick() {
@@ -1807,8 +1810,8 @@ impl Blockstore {
         end_index: u64,
         max_missing: usize,
     ) -> Vec<u64>
-    where
-        C: Column<Index = (u64, u64)>,
+        where
+            C: Column<Index=(u64, u64)>,
     {
         if start_index >= end_index || max_missing == 0 {
             return vec![];
@@ -2038,7 +2041,7 @@ impl Blockstore {
     pub fn map_transactions_to_statuses(
         &self,
         slot: Slot,
-        iterator: impl Iterator<Item = VersionedTransaction>,
+        iterator: impl Iterator<Item=VersionedTransaction>,
     ) -> Result<Vec<VersionedTransactionWithStatusMeta>> {
         iterator
             .map(|transaction| {
@@ -2750,10 +2753,10 @@ impl Blockstore {
                     .or_else(|err| {
                         match &*err {
                             bincode::ErrorKind::Io(io_err)
-                                if matches!(io_err.kind(), ErrorKind::UnexpectedEof) =>
-                            {
-                                // Not enough bytes to deserialize as `PerfSampleV2`.
-                            }
+                            if matches!(io_err.kind(), ErrorKind::UnexpectedEof) =>
+                                {
+                                    // Not enough bytes to deserialize as `PerfSampleV2`.
+                                }
                             _ => return Err(err),
                         }
 
@@ -3116,7 +3119,7 @@ impl Blockstore {
 
     pub fn set_duplicate_confirmed_slots_and_hashes(
         &self,
-        duplicate_confirmed_slot_hashes: impl Iterator<Item = (Slot, Hash)>,
+        duplicate_confirmed_slot_hashes: impl Iterator<Item=(Slot, Hash)>,
     ) -> Result<()> {
         let mut write_batch = self.db.batch()?;
         for (slot, frozen_hash) in duplicate_confirmed_slot_hashes {
@@ -3131,7 +3134,7 @@ impl Blockstore {
         Ok(())
     }
 
-    pub fn set_roots<'a>(&self, rooted_slots: impl Iterator<Item = &'a Slot>) -> Result<()> {
+    pub fn set_roots<'a>(&self, rooted_slots: impl Iterator<Item=&'a Slot>) -> Result<()> {
         let mut write_batch = self.db.batch()?;
         let mut max_new_rooted_slot = 0;
         for slot in rooted_slots {
@@ -3216,7 +3219,7 @@ impl Blockstore {
             ShredType::Data => self.get_data_shred(slot, index as u64),
             ShredType::Code => self.get_coding_shred(slot, index as u64),
         }
-        .expect("fetch from DuplicateSlots column family failed")?;
+            .expect("fetch from DuplicateSlots column family failed")?;
         let new_shred = Shred::new_from_serialized_shred(payload).unwrap();
         (existing_shred != *new_shred.payload()).then_some(existing_shred)
     }
@@ -3228,21 +3231,21 @@ impl Blockstore {
             .is_some()
     }
 
-    pub fn orphans_iterator(&self, slot: Slot) -> Result<impl Iterator<Item = u64> + '_> {
+    pub fn orphans_iterator(&self, slot: Slot) -> Result<impl Iterator<Item=u64> + '_> {
         let orphans_iter = self
             .db
             .iter::<cf::Orphans>(IteratorMode::From(slot, IteratorDirection::Forward))?;
         Ok(orphans_iter.map(|(slot, _)| slot))
     }
 
-    pub fn dead_slots_iterator(&self, slot: Slot) -> Result<impl Iterator<Item = Slot> + '_> {
+    pub fn dead_slots_iterator(&self, slot: Slot) -> Result<impl Iterator<Item=Slot> + '_> {
         let dead_slots_iterator = self
             .db
             .iter::<cf::DeadSlots>(IteratorMode::From(slot, IteratorDirection::Forward))?;
         Ok(dead_slots_iterator.map(|(slot, _)| slot))
     }
 
-    pub fn duplicate_slots_iterator(&self, slot: Slot) -> Result<impl Iterator<Item = Slot> + '_> {
+    pub fn duplicate_slots_iterator(&self, slot: Slot) -> Result<impl Iterator<Item=Slot> + '_> {
         let duplicate_slots_iterator = self
             .db
             .iter::<cf::DuplicateSlots>(IteratorMode::From(slot, IteratorDirection::Forward))?;
@@ -3364,6 +3367,28 @@ impl Blockstore {
         );
         Ok(())
     }
+}
+
+pub fn blockstore_from_gcs_rocksdb(ledger_path: &Path) -> Result<Blockstore> {
+    Blockstore::open_with_options(
+        ledger_path,
+        BlockstoreOptions {
+            access_type: AccessType::Primary,
+            recovery_mode: None,
+            enforce_ulimit_nofile: true,
+            ..BlockstoreOptions::default()
+        })
+        .or_else(|| {
+            Blockstore::open_with_options(
+                ledger_path,
+                BlockstoreOptions {
+                    access_type: AccessType::Secondary,
+                    recovery_mode: None,
+                    enforce_ulimit_nofile: true,
+                    ..BlockstoreOptions::default()
+                },
+            )
+        })
 }
 
 // Update the `completed_data_indexes` with a new shred `new_shred_index`. If a
@@ -3508,7 +3533,7 @@ fn get_slot_meta_entry<'a>(
     })
 }
 
-fn get_last_hash<'a>(iterator: impl Iterator<Item = &'a Entry> + 'a) -> Option<Hash> {
+fn get_last_hash<'a>(iterator: impl Iterator<Item=&'a Entry> + 'a) -> Option<Hash> {
     iterator.last().map(|entry| entry.hash)
 }
 
@@ -3832,8 +3857,8 @@ fn traverse_children_mut<F>(
     passed_visisted_slots: &mut HashMap<u64, Rc<RefCell<SlotMeta>>>,
     slot_function: F,
 ) -> Result<()>
-where
-    F: Fn(&mut SlotMeta) -> bool,
+    where
+        F: Fn(&mut SlotMeta) -> bool,
 {
     let mut next_slots: VecDeque<(u64, Rc<RefCell<SlotMeta>>)> =
         vec![(slot, slot_meta.clone())].into();
@@ -3879,7 +3904,7 @@ fn chain_new_slot_to_prev_slot(
 fn is_newly_completed_slot(slot_meta: &SlotMeta, backup_slot_meta: &Option<SlotMeta>) -> bool {
     slot_meta.is_full()
         && (backup_slot_meta.is_none()
-            || slot_meta.consumed != backup_slot_meta.as_ref().unwrap().consumed)
+        || slot_meta.consumed != backup_slot_meta.as_ref().unwrap().consumed)
 }
 
 fn slot_has_updates(slot_meta: &SlotMeta, slot_meta_backup: &Option<SlotMeta>) -> bool {
@@ -3892,9 +3917,9 @@ fn slot_has_updates(slot_meta: &SlotMeta, slot_meta_backup: &Option<SlotMeta>) -
         // 1) The slot didn't exist in the database before, and now we have a consecutive
         // block for that slot
         ((slot_meta_backup.is_none() && slot_meta.consumed != 0) ||
-        // OR
-        // 2) The slot did exist, but now we have a new consecutive block for that slot
-        (slot_meta_backup.is_some() && slot_meta_backup.as_ref().unwrap().consumed != slot_meta.consumed))
+            // OR
+            // 2) The slot did exist, but now we have a new consecutive block for that slot
+            (slot_meta_backup.is_some() && slot_meta_backup.as_ref().unwrap().consumed != slot_meta.consumed))
 }
 
 // Creates a new ledger with slot 0 full of ticks (and only ticks).
@@ -3991,32 +4016,32 @@ pub fn create_new_ledger(
                 ledger_path.join(DEFAULT_GENESIS_ARCHIVE),
                 ledger_path.join(format!("{DEFAULT_GENESIS_ARCHIVE}.failed")),
             )
-            .unwrap_or_else(|e| {
-                let _ = write!(
-                    &mut error_messages,
-                    "/failed to stash problematic {DEFAULT_GENESIS_ARCHIVE}: {e}"
-                );
-            });
+                .unwrap_or_else(|e| {
+                    let _ = write!(
+                        &mut error_messages,
+                        "/failed to stash problematic {DEFAULT_GENESIS_ARCHIVE}: {e}"
+                    );
+                });
             fs::rename(
                 ledger_path.join(DEFAULT_GENESIS_FILE),
                 ledger_path.join(format!("{DEFAULT_GENESIS_FILE}.failed")),
             )
-            .unwrap_or_else(|e| {
-                let _ = write!(
-                    &mut error_messages,
-                    "/failed to stash problematic {DEFAULT_GENESIS_FILE}: {e}"
-                );
-            });
+                .unwrap_or_else(|e| {
+                    let _ = write!(
+                        &mut error_messages,
+                        "/failed to stash problematic {DEFAULT_GENESIS_FILE}: {e}"
+                    );
+                });
             fs::rename(
                 ledger_path.join(blockstore_dir),
                 ledger_path.join(format!("{blockstore_dir}.failed")),
             )
-            .unwrap_or_else(|e| {
-                let _ = write!(
-                    &mut error_messages,
-                    "/failed to stash problematic {blockstore_dir}: {e}"
-                );
-            });
+                .unwrap_or_else(|e| {
+                    let _ = write!(
+                        &mut error_messages,
+                        "/failed to stash problematic {blockstore_dir}: {e}"
+                    );
+                });
 
             return Err(BlockstoreError::Io(IoError::new(
                 ErrorKind::Other,
@@ -4072,8 +4097,8 @@ pub fn get_ledger_path_from_name(name: &str) -> PathBuf {
         "ledger".to_string(),
         format!("{}-{}", name, keypair.pubkey()),
     ]
-    .iter()
-    .collect();
+        .iter()
+        .collect();
 
     // whack any possible collision
     let _ignored = fs::remove_dir_all(&path);
@@ -4174,7 +4199,7 @@ pub fn create_new_ledger_from_name_auto_delete(
         MAX_GENESIS_ARCHIVE_UNPACKED_SIZE,
         column_options,
     )
-    .unwrap();
+        .unwrap();
     (ledger_path, blockhash)
 }
 
@@ -4247,86 +4272,86 @@ pub fn test_all_empty_or_min(blockstore: &Blockstore, min_slot: Slot) {
         .map(|(slot, _)| slot >= min_slot)
         .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::Root>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::Root>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::ShredData>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|((slot, _), _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::ShredData>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|((slot, _), _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::ShredCode>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|((slot, _), _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::ShredCode>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|((slot, _), _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::DeadSlots>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::DeadSlots>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::DuplicateSlots>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::DuplicateSlots>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::ErasureMeta>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|((slot, _), _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::ErasureMeta>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|((slot, _), _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::Orphans>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::Orphans>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::Index>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true)
+        .db
+        .iter::<cf::Index>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::TransactionStatus>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|((primary_index, _, slot), _)| {
-                slot >= min_slot || (primary_index == 2 && slot == 0)
-            })
-            .unwrap_or(true)
+        .db
+        .iter::<cf::TransactionStatus>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|((primary_index, _, slot), _)| {
+            slot >= min_slot || (primary_index == 2 && slot == 0)
+        })
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::AddressSignatures>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|((primary_index, _, slot, _), _)| {
-                slot >= min_slot || (primary_index == 2 && slot == 0)
-            })
-            .unwrap_or(true)
+        .db
+        .iter::<cf::AddressSignatures>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|((primary_index, _, slot, _), _)| {
+            slot >= min_slot || (primary_index == 2 && slot == 0)
+        })
+        .unwrap_or(true)
         & blockstore
-            .db
-            .iter::<cf::Rewards>(IteratorMode::Start)
-            .unwrap()
-            .next()
-            .map(|(slot, _)| slot >= min_slot)
-            .unwrap_or(true);
+        .db
+        .iter::<cf::Rewards>(IteratorMode::Start)
+        .unwrap()
+        .next()
+        .map(|(slot, _)| slot >= min_slot)
+        .unwrap_or(true);
     assert!(condition_met);
 }
 
@@ -4525,7 +4550,7 @@ pub mod tests {
                 ..BlockstoreOptions::default()
             },
         )
-        .unwrap();
+            .unwrap();
 
         let ticks = create_ticks(genesis_config.ticks_per_slot, 0, genesis_config.hash());
         let entries = blockstore.get_slot_entries(0, 0).unwrap();
@@ -5151,7 +5176,7 @@ pub mod tests {
             vec![CompletedDataSetInfo {
                 slot,
                 start_index: 0,
-                end_index: num_shreds as u32 - 1
+                end_index: num_shreds as u32 - 1,
             }]
         );
         // Inserting shreds again doesn't trigger notification
@@ -6415,7 +6440,7 @@ pub mod tests {
         // Insert a good coding shred
         assert!(Blockstore::should_insert_coding_shred(
             &coding_shred,
-            &last_root
+            &last_root,
         ));
 
         // Insertion should succeed
@@ -6428,7 +6453,7 @@ pub mod tests {
         {
             assert!(Blockstore::should_insert_coding_shred(
                 &coding_shred,
-                &last_root
+                &last_root,
             ));
         }
 
@@ -6436,7 +6461,7 @@ pub mod tests {
         coding_shred.set_index(coding_shred.index() + 1);
         assert!(Blockstore::should_insert_coding_shred(
             &coding_shred,
-            &last_root
+            &last_root,
         ));
 
         // Trying to insert value into slot <= than last root should fail
@@ -6445,7 +6470,7 @@ pub mod tests {
             coding_shred.set_slot(*last_root.read().unwrap());
             assert!(!Blockstore::should_insert_coding_shred(
                 &coding_shred,
-                &last_root
+                &last_root,
             ));
         }
     }
@@ -6560,7 +6585,7 @@ pub mod tests {
             Blockstore::get_completed_data_ranges(
                 start_index,
                 &completed_data_end_indexes,
-                consumed
+                consumed,
             ),
             vec![]
         );
@@ -6571,7 +6596,7 @@ pub mod tests {
             Blockstore::get_completed_data_ranges(
                 start_index,
                 &completed_data_end_indexes,
-                consumed
+                consumed,
             ),
             vec![(0, 2)]
         );
@@ -6604,7 +6629,7 @@ pub mod tests {
                     Blockstore::get_completed_data_ranges(
                         start_index,
                         &completed_data_end_indexes,
-                        consumed
+                        consumed,
                     ),
                     expected
                 );
@@ -6807,7 +6832,7 @@ pub mod tests {
                     return_data: Some(TransactionReturnData::default()),
                     compute_units_consumed,
                 }
-                .into();
+                    .into();
                 blockstore
                     .transaction_status_cf
                     .put_protobuf((0, signature, slot), &status)
@@ -6826,7 +6851,7 @@ pub mod tests {
                     return_data: Some(TransactionReturnData::default()),
                     compute_units_consumed,
                 }
-                .into();
+                    .into();
                 blockstore
                     .transaction_status_cf
                     .put_protobuf((0, signature, slot + 1), &status)
@@ -6845,7 +6870,7 @@ pub mod tests {
                     return_data: Some(TransactionReturnData::default()),
                     compute_units_consumed,
                 }
-                .into();
+                    .into();
                 blockstore
                     .transaction_status_cf
                     .put_protobuf((0, signature, slot + 2), &status)
@@ -7008,9 +7033,9 @@ pub mod tests {
             return_data: Some(test_return_data.clone()),
             compute_units_consumed: compute_units_consumed_1,
         }
-        .into();
+            .into();
         assert!(transaction_status_cf
-            .put_protobuf((0, Signature::default(), 0), &status,)
+            .put_protobuf((0, Signature::default(), 0), &status)
             .is_ok());
 
         // result found
@@ -7061,9 +7086,9 @@ pub mod tests {
             return_data: Some(test_return_data.clone()),
             compute_units_consumed: compute_units_consumed_2,
         }
-        .into();
+            .into();
         assert!(transaction_status_cf
-            .put_protobuf((0, Signature::new(&[2u8; 64]), 9), &status,)
+            .put_protobuf((0, Signature::new(&[2u8; 64]), 9), &status)
             .is_ok());
 
         // result found
@@ -7335,7 +7360,7 @@ pub mod tests {
             return_data: Some(TransactionReturnData::default()),
             compute_units_consumed: Some(42u64),
         }
-        .into();
+            .into();
 
         let signature1 = Signature::new(&[1u8; 64]);
         let signature2 = Signature::new(&[2u8; 64]);
@@ -7529,7 +7554,7 @@ pub mod tests {
             return_data: Some(TransactionReturnData::default()),
             compute_units_consumed: Some(42u64),
         }
-        .into();
+            .into();
 
         let signature1 = Signature::new(&[2u8; 64]);
         let signature2 = Signature::new(&[3u8; 64]);
@@ -7705,7 +7730,7 @@ pub mod tests {
                     return_data: return_data.clone(),
                     compute_units_consumed: Some(42),
                 }
-                .into();
+                    .into();
                 blockstore
                     .transaction_status_cf
                     .put_protobuf((0, signature, slot), &status)
@@ -7737,7 +7762,7 @@ pub mod tests {
                 Some(ConfirmedTransactionWithStatusMeta {
                     slot,
                     tx_with_meta: TransactionWithStatusMeta::Complete(tx_with_meta.clone()),
-                    block_time: None
+                    block_time: None,
                 })
             );
             assert_eq!(
@@ -7747,7 +7772,7 @@ pub mod tests {
                 Some(ConfirmedTransactionWithStatusMeta {
                     slot,
                     tx_with_meta: TransactionWithStatusMeta::Complete(tx_with_meta),
-                    block_time: None
+                    block_time: None,
                 })
             );
         }
@@ -7756,7 +7781,7 @@ pub mod tests {
         *blockstore.lowest_cleanup_slot.write().unwrap() = slot;
         for VersionedTransactionWithStatusMeta { transaction, .. } in expected_transactions {
             let signature = transaction.signatures[0];
-            assert_eq!(blockstore.get_rooted_transaction(signature).unwrap(), None,);
+            assert_eq!(blockstore.get_rooted_transaction(signature).unwrap(), None, );
             assert_eq!(
                 blockstore
                     .get_complete_transaction(signature, slot + 1)
@@ -7825,7 +7850,7 @@ pub mod tests {
                     return_data: return_data.clone(),
                     compute_units_consumed: Some(42u64),
                 }
-                .into();
+                    .into();
                 blockstore
                     .transaction_status_cf
                     .put_protobuf((0, signature, slot), &status)
@@ -7859,7 +7884,7 @@ pub mod tests {
                 Some(ConfirmedTransactionWithStatusMeta {
                     slot,
                     tx_with_meta: TransactionWithStatusMeta::Complete(tx_with_meta),
-                    block_time: None
+                    block_time: None,
                 })
             );
             assert_eq!(blockstore.get_rooted_transaction(signature).unwrap(), None);
@@ -7875,7 +7900,7 @@ pub mod tests {
                     .unwrap(),
                 None,
             );
-            assert_eq!(blockstore.get_rooted_transaction(signature).unwrap(), None,);
+            assert_eq!(blockstore.get_rooted_transaction(signature).unwrap(), None, );
         }
     }
 
@@ -8575,8 +8600,8 @@ pub mod tests {
         let entries: Vec<Entry> = std::iter::successors(Some(entry), |entry| {
             Some(next_entry(&entry.hash, 1, vec![]))
         })
-        .take(10)
-        .collect();
+            .take(10)
+            .collect();
         let entries_iterator = entries.iter();
         assert_eq!(get_last_hash(entries_iterator).unwrap(), entries[9].hash);
     }
@@ -8614,7 +8639,7 @@ pub mod tests {
                 return_data: Some(TransactionReturnData::default()),
                 compute_units_consumed: None,
             }
-            .into();
+                .into();
             transaction_status_cf
                 .put_protobuf((0, transaction.signatures[0], slot), &status)
                 .unwrap();
@@ -8639,7 +8664,7 @@ pub mod tests {
                 vec![solana_sdk::pubkey::new_rand()],
                 vec![CompiledInstruction::new(1, &(), vec![0])],
             )
-            .into(),
+                .into(),
         );
 
         let map_result =
@@ -9618,7 +9643,7 @@ pub mod tests {
                 ShredId::new(
                     slot,
                     even_smaller_last_shred_duplicate.index(),
-                    ShredType::Data
+                    ShredType::Data,
                 ),
                 even_smaller_last_shred_duplicate.payload().clone(),
             )
