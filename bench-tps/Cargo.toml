@@ -16,35 +16,35 @@ rand = "0.7.0"
 rayon = "1.5.3"
 serde_json = "1.0.83"
 serde_yaml = "0.9.13"
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.2" }
-solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.2" }
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.2" }
-solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.2" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.2" }
-solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.2" }
-solana-genesis = { package = "waffles-solana-genesis", path = "../genesis", version = "=1.16.0-alpha.2" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.2" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.2" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.2" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.2" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.2" }
-solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.2" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.2", default-features = false }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.2" }
-solana-rpc-client-nonce-utils = { package = "waffles-solana-rpc-client-nonce-utils", path = "../rpc-client-nonce-utils", version = "=1.16.0-alpha.2" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.2" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.2" }
-solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.2" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.2", default-features = false }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.2" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.3" }
+solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.3" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.3" }
+solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.3" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.3" }
+solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.3" }
+solana-genesis = { package = "waffles-solana-genesis", path = "../genesis", version = "=1.16.0-alpha.3" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.3" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.3" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.3" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.3" }
+solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.3" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.3", default-features = false }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.3" }
+solana-rpc-client-nonce-utils = { package = "waffles-solana-rpc-client-nonce-utils", path = "../rpc-client-nonce-utils", version = "=1.16.0-alpha.3" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.3" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.3" }
+solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.3" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.3", default-features = false }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.3" }
 spl-instruction-padding = "0.1"
 thiserror = "1.0"
 
 [dev-dependencies]
 serial_test = "0.9.0"
-solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.2" }
-solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.16.0-alpha.2" }
+solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.3" }
+solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.16.0-alpha.3" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

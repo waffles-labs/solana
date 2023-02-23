@@ -11,7 +11,7 @@ edition = "2021"
 
 [dependencies]
 serde = { version = "1.0.152", features = ["derive"] }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
 tarpc = { version = "0.29.0", features = ["full"] }
 
 [lib]

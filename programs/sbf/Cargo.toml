@@ -34,38 +34,38 @@ itertools = "0.10.1"
 log = "0.4.11"
 miow = "0.3.6"
 net2 = "0.2.37"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../../account-decoder", version = "=1.16.0-alpha.2" }
-solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../bpf_loader", version = "=1.16.0-alpha.2" }
-waffles-solana-cli-output = { path = "../../cli-output", version = "=1.16.0-alpha.2" }
-solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0-alpha.2" }
-solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.16.0-alpha.2" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.2" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../../runtime", version = "=1.16.0-alpha.2" }
-waffles-solana-sbf-rust-invoke = { path = "rust/invoke", version = "=1.16.0-alpha.2" }
-waffles-solana-sbf-rust-realloc = { path = "rust/realloc", version = "=1.16.0-alpha.2" }
-waffles-solana-sbf-rust-realloc-invoke = { path = "rust/realloc_invoke", version = "=1.16.0-alpha.2" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.2" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../../transaction-status", version = "=1.16.0-alpha.2" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../../account-decoder", version = "=1.16.0-alpha.3" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../bpf_loader", version = "=1.16.0-alpha.3" }
+waffles-solana-cli-output = { path = "../../cli-output", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0-alpha.3" }
+solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.16.0-alpha.3" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.3" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../../runtime", version = "=1.16.0-alpha.3" }
+waffles-solana-sbf-rust-invoke = { path = "rust/invoke", version = "=1.16.0-alpha.3" }
+waffles-solana-sbf-rust-realloc = { path = "rust/realloc", version = "=1.16.0-alpha.3" }
+waffles-solana-sbf-rust-realloc-invoke = { path = "rust/realloc_invoke", version = "=1.16.0-alpha.3" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.3" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../../transaction-status", version = "=1.16.0-alpha.3" }
 solana_rbpf = "=0.2.38"
 
 [dev-dependencies]
-waffles-solana-ledger = { path = "../../ledger", version = "=1.16.0-alpha.2" }
-solana-account-decoder = { path = "../../account-decoder", version = "=1.16.0-alpha.2" }
-solana-bpf-loader-program = { path = "../bpf_loader", version = "=1.16.0-alpha.2" }
-solana-cli-output = { path = "../../cli-output", version = "=1.16.0-alpha.2" }
-solana-logger = { path = "../../logger", version = "=1.16.0-alpha.2" }
-solana-measure = { path = "../../measure", version = "=1.16.0-alpha.2" }
-solana-program-runtime = { path = "../../program-runtime", version = "=1.16.0-alpha.2" }
-solana-runtime = { path = "../../runtime", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-invoke = { path = "rust/invoke", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-realloc = { path = "rust/realloc", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-realloc-invoke = { path = "rust/realloc_invoke", version = "=1.16.0-alpha.2" }
-solana-sdk = { path = "../../sdk", version = "=1.16.0-alpha.2" }
-solana-transaction-status = { path = "../../transaction-status", version = "=1.16.0-alpha.2" }
+waffles-solana-ledger = { path = "../../ledger", version = "=1.16.0-alpha.3" }
+solana-account-decoder = { path = "../../account-decoder", version = "=1.16.0-alpha.3" }
+solana-bpf-loader-program = { path = "../bpf_loader", version = "=1.16.0-alpha.3" }
+solana-cli-output = { path = "../../cli-output", version = "=1.16.0-alpha.3" }
+solana-logger = { path = "../../logger", version = "=1.16.0-alpha.3" }
+solana-measure = { path = "../../measure", version = "=1.16.0-alpha.3" }
+solana-program-runtime = { path = "../../program-runtime", version = "=1.16.0-alpha.3" }
+solana-runtime = { path = "../../runtime", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-invoke = { path = "rust/invoke", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-realloc = { path = "rust/realloc", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-realloc-invoke = { path = "rust/realloc_invoke", version = "=1.16.0-alpha.3" }
+solana-sdk = { path = "../../sdk", version = "=1.16.0-alpha.3" }
+solana-transaction-status = { path = "../../transaction-status", version = "=1.16.0-alpha.3" }
 solana_rbpf = "=0.2.38"
 
 [dev-dependencies]
-solana-ledger = { path = "../../ledger", version = "=1.16.0-alpha.2" }
+solana-ledger = { path = "../../ledger", version = "=1.16.0-alpha.3" }
 
 [[bench]]
 name = "bpf_loader"

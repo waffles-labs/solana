@@ -16,8 +16,8 @@ edition = "2021"
 
 [dependencies]
 libsecp256k1 = { version = "0.7.0", default-features = false }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
 
 [lib]
 crate-type = ["cdylib"]

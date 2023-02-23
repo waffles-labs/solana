@@ -19,8 +19,8 @@ default = ["program"]
 program = []
 
 [dependencies]
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
 
 [lib]
 crate-type = ["lib", "cdylib"]

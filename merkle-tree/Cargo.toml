@@ -11,7 +11,7 @@ edition = "2021"
 
 [dependencies]
 fast-math = "0.1"
-solana-program = { package = "waffles-solana-program", path = "../sdk/program", version = "=1.16.0-alpha.2" }
+solana-program = { package = "waffles-solana-program", path = "../sdk/program", version = "=1.16.0-alpha.3" }
 
 # This can go once the SBF toolchain target Rust 1.42.0+
 [target.bpfel-unknown-unknown.dependencies]

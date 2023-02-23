@@ -15,10 +15,10 @@ documentation = "https://docs.rs/waffles-solana-sbf-rust-128bit"
 edition = "2021"
 
 [dependencies]
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-128bit-dep = { path = "../128bit_dep", version = "=1.16.0-alpha.2" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-128bit-dep = { path = "../128bit_dep", version = "=1.16.0-alpha.2" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-128bit-dep = { path = "../128bit_dep", version = "=1.16.0-alpha.3" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-128bit-dep = { path = "../128bit_dep", version = "=1.16.0-alpha.3" }
 
 [lib]
 crate-type = ["cdylib"]

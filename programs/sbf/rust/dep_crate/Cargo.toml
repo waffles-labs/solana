@@ -17,10 +17,10 @@ edition = "2021"
 [dependencies]
 byteorder = { version = "1", default-features = false }
 # list of crates which must be buildable for bpf programs
-solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.16.0-alpha.2" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.16.0-alpha.2" }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
+solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.16.0-alpha.3" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-address-lookup-table-program = { path = "../../../../programs/address-lookup-table", version = "=1.16.0-alpha.3" }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
 
 [lib]
 crate-type = ["cdylib"]

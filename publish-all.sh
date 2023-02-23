@@ -90,48 +90,48 @@
 #sleep 8
 #cargo publish -p waffles-solana-banks-server
 #sleep 8
-#cargo publish -p waffles-solana-banks-client
-#sleep 8
-#cargo publish -p waffles-solana-bloom
-#sleep 8
-#cargo publish -p waffles-solana-clap-v3-utils
-#sleep 8
-#cargo publish -p waffles-solana-cli
-#sleep 8
-#cargo publish -p waffles-solana-cli-config
-#sleep 8
-#cargo publish -p waffles-solana-cli-output
-#sleep 8
-#cargo publish -p waffles-solana-entry
-#sleep 8
-#cargo publish -p waffles-solana-core
-#sleep 8
-#cargo publish -p waffles-solana-download-utils
-#sleep 8
-#cargo publish -p waffles-solana-faucet
-#sleep 8
-#cargo publish -p waffles-solana-ledger
-#sleep 8
-#cargo publish -p waffles-solana-storage-proto
-#sleep 8
-#cargo publish -p waffles-solana-storage-bigtable
-#sleep 8
-#cargo publish -p waffles-solana-genesis
-#sleep 8
-#cargo publish -p waffles-solana-entry
-#sleep 8
-#cargo publish -p waffles-solana-genesis-utils
-#sleep 8
-#cargo publish -p waffles-solana-geyser-plugin-interface
-#sleep 8
-#cargo publish -p waffles-solana-geyser-plugin-manager
-#sleep 8
-#cargo publish -p waffles-solana-install
-#sleep 8
-#cargo publish -p waffles-solana-keygen
-#sleep 8
-#cargo publish -p waffles-solana-ledger-tool
-#sleep 8
+cargo publish -p waffles-solana-banks-client
+sleep 8
+cargo publish -p waffles-solana-bloom
+sleep 8
+cargo publish -p waffles-solana-clap-v3-utils
+sleep 8
+cargo publish -p waffles-solana-cli
+sleep 8
+cargo publish -p waffles-solana-cli-config
+sleep 8
+cargo publish -p waffles-solana-cli-output
+sleep 8
+cargo publish -p waffles-solana-entry
+sleep 8
+cargo publish -p waffles-solana-core
+sleep 8
+cargo publish -p waffles-solana-download-utils
+sleep 8
+cargo publish -p waffles-solana-faucet
+sleep 8
+cargo publish -p waffles-solana-ledger
+sleep 8
+cargo publish -p waffles-solana-storage-proto
+sleep 8
+cargo publish -p waffles-solana-storage-bigtable
+sleep 8
+cargo publish -p waffles-solana-genesis
+sleep 8
+cargo publish -p waffles-solana-entry
+sleep 8
+cargo publish -p waffles-solana-genesis-utils
+sleep 8
+cargo publish -p waffles-solana-geyser-plugin-interface
+sleep 8
+cargo publish -p waffles-solana-geyser-plugin-manager
+sleep 8
+cargo publish -p waffles-solana-install
+sleep 8
+cargo publish -p waffles-solana-keygen
+sleep 8
+cargo publish -p waffles-solana-ledger-tool
+sleep 8
 cargo publish -p waffles-solana-local-cluster
 sleep 8
 cargo publish -p waffles-solana-memory-management

@@ -19,10 +19,10 @@ default = ["program"]
 program = []
 
 [dependencies]
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-realloc = { path = "../realloc", version = "=1.16.0-alpha.2", default-features = false }
-solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.2" }
-solana-sbf-rust-realloc = { path = "../realloc", version = "=1.16.0-alpha.2", default-features = false }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-realloc = { path = "../realloc", version = "=1.16.0-alpha.3", default-features = false }
+solana-program = { path = "../../../../sdk/program", version = "=1.16.0-alpha.3" }
+solana-sbf-rust-realloc = { path = "../realloc", version = "=1.16.0-alpha.3", default-features = false }
 
 [lib]
 crate-type = ["lib", "cdylib"]
