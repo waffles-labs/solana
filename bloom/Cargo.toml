@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-bloom"
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 description = "Waffle Labs maintained Solana bloom filter"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -17,9 +17,9 @@ rand = "0.7.0"
 rayon = "1.5.3"
 serde = { version = "1.0.152", features = ["rc"] }
 serde_derive = "1.0.103"
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.3" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.3" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.4" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.4" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
 
 [lib]
 crate-type = ["lib"]

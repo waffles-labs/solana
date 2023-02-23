@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-quic-client"
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 description = "Waffle Labs maintained Solana Quic Client"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -16,14 +16,14 @@ futures = "0.3"
 itertools = "0.10.5"
 lazy_static = "1.4.0"
 log = "0.4.17"
-solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.3" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.3" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.3" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.3" }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.3" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.3" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.3" }
+solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.4" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.4" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.4" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.4" }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.4" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.4" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.4" }
 quinn = "0.9.3"
 quinn-proto = "0.9.2"
 quinn-udp = "0.3.2"
@@ -33,5 +33,5 @@ tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
 crossbeam-channel = "0.5"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.3" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.4" }

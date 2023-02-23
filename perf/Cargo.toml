@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-perf"
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 description = "Waffle Labs maintained Solana Performance APIs"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -22,10 +22,10 @@ log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
 serde = "1.0.152"
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.3" }
-solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.3" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.3" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.4" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.4" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.4" }
 
 [target."cfg(target_os = \"linux\")".dependencies]
 caps = "0.5.4"
@@ -37,7 +37,7 @@ name = "solana_perf"
 
 [dev-dependencies]
 matches = "0.1.9"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
 
 [[bench]]
 name = "sigverify"

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-connection-cache"
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 description = "Solana Connection Cache"
 authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 repository = "https://github.com/solana-labs/solana"
@@ -18,13 +18,13 @@ indicatif = { version = "0.17.1", optional = true }
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.3" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.3" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.3" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.4" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.4" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.4" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
 thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
 rand_chacha = "0.2.2"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }

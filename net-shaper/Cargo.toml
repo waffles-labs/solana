@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-net-shaper"
 description = "Waffle Labs maintained The solana cluster network shaping tool"
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -14,7 +14,7 @@ clap = { version = "3.1.5", features = ["cargo"] }
 rand = "0.7.0"
 serde = { version = "1.0.152", features = ["derive"] }
 serde_json = "1.0.83"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.3" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
 
 [[bin]]
 name = "solana-net-shaper"

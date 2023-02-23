@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-geyser-plugin-interface"
 description = "Waffle Labs maintained The Solana Geyser plugin interface."
-version = "1.16.0-alpha.3"
+version = "1.16.0-alpha.4"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -11,8 +11,8 @@ documentation = "https://docs.rs/waffles-solana-geyser-plugin-interface"
 
 [dependencies]
 log = "0.4.17"
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.3" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.3" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.4" }
 thiserror = "1.0.31"
 
 [package.metadata.docs.rs]
