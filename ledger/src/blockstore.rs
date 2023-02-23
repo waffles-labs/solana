@@ -3378,7 +3378,7 @@ pub fn blockstore_from_gcs_rocksdb(ledger_path: &Path) -> Result<Blockstore> {
             enforce_ulimit_nofile: true,
             ..BlockstoreOptions::default()
         })
-        .or_else(|| {
+        .or_else(|_| {
             Blockstore::open_with_options(
                 ledger_path,
                 BlockstoreOptions {
