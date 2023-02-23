@@ -25,6 +25,7 @@ solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", vers
 solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.2" }
 solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.2" }
 solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.2" }
+waffles-solana-program = "=1.16.0-alpha.2"
 
 [dev-dependencies]
 matches = "0.1.9"

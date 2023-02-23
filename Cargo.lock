@@ -6696,6 +6696,7 @@ dependencies = [
  "waffles-solana-merkle-tree 1.16.0-alpha.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "waffles-solana-metrics",
  "waffles-solana-perf",
+ "waffles-solana-program 1.16.0-alpha.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "waffles-solana-rayon-threadlimit",
  "waffles-solana-sdk",
 ]

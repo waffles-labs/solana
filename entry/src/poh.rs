@@ -69,7 +69,7 @@ impl Poh {
         self.remaining_hashes == 1 // Return `true` if caller needs to `tick()` next
     }
 
-    pub fn record(&mut self, mixin: Hash) -> Option<PohEntry> {
+    pub fn record(&mut self, mixin: waffles_solana_program::hash::Hash) -> Option<PohEntry> {
         if self.remaining_hashes == 1 {
             return None; // Caller needs to `tick()` first
         }

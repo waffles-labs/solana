@@ -1218,16 +1218,6 @@ fn verify_and_unarchive_snapshots(
     ))
 }
 
-pub fn open_gcs_rocks_blockstore(path: &str) -> Result<Blockstore> {
-    open_blockstore(
-        &path.as_ref(),
-        solana_ledger::blockstore_options::AccessType::Primary,
-        None,
-        &ShredStorageType::RocksLevel,
-        false,
-    )
-}
-
 /// Rebuild bank from snapshot archives.  Handles either just a full snapshot, or both a full
 /// snapshot and an incremental snapshot.
 #[allow(clippy::too_many_arguments)]

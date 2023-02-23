@@ -198,7 +198,7 @@ impl Entry {
     }
 }
 
-pub fn hash_transactions(transactions: &[VersionedTransaction]) -> Hash {
+pub fn hash_transactions(transactions: &[VersionedTransaction]) -> waffles_solana_program::hash::Hash {
     // a hash of a slice of transactions only needs to hash the signatures
     let signatures: Vec<_> = transactions
         .iter()
@@ -208,7 +208,7 @@ pub fn hash_transactions(transactions: &[VersionedTransaction]) -> Hash {
     if let Some(root_hash) = merkle_tree.get_root() {
         *root_hash
     } else {
-        Hash::default()
+        waffles_solana_program::hash::Hash::default()
     }
 }
 
@@ -237,7 +237,7 @@ pub fn next_hash(
 /// Last action required to verify an entry
 enum VerifyAction {
     /// Mixin a hash before computing the last hash for a transaction entry
-    Mixin(Hash),
+    Mixin(waffles_solana_program::hash::Hash),
     /// Compute one last hash for a tick entry
     Tick,
     /// No action needed (tick entry with no hashes)
