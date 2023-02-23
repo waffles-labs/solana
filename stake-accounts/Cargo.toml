@@ -12,7 +12,6 @@ documentation = "https://docs.rs/waffles-solana-stake-accounts"
 [dependencies]
 clap = "2.33.1"
 
-[dev-dependencies]
 solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.4" }
 solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.4" }
 solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.4" }

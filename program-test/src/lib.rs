@@ -72,7 +72,7 @@ pub use {
 pub mod programs;
 
 #[macro_use]
-extern crate waffles_solana_bpf_loader_program;
+extern crate solana_bpf_loader_program;
 
 /// Errors from the program test environment
 #[derive(Error, Debug, PartialEq, Eq)]
