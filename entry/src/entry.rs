@@ -100,9 +100,9 @@ pub fn api() -> Option<&'static Container<Api<'static>>> {
 #[derive(SymBorApi)]
 pub struct Api<'a> {
     pub poh_verify_many_simd_avx512skx:
-        Symbol<'a, unsafe extern "C" fn(hashes: *mut u8, num_hashes: *const u64)>,
+    Symbol<'a, unsafe extern "C" fn(hashes: *mut u8, num_hashes: *const u64)>,
     pub poh_verify_many_simd_avx2:
-        Symbol<'a, unsafe extern "C" fn(hashes: *mut u8, num_hashes: *const u64)>,
+    Symbol<'a, unsafe extern "C" fn(hashes: *mut u8, num_hashes: *const u64)>,
 }
 
 /// Each Entry contains three pieces of data. The `num_hashes` field is the number
@@ -119,7 +119,6 @@ pub struct Api<'a> {
 /// hash was computed by the world's fastest processor at that time. The hash chain is both
 /// a Verifiable Delay Function (VDF) and a Proof of Work (not to be confused with Proof of
 /// Work consensus!)
-
 #[derive(Serialize, Deserialize, Debug, Default, PartialEq, Eq, Clone)]
 pub struct Entry {
     /// The number of hashes since the previous Entry ID.
@@ -198,7 +197,7 @@ impl Entry {
     }
 }
 
-pub fn hash_transactions(transactions: &[VersionedTransaction]) -> waffles_solana_program::hash::Hash {
+pub fn hash_transactions(transactions: &[VersionedTransaction]) -> Hash {
     // a hash of a slice of transactions only needs to hash the signatures
     let signatures: Vec<_> = transactions
         .iter()
@@ -206,9 +205,9 @@ pub fn hash_transactions(transactions: &[VersionedTransaction]) -> waffles_solan
         .collect();
     let merkle_tree = MerkleTree::new(&signatures);
     if let Some(root_hash) = merkle_tree.get_root() {
-        *root_hash
+        Hash::new(root_hash.to_bytes().as_slice())
     } else {
-        waffles_solana_program::hash::Hash::default()
+        Hash::default()
     }
 }
 
@@ -237,7 +236,7 @@ pub fn next_hash(
 /// Last action required to verify an entry
 enum VerifyAction {
     /// Mixin a hash before computing the last hash for a transaction entry
-    Mixin(waffles_solana_program::hash::Hash),
+    Mixin(Hash),
     /// Compute one last hash for a tick entry
     Tick,
     /// No action needed (tick entry with no hashes)
@@ -406,8 +405,8 @@ pub fn start_verify_transactions(
     verify_recyclers: VerifyRecyclers,
     verify: Arc<
         dyn Fn(VersionedTransaction, TransactionVerificationMode) -> Result<SanitizedTransaction>
-            + Send
-            + Sync,
+        + Send
+        + Sync,
     >,
 ) -> Result<EntrySigVerificationState> {
     let api = perf_libs::api();
@@ -421,15 +420,15 @@ pub fn start_verify_transactions(
     let use_cpu = skip_verification
         || api.is_none()
         || entries
-            .iter()
-            .try_fold(0, |accum: usize, entry: &Entry| -> Option<usize> {
-                if accum.saturating_add(entry.transactions.len()) < 512 {
-                    Some(accum.saturating_add(entry.transactions.len()))
-                } else {
-                    None
-                }
-            })
-            .is_some();
+        .iter()
+        .try_fold(0, |accum: usize, entry: &Entry| -> Option<usize> {
+            if accum.saturating_add(entry.transactions.len()) < 512 {
+                Some(accum.saturating_add(entry.transactions.len()))
+            } else {
+                None
+            }
+        })
+        .is_some();
 
     if use_cpu {
         start_verify_transactions_cpu(entries, skip_verification, verify)
@@ -443,8 +442,8 @@ fn start_verify_transactions_cpu(
     skip_verification: bool,
     verify: Arc<
         dyn Fn(VersionedTransaction, TransactionVerificationMode) -> Result<SanitizedTransaction>
-            + Send
-            + Sync,
+        + Send
+        + Sync,
     >,
 ) -> Result<EntrySigVerificationState> {
     let verify_func = {
@@ -472,8 +471,8 @@ fn start_verify_transactions_gpu(
     verify_recyclers: VerifyRecyclers,
     verify: Arc<
         dyn Fn(VersionedTransaction, TransactionVerificationMode) -> Result<SanitizedTransaction>
-            + Send
-            + Sync,
+        + Send
+        + Sync,
     >,
 ) -> Result<EntrySigVerificationState> {
     let verify_func = {
@@ -595,7 +594,7 @@ pub trait EntrySlice {
     fn verify_cpu_generic(&self, start_hash: &Hash) -> EntryVerificationState;
     fn verify_cpu_x86_simd(&self, start_hash: &Hash, simd_len: usize) -> EntryVerificationState;
     fn start_verify(&self, start_hash: &Hash, recyclers: VerifyRecyclers)
-        -> EntryVerificationState;
+                    -> EntryVerificationState;
     fn verify(&self, start_hash: &Hash) -> bool;
     /// Checks that each entry tick has the correct number of hashes. Entry slices do not
     /// necessarily end in a tick, so `tick_hash_count` is used to carry over the hash count
@@ -728,12 +727,12 @@ impl EntrySlice for [Entry] {
 
     fn verify_cpu(&self, start_hash: &Hash) -> EntryVerificationState {
         #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
-        let (has_avx2, has_avx512) = (
+            let (has_avx2, has_avx512) = (
             is_x86_feature_detected!("avx2"),
             is_x86_feature_detected!("avx512f"),
         );
         #[cfg(not(any(target_arch = "x86", target_arch = "x86_64")))]
-        let (has_avx2, has_avx512) = (false, false);
+            let (has_avx2, has_avx512) = (false, false);
 
         if api().is_some() {
             if has_avx512 && self.len() >= 128 {
@@ -888,8 +887,8 @@ pub fn create_random_ticks(num_ticks: u64, max_hashes_per_tick: u64, mut hash: H
         let hashes_per_tick = thread_rng().gen_range(1, max_hashes_per_tick);
         next_entry_mut(&mut hash, hashes_per_tick, vec![])
     })
-    .take(num_ticks as usize)
-    .collect()
+        .take(num_ticks as usize)
+        .collect()
 }
 
 /// Creates the next Tick or Transaction Entry `num_hashes` after `start_hash`.
@@ -944,11 +943,11 @@ mod tests {
         verify_recyclers: VerifyRecyclers,
         verify: Arc<
             dyn Fn(
-                    VersionedTransaction,
-                    TransactionVerificationMode,
-                ) -> Result<SanitizedTransaction>
-                + Send
-                + Sync,
+                VersionedTransaction,
+                TransactionVerificationMode,
+            ) -> Result<SanitizedTransaction>
+            + Send
+            + Sync,
         >,
     ) -> bool {
         let verify_func = {
@@ -1042,13 +1041,13 @@ mod tests {
             entries_invalid,
             false,
             recycler.clone(),
-            Arc::new(verify_transaction)
+            Arc::new(verify_transaction),
         ));
         assert!(test_verify_transactions(
             entries_valid,
             false,
             recycler,
-            Arc::new(verify_transaction)
+            Arc::new(verify_transaction),
         ));
     }
 
