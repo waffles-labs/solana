@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-cargo-test-sbf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 description = "Waffle Labs maintained Execute all unit and integration tests after building with the Solana SBF SDK"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-connection-cache"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 description = "Solana Connection Cache"
 authors = ["Solana Maintainers <maintainers@solana.foundation>"]
 repository = "https://github.com/solana-labs/solana"

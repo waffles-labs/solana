@@ -1,6 +1,6 @@
 [package]
 name = "waffles-rbpf-cli"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 description = "Waffle Labs maintained CLI to test and analyze SBF programs"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/solana-labs/rbpf"

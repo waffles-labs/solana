@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-cargo-build-sbf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 description = "Waffle Labs maintained Compile a local package and all of its dependencies using the Solana SBF SDK"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-sdk-macro"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 description = "Waffle Labs maintained Solana SDK Macro"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"

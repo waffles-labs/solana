@@ -3698,7 +3698,7 @@ dependencies = [
 
 [[package]]
 name = "proto"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "protobuf-src",
  "tonic-build 0.8.4",
@@ -5968,7 +5968,7 @@ checksum = "6a02e4885ed3bc0f2de90ea6dd45ebcbb66dacffe03547fadbb0eeae2770887d"
 
 [[package]]
 name = "waffles-gen-headers"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "log",
  "regex",
@@ -5976,14 +5976,14 @@ dependencies = [
 
 [[package]]
 name = "waffles-gen-syscall-list"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "regex",
 ]
 
 [[package]]
 name = "waffles-rbpf-cli"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 3.1.8",
  "serde",
@@ -5997,7 +5997,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-account-decoder"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "Inflector",
  "base64 0.13.0",
@@ -6019,7 +6019,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-accounts-bench"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "log",
@@ -6033,7 +6033,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-accounts-cluster-bench"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "log",
@@ -6061,7 +6061,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-address-lookup-table-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "bytemuck",
@@ -6080,7 +6080,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-address-lookup-table-program-tests"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "bincode",
@@ -6091,7 +6091,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-banking-bench"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 3.1.8",
  "crossbeam-channel",
@@ -6115,7 +6115,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-banks-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "borsh",
  "futures 0.3.24",
@@ -6132,7 +6132,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-banks-interface"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "serde",
  "tarpc",
@@ -6141,7 +6141,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-banks-server"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "crossbeam-channel",
@@ -6159,7 +6159,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bench-streamer"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 3.1.8",
  "crossbeam-channel",
@@ -6170,7 +6170,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bench-tps"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "crossbeam-channel",
@@ -6210,7 +6210,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bloom"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bv",
  "fnv",
@@ -6227,7 +6227,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bpf-loader-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "byteorder",
@@ -6245,7 +6245,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bpf-loader-program-tests"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "bincode",
@@ -6256,7 +6256,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-bucket-map"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "fs_extra",
  "log",
@@ -6272,7 +6272,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cargo-build-bpf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "cargo_metadata",
  "clap 3.1.8",
@@ -6283,7 +6283,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cargo-build-sbf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_cmd",
  "bzip2",
@@ -6303,7 +6303,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cargo-test-bpf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "cargo_metadata",
  "clap 3.1.8",
@@ -6311,7 +6311,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cargo-test-sbf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "cargo_metadata",
  "clap 3.1.8",
@@ -6321,7 +6321,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-clap-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "chrono",
  "clap 2.33.3",
@@ -6338,7 +6338,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-clap-v3-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "chrono",
  "clap 3.1.8",
@@ -6355,7 +6355,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cli"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "bs58",
@@ -6406,7 +6406,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cli-config"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "anyhow",
  "dirs-next",
@@ -6421,7 +6421,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-cli-output"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "Inflector",
  "base64 0.13.0",
@@ -6447,7 +6447,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "async-trait",
  "bincode",
@@ -6483,7 +6483,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-client-test"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "futures-util",
  "serde_json",
@@ -6511,7 +6511,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-compute-budget-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "waffles-solana-program-runtime",
  "waffles-solana-sdk",
@@ -6519,7 +6519,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-config-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "chrono",
@@ -6532,7 +6532,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-connection-cache"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "async-trait",
  "bincode",
@@ -6554,7 +6554,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-core"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "ahash",
  "base64 0.13.0",
@@ -6625,7 +6625,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-dos"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "clap 3.1.8",
@@ -6656,7 +6656,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-download-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "console",
  "indicatif",
@@ -6668,7 +6668,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-ed25519-program-tests"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "ed25519-dalek",
@@ -6679,7 +6679,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-entry"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "crossbeam-channel",
@@ -6703,7 +6703,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-faucet"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "byteorder",
@@ -6725,7 +6725,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-frozen-abi"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "ahash",
  "blake3",
@@ -6758,7 +6758,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-frozen-abi"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "64b75a9fd19fce682ded3103331ef7aae874a48f9fd2352da66b09e1105b5983"
 dependencies = [
@@ -6792,7 +6792,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-frozen-abi-macro"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "proc-macro2 1.0.50",
  "quote 1.0.23",
@@ -6802,7 +6802,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-frozen-abi-macro"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "76e305df7a4bfa2790c07db270f90ea1a3e971e525f51ba5b27063b759f0509a"
 dependencies = [
@@ -6814,7 +6814,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-genesis"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "base64 0.13.0",
  "bincode",
@@ -6837,7 +6837,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-genesis-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "waffles-solana-download-utils",
  "waffles-solana-runtime",
@@ -6846,7 +6846,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-geyser-plugin-interface"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "log",
  "thiserror",
@@ -6856,7 +6856,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-geyser-plugin-manager"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bs58",
  "crossbeam-channel",
@@ -6876,7 +6876,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-gossip"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "bv",
@@ -6925,7 +6925,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-install"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "atty",
  "bincode",
@@ -6959,7 +6959,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-keygen"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bs58",
  "clap 3.1.8",
@@ -6975,7 +6975,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-ledger"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "bincode",
@@ -7037,7 +7037,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-ledger-tool"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_cmd",
  "bs58",
@@ -7079,7 +7079,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-local-cluster"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "crossbeam-channel",
@@ -7113,7 +7113,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-log-analyzer"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "byte-unit",
  "clap 3.1.8",
@@ -7125,7 +7125,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-logger"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "env_logger",
  "lazy_static",
@@ -7134,7 +7134,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-measure"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "log",
  "waffles-solana-sdk",
@@ -7142,11 +7142,11 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-memory-management"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 
 [[package]]
 name = "waffles-solana-merkle-root-bench"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "log",
@@ -7159,7 +7159,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-merkle-tree"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "fast-math",
  "hex",
@@ -7169,7 +7169,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-merkle-tree"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3afe73257cad10584b58ece756183ce719cede8b6c59d566b15a74452a3784f8"
 dependencies = [
@@ -7180,7 +7180,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-metrics"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "crossbeam-channel",
  "env_logger",
@@ -7195,7 +7195,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-net-shaper"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 3.1.8",
  "rand 0.7.3",
@@ -7206,7 +7206,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-net-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "clap 3.1.8",
@@ -7226,7 +7226,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-notifier"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "log",
  "reqwest",
@@ -7236,7 +7236,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-perf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "ahash",
  "bincode",
@@ -7263,7 +7263,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-poh"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "core_affinity",
@@ -7285,7 +7285,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-poh-bench"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 3.1.8",
  "log",
@@ -7301,7 +7301,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "anyhow",
  "ark-bn254",
@@ -7357,7 +7357,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49ede5afd687938fee78a6d119e3212b6d4a109519ab2d4abd169b838cb022d8"
 dependencies = [
@@ -7411,7 +7411,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-program-runtime"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "base64 0.13.0",
  "bincode",
@@ -7438,7 +7438,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-program-test"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "async-trait",
@@ -7464,7 +7464,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-pubsub-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "anyhow",
  "crossbeam-channel",
@@ -7488,7 +7488,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-quic-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "async-mutex",
  "async-trait",
@@ -7517,7 +7517,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rayon-threadlimit"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "lazy_static",
  "num_cpus",
@@ -7525,7 +7525,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-remote-wallet"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "console",
  "dialoguer",
@@ -7543,7 +7543,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rpc"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "base64 0.13.0",
  "bincode",
@@ -7600,7 +7600,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rpc-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "async-trait",
@@ -7629,7 +7629,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rpc-client-api"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "base64 0.13.0",
  "bs58",
@@ -7649,7 +7649,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rpc-client-nonce-utils"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "anyhow",
  "clap 2.33.3",
@@ -7666,7 +7666,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-rpc-test"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "bs58",
@@ -7693,7 +7693,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-runtime"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "arrayref",
  "assert_matches",
@@ -7762,7 +7762,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-sdk"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "anyhow",
  "assert_matches",
@@ -7818,7 +7818,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-sdk-macro"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bs58",
  "proc-macro2 1.0.50",
@@ -7829,7 +7829,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-sdk-macro"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "45fa46ac90ac5b67e2b4ccf97244729749d1252cb3a5a7313aea6abd705d90bd"
 dependencies = [
@@ -7842,7 +7842,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-send-transaction-service"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "crossbeam-channel",
  "log",
@@ -7857,7 +7857,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-stake-accounts"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "waffles-solana-clap-utils",
@@ -7873,7 +7873,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-stake-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "assert_matches",
  "bincode",
@@ -7890,7 +7890,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-storage-bigtable"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "backoff",
  "bincode",
@@ -7922,7 +7922,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-storage-proto"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "bs58",
@@ -7938,7 +7938,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-store-tool"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "log",
@@ -7950,7 +7950,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-streamer"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "crossbeam-channel",
  "futures-util",
@@ -7980,7 +7980,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-sys-tuner"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "libc",
@@ -7995,7 +7995,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-test-validator"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "base64 0.13.0",
  "log",
@@ -8021,7 +8021,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-thin-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "log",
@@ -8036,7 +8036,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-tokens"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "chrono",
@@ -8068,7 +8068,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-tpu-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "async-trait",
  "bincode",
@@ -8094,7 +8094,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-transaction-dos"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "clap 2.33.3",
@@ -8121,7 +8121,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-transaction-status"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "Inflector",
  "base64 0.13.0",
@@ -8145,7 +8145,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-udp-client"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "async-trait",
  "thiserror",
@@ -8159,7 +8159,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-upload-perf"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "serde_json",
  "waffles-solana-metrics",
@@ -8167,7 +8167,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-validator"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "chrono",
  "clap 2.33.3",
@@ -8226,7 +8226,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-version"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "log",
  "rustc_version 0.4.0",
@@ -8240,7 +8240,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-vote-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bincode",
  "log",
@@ -8262,7 +8262,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-watchtower"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "clap 2.33.3",
  "humantime",
@@ -8281,7 +8281,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-zk-token-proof-program"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "bytemuck",
  "getrandom 0.1.16",
@@ -8294,7 +8294,7 @@ dependencies = [
 
 [[package]]
 name = "waffles-solana-zk-token-sdk"
-version = "1.16.0-alpha.2"
+version = "1.16.0-alpha.3"
 dependencies = [
  "aes-gcm-siv",
  "arrayref",
