@@ -168,6 +168,7 @@ pub struct BlockstoreSignals {
 }
 
 // ledger window
+#[derive(Debug)]
 pub struct Blockstore {
     ledger_path: PathBuf,
     db: Arc<Database>,

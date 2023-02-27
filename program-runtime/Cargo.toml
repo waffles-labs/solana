@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-program-runtime"
-version = "1.16.0-alpha.4"
+version = "1.16.0-alpha.5"
 description = "Waffle Labs maintained Solana program runtime"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -21,17 +21,17 @@ log = "0.4.17"
 num-derive = { version = "0.3" }
 num-traits = { version = "0.2" }
 rand = "0.7.0"
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.4" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.4" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.4" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.4" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.5" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.5" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.5" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.5" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
 serde = { version = "1.0.152", features = ["derive", "rc"] }
 solana_rbpf = "=0.2.38"
 thiserror = "1.0"
 
 [dev-dependencies]
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.5" }
 
 [lib]
 crate-type = ["lib"]

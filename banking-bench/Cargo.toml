@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-banking-bench"
-version = "1.16.0-alpha.4"
+version = "1.16.0-alpha.5"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -14,19 +14,19 @@ crossbeam-channel = "0.5"
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.4" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.4" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.4" }
-solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.4" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.4" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.4" }
-solana-poh = { package = "waffles-solana-poh", path = "../poh", version = "=1.16.0-alpha.4" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.4" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.4" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.4", default-features = false }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.4" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.5" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.5" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.5" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.5" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.5" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.5" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.5" }
+solana-poh = { package = "waffles-solana-poh", path = "../poh", version = "=1.16.0-alpha.5" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.5" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.5" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.5", default-features = false }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.5" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

@@ -3,7 +3,7 @@ name = "waffles-solana-stake-accounts"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
-version = "1.16.0-alpha.4"
+version = "1.16.0-alpha.5"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
@@ -12,15 +12,15 @@ documentation = "https://docs.rs/waffles-solana-stake-accounts"
 [dependencies]
 clap = "2.33.1"
 
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.4" }
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.4" }
-solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.4" }
-solana-remote-wallet = { package = "waffles-solana-remote-wallet", path = "../remote-wallet", version = "=1.16.0-alpha.4" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.4" }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.4" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.4" }
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.4" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.4" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.5" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.5" }
+solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.5" }
+solana-remote-wallet = { package = "waffles-solana-remote-wallet", path = "../remote-wallet", version = "=1.16.0-alpha.5" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.5" }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.5" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.5" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.5" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

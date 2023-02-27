@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-log-analyzer"
 description = "Waffle Labs maintained The solana cluster network analysis tool"
-version = "1.16.0-alpha.4"
+version = "1.16.0-alpha.5"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Labs Maintainers <maintainers@solanalabs.com>"]
 edition = "2021"
@@ -14,8 +14,8 @@ byte-unit = "4.0.14"
 clap = { version = "3.1.5", features = ["cargo"] }
 serde = "1.0.152"
 serde_json = "1.0.83"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.4" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.4" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.5" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.5" }
 
 [[bin]]
 name = "solana-log-analyzer"
