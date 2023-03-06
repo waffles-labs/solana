@@ -2,7 +2,7 @@
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
 name = "waffles-solana-accounts-cluster-bench"
-version = "1.16.0-alpha.6"
+version = "1.16.0-alpha.7"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
@@ -13,26 +13,26 @@ clap = "2.33.1"
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.6" }
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.6" }
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.6" }
-solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.6" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.6" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.6" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.6" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.6" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.6" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.6" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.6" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.6" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.6" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.6" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.7" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.7" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.7" }
+solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.7" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.7" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.7" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.7" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.7" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.7" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.7" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.7" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.7" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.7" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.7" }
 spl-token = { version = "=3.5.0", features = ["no-entrypoint"] }
 
 [dev-dependencies]
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.6" }
-solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.6" }
-solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.16.0-alpha.6" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.7" }
+solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.7" }
+solana-test-validator = { package = "waffles-solana-test-validator", path = "../test-validator", version = "=1.16.0-alpha.7" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

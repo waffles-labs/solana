@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-dos"
-version = "1.16.0-alpha.6"
+version = "1.16.0-alpha.7"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -17,26 +17,26 @@ itertools = "0.10.5"
 log = "0.4.17"
 rand = "0.7.0"
 serde = "1.0.152"
-solana-bench-tps = { package = "waffles-solana-bench-tps", path = "../bench-tps", version = "=1.16.0-alpha.6" }
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.6" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.6" }
-solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.6" }
-solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.6" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.6" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.6" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.6" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.6" }
-solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.6" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.6", default-features = false }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.6" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.6" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.6", default-features = false }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.6" }
+solana-bench-tps = { package = "waffles-solana-bench-tps", path = "../bench-tps", version = "=1.16.0-alpha.7" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.7" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.7" }
+solana-faucet = { package = "waffles-solana-faucet", path = "../faucet", version = "=1.16.0-alpha.7" }
+solana-gossip = { package = "waffles-solana-gossip", path = "../gossip", version = "=1.16.0-alpha.7" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.7" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.7" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.7" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.7" }
+solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.7" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.7", default-features = false }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.7" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.7" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.7", default-features = false }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.7" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]
 
 [dev-dependencies]
 serial_test = "0.9.0"
-solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.6" }
-solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.6" }
+solana-local-cluster = { package = "waffles-solana-local-cluster", path = "../local-cluster", version = "=1.16.0-alpha.7" }
+solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.7" }

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-stake-program"
-version = "1.16.0-alpha.6"
+version = "1.16.0-alpha.7"
 description = "Waffle Labs maintained Solana Stake program"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -12,15 +12,15 @@ edition = "2021"
 [dependencies]
 bincode = "1.3.3"
 log = "0.4.17"
-solana-config-program = { package = "waffles-solana-config-program", path = "../config", version = "=1.16.0-alpha.6" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.6" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.6" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../vote", version = "=1.16.0-alpha.6" }
+solana-config-program = { package = "waffles-solana-config-program", path = "../config", version = "=1.16.0-alpha.7" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.7" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.7" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../vote", version = "=1.16.0-alpha.7" }
 
 [dev-dependencies]
 assert_matches = "1.5.0"
 proptest = "1.0"
-solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0-alpha.6" }
+solana-logger = { package = "waffles-solana-logger", path = "../../logger", version = "=1.16.0-alpha.7" }
 test-case = "2.2.2"
 
 [build-dependencies]
