@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-entry"
-version = "1.16.0-alpha.7"
+version = "1.16.0-alpha.8"
 description = "Waffle Labs maintained Solana Entry"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -19,18 +19,18 @@ log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
 serde = "1.0.152"
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.7" }
-solana-merkle-tree = { package = "waffles-solana-merkle-tree", ppath = "../merkle-tree", version = "=1.16.0-alpha.7" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.7" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.7" }
-solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.7" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.7" }
-waffles-solana-program = "=1.16.0-alpha.7"
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.8" }
+solana-merkle-tree = { package = "waffles-solana-merkle-tree", ppath = "../merkle-tree", version = "=1.16.0-alpha.8" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.8" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.8" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.8" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.8" }
+waffles-solana-program = "=1.16.0-alpha.8"
 
 [dev-dependencies]
 matches = "0.1.9"
 serde = "1.0.152"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.7" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.8" }
 
 [lib]
 crate-type = ["lib"]

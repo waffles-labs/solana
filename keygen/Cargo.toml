@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-keygen"
-version = "1.16.0-alpha.7"
+version = "1.16.0-alpha.8"
 description = "Waffle Labs maintained Solana key generation utility"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -14,11 +14,11 @@ bs58 = "0.4.0"
 clap = { version = "3.1.5", features = ["cargo"] }
 dirs-next = "2.0.0"
 num_cpus = "1.13.1"
-solana-clap-v3-utils = { package = "waffles-solana-clap-v3-utils", path = "../clap-v3-utils", version = "=1.16.0-alpha.7" }
-solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.7" }
-solana-remote-wallet = { package = "waffles-solana-remote-wallet", path = "../remote-wallet", version = "=1.16.0-alpha.7" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.7" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.7" }
+solana-clap-v3-utils = { package = "waffles-solana-clap-v3-utils", path = "../clap-v3-utils", version = "=1.16.0-alpha.8" }
+solana-cli-config = { package = "waffles-solana-cli-config", path = "../cli-config", version = "=1.16.0-alpha.8" }
+solana-remote-wallet = { package = "waffles-solana-remote-wallet", path = "../remote-wallet", version = "=1.16.0-alpha.8" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.8" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.8" }
 tiny-bip39 = "0.8.2"
 
 [[bin]]
