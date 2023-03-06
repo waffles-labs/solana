@@ -396,7 +396,7 @@ impl Stakes<StakeAccount> {
         }
     }
 
-    pub(crate) fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
+    pub fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
         &self.stake_delegations
     }
 
