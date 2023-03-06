@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-remote-wallet"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -19,7 +19,7 @@ num-traits = { version = "0.2" }
 parking_lot = "0.12"
 qstring = "0.7.2"
 semver = "1.0"
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.6" }
 thiserror = "1.0"
 uriparse = "0.6.4"
 

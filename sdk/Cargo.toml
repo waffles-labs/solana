@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-sdk"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 description = "Waffle Labs maintained Solana SDK"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -73,11 +73,11 @@ serde_json = { version = "1.0.83", optional = true }
 serde_with = { version = "2.2.0", default-features = false, features = ["macros"] }
 sha2 = "0.10.6"
 sha3 = { version = "0.10.4", optional = true }
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.5" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.5" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.5", optional = true }
-solana-program = { package = "waffles-solana-program", path = "program", version = "=1.16.0-alpha.5" }
-solana-sdk-macro = { package = "waffles-solana-sdk-macro", path = "macro", version = "=1.16.0-alpha.5" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.6" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.6" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.6", optional = true }
+solana-program = { package = "waffles-solana-program", path = "program", version = "=1.16.0-alpha.6" }
+solana-sdk-macro = { package = "waffles-solana-sdk-macro", path = "macro", version = "=1.16.0-alpha.6" }
 thiserror = "1.0"
 uriparse = "0.6.4"
 wasm-bindgen = "0.2"

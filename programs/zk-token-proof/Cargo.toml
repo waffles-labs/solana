@@ -3,7 +3,7 @@ name = "waffles-solana-zk-token-proof-program"
 description = "Waffle Labs maintained Solana Zk Token Proof Program"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 license = "Apache-2.0"
 edition = "2021"
 
@@ -12,6 +12,6 @@ bytemuck = { version = "1.11.0", features = ["derive"] }
 getrandom = { version = "0.1", features = ["dummy"] }
 num-derive = "0.3"
 num-traits = "0.2"
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.5" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.5" }
-solana-zk-token-sdk = { package = "waffles-solana-zk-token-sdk", path = "../../zk-token-sdk", version = "=1.16.0-alpha.5" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.6" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.6" }
+solana-zk-token-sdk = { package = "waffles-solana-zk-token-sdk", path = "../../zk-token-sdk", version = "=1.16.0-alpha.6" }

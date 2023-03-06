@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-address-lookup-table-program"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 description = "Waffle Labs maintained Solana address lookup table program"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -16,23 +16,23 @@ log = "0.4.17"
 num-derive = "0.3"
 num-traits = "0.2"
 serde = { version = "1.0.144", features = ["derive"] }
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../../frozen-abi", version = "=1.16.0-alpha.5" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../../frozen-abi/macro", version = "=1.16.0-alpha.5" }
-solana-program = { package = "waffles-solana-program", path = "../../sdk/program", version = "=1.16.0-alpha.5" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../../frozen-abi", version = "=1.16.0-alpha.6" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../../frozen-abi/macro", version = "=1.16.0-alpha.6" }
+solana-program = { package = "waffles-solana-program", path = "../../sdk/program", version = "=1.16.0-alpha.6" }
 thiserror = "1.0"
 
 [target.'cfg(not(target_os = "solana"))'.dependencies]
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.5" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.5" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.6" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.6" }
 serde = { version = "1.0.152", features = ["derive"] }
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../../frozen-abi", version = "=1.16.0-alpha.5" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../../frozen-abi/macro", version = "=1.16.0-alpha.5" }
-solana-program = { package = "waffles-solana-program", path = "../../sdk/program", version = "=1.16.0-alpha.5" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../../frozen-abi", version = "=1.16.0-alpha.6" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../../frozen-abi/macro", version = "=1.16.0-alpha.6" }
+solana-program = { package = "waffles-solana-program", path = "../../sdk/program", version = "=1.16.0-alpha.6" }
 thiserror = "1.0"
 #
 #[target.'cfg(not(target_os = "solana"))'.dependencies]
-#solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.5" }
-#solana-sdk = { path = "../../sdk", version = "=1.16.0-alpha.5" }
+#solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.6" }
+#solana-sdk = { path = "../../sdk", version = "=1.16.0-alpha.6" }
 
 [build-dependencies]
 rustc_version = "0.4"

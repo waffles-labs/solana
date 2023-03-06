@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-account-decoder"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 description = "Waffle Labs maintained Solana account decoder"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -19,9 +19,9 @@ lazy_static = "1.4.0"
 serde = "1.0.152"
 serde_derive = "1.0.103"
 serde_json = "1.0.83"
-solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../programs/address-lookup-table", version = "=1.16.0-alpha.5" }
-solana-config-program = { package = "waffles-solana-config-program", path = "../programs/config", version = "=1.16.0-alpha.5" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
+solana-address-lookup-table-program = { package = "waffles-solana-address-lookup-table-program", path = "../programs/address-lookup-table", version = "=1.16.0-alpha.6" }
+solana-config-program = { package = "waffles-solana-config-program", path = "../programs/config", version = "=1.16.0-alpha.6" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.6" }
 spl-token = { version = "=3.5.0", features = ["no-entrypoint"] }
 spl-token-2022 = { version = "=0.5.0", features = ["no-entrypoint"] }
 thiserror = "1.0"

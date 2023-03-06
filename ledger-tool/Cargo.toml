@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-ledger-tool"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.16.0-alpha.5"
+version = "1.16.0-alpha.6"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -24,23 +24,23 @@ num_cpus = "1.13.1"
 regex = "1"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.83"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.5" }
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.5" }
-solana-cli-output = { package = "waffles-solana-cli-output", path = "../cli-output", version = "=1.16.0-alpha.5" }
-solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.5" }
-solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.5" }
-solana-geyser-plugin-manager = { package = "waffles-solana-geyser-plugin-manager", path = "../geyser-plugin-manager", version = "=1.16.0-alpha.5" }
-solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.5" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.5" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.5" }
-solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.5" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.5" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.5" }
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.5" }
-solana-storage-bigtable = { package = "waffles-solana-storage-bigtable", path = "../storage-bigtable", version = "=1.16.0-alpha.5" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.5" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.5" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.5" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.6" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.6" }
+solana-cli-output = { package = "waffles-solana-cli-output", path = "../cli-output", version = "=1.16.0-alpha.6" }
+solana-core = { package = "waffles-solana-core", path = "../core", version = "=1.16.0-alpha.6" }
+solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.6" }
+solana-geyser-plugin-manager = { package = "waffles-solana-geyser-plugin-manager", path = "../geyser-plugin-manager", version = "=1.16.0-alpha.6" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.6" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.6" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.6" }
+solana-rpc = { package = "waffles-solana-rpc", path = "../rpc", version = "=1.16.0-alpha.6" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.6" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.6" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.6" }
+solana-storage-bigtable = { package = "waffles-solana-storage-bigtable", path = "../storage-bigtable", version = "=1.16.0-alpha.6" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.6" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.6" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.6" }
 tokio = { version = "1", features = ["full"] }
 
 [target.'cfg(not(target_env = "msvc"))'.dependencies]
