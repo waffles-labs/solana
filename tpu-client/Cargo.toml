@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-tpu-client"
-version = "1.16.0-alpha.8"
+version = "1.16.0-alpha.9"
 description = "Waffle Labs maintained Solana TPU Client"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -18,20 +18,20 @@ indicatif = { version = "0.17.1", optional = true }
 log = "0.4.17"
 rand = "0.7.0"
 rayon = "1.5.3"
-solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.8" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.8" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.8" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.8" }
-solana-pubsub-client = { package = "waffles-solana-pubsub-client", path = "../pubsub-client", version = "=1.16.0-alpha.8" }
-solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.8", default-features = false }
-solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.8" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.8" }
+solana-connection-cache = { package = "waffles-solana-connection-cache", path = "../connection-cache", version = "=1.16.0-alpha.9" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.9" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.9" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.9" }
+solana-pubsub-client = { package = "waffles-solana-pubsub-client", path = "../pubsub-client", version = "=1.16.0-alpha.9" }
+solana-rpc-client = { package = "waffles-solana-rpc-client", path = "../rpc-client", version = "=1.16.0-alpha.9", default-features = false }
+solana-rpc-client-api = { package = "waffles-solana-rpc-client-api", path = "../rpc-client-api", version = "=1.16.0-alpha.9" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
 thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
 rand_chacha = "0.2.2"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.8" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.9" }
 
 [features]
 default = ["spinner"]
