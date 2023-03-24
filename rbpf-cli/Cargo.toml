@@ -1,6 +1,6 @@
 [package]
 name = "waffles-rbpf-cli"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 description = "Waffle Labs maintained CLI to test and analyze SBF programs"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/solana-labs/rbpf"
@@ -13,8 +13,8 @@ publish = false
 clap = { version = "3.1.5", features = ["cargo"] }
 serde = "1.0.152"
 serde_json = "1.0.83"
-solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.16.0-alpha.9" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.9" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.16.0-alpha.10" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.10" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.10" }
 solana_rbpf = { version = "=0.2.38", features = ["debugger"] }

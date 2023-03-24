@@ -2,7 +2,7 @@
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
 name = "waffles-solana-accounts-bench"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
 homepage = "https://waffles.so/"
@@ -12,11 +12,11 @@ publish = false
 clap = "2.33.1"
 log = "0.4.17"
 rayon = "1.5.3"
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.9" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.9" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.9" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.10" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.10" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.10" }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.10" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

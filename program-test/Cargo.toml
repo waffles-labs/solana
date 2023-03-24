@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-program-test"
 repository = "https://github.com/waffles-labs/solana"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 description = "Waffle Labs maintained Solana Program Test Framework"
 edition = "2021"
@@ -16,17 +16,17 @@ chrono-humanize = "0.2.1"
 crossbeam-channel = "0.5"
 log = "0.4.17"
 serde = "1.0.152"
-solana-banks-client = { package = "waffles-solana-banks-client", path = "../banks-client", version = "=1.16.0-alpha.9" }
-solana-banks-interface = { package = "waffles-solana-banks-interface", path = "../banks-interface", version = "=1.16.0-alpha.9" }
-solana-banks-server = { package = "waffles-solana-banks-server", path = "../banks-server", version = "=1.16.0-alpha.9" }
-solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.16.0-alpha.9" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.9" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0-alpha.9" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.9" }
+solana-banks-client = { package = "waffles-solana-banks-client", path = "../banks-client", version = "=1.16.0-alpha.10" }
+solana-banks-interface = { package = "waffles-solana-banks-interface", path = "../banks-interface", version = "=1.16.0-alpha.10" }
+solana-banks-server = { package = "waffles-solana-banks-server", path = "../banks-server", version = "=1.16.0-alpha.10" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../programs/bpf_loader", version = "=1.16.0-alpha.10" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.10" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../program-runtime", version = "=1.16.0-alpha.10" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.10" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.10" }
 thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 
 [dev-dependencies]
-solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.9" }
+solana-stake-program = { package = "waffles-solana-stake-program", path = "../programs/stake", version = "=1.16.0-alpha.10" }

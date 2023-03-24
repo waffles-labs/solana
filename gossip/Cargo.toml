@@ -1,7 +1,7 @@
 [package]
 name = "waffles-solana-gossip"
 description = "Waffle Labs maintained Blockchain, Rebuilt for Scale"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 repository = "https://github.com/waffles-labs/solana"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 edition = "2021"
@@ -27,26 +27,26 @@ rayon = "1.5.3"
 serde = "1.0.152"
 serde_bytes = "0.11"
 serde_derive = "1.0.103"
-solana-bloom = { package = "waffles-solana-bloom", path = "../bloom", version = "=1.16.0-alpha.9" }
-solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.9" }
-solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.9" }
-solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.9" }
-solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.9" }
-solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.9" }
-solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.9" }
-solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.9" }
-solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.9" }
-solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.9" }
-solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.9" }
-solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.9" }
-solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.9" }
-solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
-solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.9" }
-solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.9" }
-solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.9", default-features = false }
-solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.9" }
-solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.9" }
+solana-bloom = { package = "waffles-solana-bloom", path = "../bloom", version = "=1.16.0-alpha.10" }
+solana-clap-utils = { package = "waffles-solana-clap-utils", path = "../clap-utils", version = "=1.16.0-alpha.10" }
+solana-client = { package = "waffles-solana-client", path = "../client", version = "=1.16.0-alpha.10" }
+solana-entry = { package = "waffles-solana-entry", path = "../entry", version = "=1.16.0-alpha.10" }
+solana-frozen-abi = { package = "waffles-solana-frozen-abi", path = "../frozen-abi", version = "=1.16.0-alpha.10" }
+solana-frozen-abi-macro = { package = "waffles-solana-frozen-abi-macro", path = "../frozen-abi/macro", version = "=1.16.0-alpha.10" }
+solana-ledger = { package = "waffles-solana-ledger", path = "../ledger", version = "=1.16.0-alpha.10" }
+solana-logger = { package = "waffles-solana-logger", path = "../logger", version = "=1.16.0-alpha.10" }
+solana-measure = { package = "waffles-solana-measure", path = "../measure", version = "=1.16.0-alpha.10" }
+solana-metrics = { package = "waffles-solana-metrics", path = "../metrics", version = "=1.16.0-alpha.10" }
+solana-net-utils = { package = "waffles-solana-net-utils", path = "../net-utils", version = "=1.16.0-alpha.10" }
+solana-perf = { package = "waffles-solana-perf", path = "../perf", version = "=1.16.0-alpha.10" }
+solana-rayon-threadlimit = { package = "waffles-solana-rayon-threadlimit", path = "../rayon-threadlimit", version = "=1.16.0-alpha.10" }
+solana-runtime = { package = "waffles-solana-runtime", path = "../runtime", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.10" }
+solana-streamer = { package = "waffles-solana-streamer", path = "../streamer", version = "=1.16.0-alpha.10" }
+solana-thin-client = { package = "waffles-solana-thin-client", path = "../thin-client", version = "=1.16.0-alpha.10" }
+solana-tpu-client = { package = "waffles-solana-tpu-client", path = "../tpu-client", version = "=1.16.0-alpha.10", default-features = false }
+solana-version = { package = "waffles-solana-version", path = "../version", version = "=1.16.0-alpha.10" }
+solana-vote-program = { package = "waffles-solana-vote-program", path = "../programs/vote", version = "=1.16.0-alpha.10" }
 static_assertions = "1.1.0"
 thiserror = "1.0"
 

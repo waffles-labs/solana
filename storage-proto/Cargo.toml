@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-storage-proto"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 description = "Waffle Labs maintained Solana Storage Protobuf Definitions"
 authors = ["Solana Maintainers <maintainers@solana.com>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -14,9 +14,9 @@ bincode = "1.3.3"
 bs58 = "0.4.0"
 prost = "0.11.6"
 serde = "1.0.152"
-solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.9" }
-solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.9" }
+solana-account-decoder = { package = "waffles-solana-account-decoder", path = "../account-decoder", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../sdk", version = "=1.16.0-alpha.10" }
+solana-transaction-status = { package = "waffles-solana-transaction-status", path = "../transaction-status", version = "=1.16.0-alpha.10" }
 
 [dev-dependencies]
 enum-iterator = "1.2.0"

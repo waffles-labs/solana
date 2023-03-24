@@ -3,7 +3,7 @@
 
 [package]
 name = "waffles-solana-bpf-loader-program-tests"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
 license = "Apache-2.0"
@@ -14,9 +14,9 @@ publish = false
 [dev-dependencies]
 assert_matches = "1.5.0"
 bincode = "1.3.3"
-solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../bpf_loader", version = "=1.16.0-alpha.9" }
-solana-program-test = { package = "waffles-solana-program-test", path = "../../program-test", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.9" }
+solana-bpf-loader-program = { package = "waffles-solana-bpf-loader-program", path = "../bpf_loader", version = "=1.16.0-alpha.10" }
+solana-program-test = { package = "waffles-solana-program-test", path = "../../program-test", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.10" }
 
 [package.metadata.docs.rs]
 targets = ["x86_64-unknown-linux-gnu"]

@@ -1,6 +1,6 @@
 [package]
 name = "waffles-solana-bpf-loader-program"
-version = "1.16.0-alpha.9"
+version = "1.16.0-alpha.10"
 description = "Waffle Labs maintained Solana BPF loader"
 authors = ["Solana Maintainers <maintainers@solana.foundation", "Waffle Labs Maintainers <maintainers@waffles.so>"]
 repository = "https://github.com/waffles-labs/solana"
@@ -15,10 +15,10 @@ byteorder = "1.4.3"
 libsecp256k1 = "0.6.0"
 log = "0.4.17"
 rand = "0.7.3"
-solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.16.0-alpha.9" }
-solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.9" }
-solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.9" }
-solana-zk-token-sdk = { package = "waffles-solana-zk-token-sdk", path = "../../zk-token-sdk", version = "=1.16.0-alpha.9" }
+solana-measure = { package = "waffles-solana-measure", path = "../../measure", version = "=1.16.0-alpha.10" }
+solana-program-runtime = { package = "waffles-solana-program-runtime", path = "../../program-runtime", version = "=1.16.0-alpha.10" }
+solana-sdk = { package = "waffles-solana-sdk", path = "../../sdk", version = "=1.16.0-alpha.10" }
+solana-zk-token-sdk = { package = "waffles-solana-zk-token-sdk", path = "../../zk-token-sdk", version = "=1.16.0-alpha.10" }
 solana_rbpf = "=0.2.38"
 thiserror = "1.0"
 
