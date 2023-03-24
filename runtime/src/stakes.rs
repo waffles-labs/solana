@@ -50,7 +50,7 @@ pub enum InvalidCacheEntryReason {
     WrongOwner,
 }
 
-type StakeAccount = stake_account::StakeAccount<Delegation>;
+pub type StakeAccount = stake_account::StakeAccount<Delegation>;
 
 #[derive(Default, Debug, AbiExample)]
 pub(crate) struct StakesCache(RwLock<Stakes<StakeAccount>>);
