@@ -61,6 +61,7 @@ impl SlotStats {
     }
 }
 
+#[derive(Debug)]
 pub struct SlotsStats {
     pub stats: Mutex<LruCache<Slot, SlotStats>>,
 }

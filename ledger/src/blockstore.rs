@@ -3422,6 +3422,28 @@ impl Blockstore {
     }
 }
 
+pub fn blockstore_from_gcs_rocksdb(ledger_path: &Path) -> Result<Blockstore> {
+    Blockstore::open_with_options(
+        ledger_path,
+        BlockstoreOptions {
+            access_type: AccessType::Primary,
+            recovery_mode: None,
+            enforce_ulimit_nofile: true,
+            ..BlockstoreOptions::default()
+        })
+        .or_else(|_| {
+            Blockstore::open_with_options(
+                ledger_path,
+                BlockstoreOptions {
+                    access_type: AccessType::Secondary,
+                    recovery_mode: None,
+                    enforce_ulimit_nofile: true,
+                    ..BlockstoreOptions::default()
+                },
+            )
+        })
+}
+
 // Update the `completed_data_indexes` with a new shred `new_shred_index`. If a
 // data set is complete, return the range of shred indexes [start_index, end_index]
 // for that completed data set.

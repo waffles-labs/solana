@@ -53,7 +53,7 @@ use {
 };
 
 mod newer;
-mod storage;
+pub(crate) mod storage;
 mod tests;
 mod types;
 mod utils;
@@ -155,13 +155,13 @@ impl<T> SnapshotAccountsDbFields<T> {
         match self.incremental_snapshot_accounts_db_fields {
             None => Ok(self.full_snapshot_accounts_db_fields),
             Some(AccountsDbFields(
-                mut incremental_snapshot_storages,
-                incremental_snapshot_version,
-                incremental_snapshot_slot,
-                incremental_snapshot_bank_hash_info,
-                incremental_snapshot_historical_roots,
-                incremental_snapshot_historical_roots_with_hash,
-            )) => {
+                     mut incremental_snapshot_storages,
+                     incremental_snapshot_version,
+                     incremental_snapshot_slot,
+                     incremental_snapshot_bank_hash_info,
+                     incremental_snapshot_historical_roots,
+                     incremental_snapshot_historical_roots_with_hash,
+                 )) => {
                 let full_snapshot_storages = self.full_snapshot_accounts_db_fields.0;
                 let full_snapshot_slot = self.full_snapshot_accounts_db_fields.2;
 
@@ -172,8 +172,8 @@ impl<T> SnapshotAccountsDbFields<T> {
                 incremental_snapshot_storages
                     .iter()
                     .all(|storage_entry| !full_snapshot_storages.contains_key(storage_entry.0)).then_some(()).ok_or_else(|| {
-                        io::Error::new(io::ErrorKind::InvalidData, "Snapshots are incompatible: There are storages for the same slot in both the full snapshot and the incremental snapshot!")
-                    })?;
+                    io::Error::new(io::ErrorKind::InvalidData, "Snapshots are incompatible: There are storages for the same slot in both the full snapshot and the incremental snapshot!")
+                })?;
 
                 let mut combined_storages = full_snapshot_storages;
                 combined_storages.extend(incremental_snapshot_storages.into_iter());
@@ -193,32 +193,32 @@ impl<T> SnapshotAccountsDbFields<T> {
 
 trait TypeContext<'a>: PartialEq {
     type SerializableAccountStorageEntry: Serialize
-        + DeserializeOwned
-        + From<&'a AccountStorageEntry>
-        + SerializableStorage
-        + Sync;
+    + DeserializeOwned
+    + From<&'a AccountStorageEntry>
+    + SerializableStorage
+    + Sync;
 
     fn serialize_bank_and_storage<S: serde::ser::Serializer>(
         serializer: S,
         serializable_bank: &SerializableBankAndStorage<'a, Self>,
     ) -> std::result::Result<S::Ok, S::Error>
-    where
-        Self: std::marker::Sized;
+        where
+            Self: std::marker::Sized;
 
     #[cfg(test)]
     fn serialize_bank_and_storage_without_extra_fields<S: serde::ser::Serializer>(
         serializer: S,
         serializable_bank: &SerializableBankAndStorageNoExtra<'a, Self>,
     ) -> std::result::Result<S::Ok, S::Error>
-    where
-        Self: std::marker::Sized;
+        where
+            Self: std::marker::Sized;
 
     fn serialize_accounts_db_fields<S: serde::ser::Serializer>(
         serializer: S,
         serializable_db: &SerializableAccountsDb<'a, Self>,
     ) -> std::result::Result<S::Ok, S::Error>
-    where
-        Self: std::marker::Sized;
+        where
+            Self: std::marker::Sized;
 
     fn deserialize_bank_fields<R>(
         stream: &mut BufReader<R>,
@@ -229,14 +229,14 @@ trait TypeContext<'a>: PartialEq {
         ),
         Error,
     >
-    where
-        R: Read;
+        where
+            R: Read;
 
     fn deserialize_accounts_db_fields<R>(
         stream: &mut BufReader<R>,
     ) -> Result<AccountsDbFields<Self::SerializableAccountStorageEntry>, Error>
-    where
-        R: Read;
+        where
+            R: Read;
 
     /// deserialize the bank from 'stream_reader'
     /// modify the accounts_hash
@@ -247,15 +247,15 @@ trait TypeContext<'a>: PartialEq {
         accounts_hash: &AccountsHash,
         incremental_snapshot_persistence: Option<&BankIncrementalSnapshotPersistence>,
     ) -> std::result::Result<(), Box<bincode::ErrorKind>>
-    where
-        R: Read,
-        W: Write;
+        where
+            R: Read,
+            W: Write;
 }
 
 fn deserialize_from<R, T>(reader: R) -> bincode::Result<T>
-where
-    R: Read,
-    T: DeserializeOwned,
+    where
+        R: Read,
+        T: DeserializeOwned,
 {
     bincode::options()
         .with_limit(MAX_STREAM_SIZE)
@@ -299,6 +299,25 @@ pub(crate) fn snapshot_storage_lengths_from_fields(
         })
         .collect()
 }
+
+pub(crate) fn serialized_bank_from_stream<R>(
+    serde_style: SerdeStyle,
+    snapshot_streams: &mut SnapshotStreams<R>,
+) -> std::result::Result<
+    (
+        BankFieldsToDeserialize,
+        SnapshotAccountsDbFields<SerializableAccountStorageEntry>,
+    ),
+    Error,
+>
+    where
+        R: Read,
+{
+    let (snapshot_bank_fields, snapshot_accounts_db_fields) =
+        fields_from_streams(serde_style, snapshot_streams)?;
+    Ok((snapshot_bank_fields.collapse_into(), snapshot_accounts_db_fields))
+}
+
 
 pub(crate) fn fields_from_stream<R: Read>(
     serde_style: SerdeStyle,
@@ -364,8 +383,8 @@ pub(crate) fn bank_from_streams<R>(
     accounts_update_notifier: Option<AccountsUpdateNotifier>,
     exit: &Arc<AtomicBool>,
 ) -> std::result::Result<Bank, Error>
-where
-    R: Read,
+    where
+        R: Read,
 {
     let (bank_fields, accounts_db_fields) = fields_from_streams(serde_style, snapshot_streams)?;
     reconstruct_bank_from_fields(
@@ -393,8 +412,8 @@ pub(crate) fn bank_to_stream<W>(
     bank: &Bank,
     snapshot_storages: &[Vec<Arc<AccountStorageEntry>>],
 ) -> Result<(), Error>
-where
-    W: Write,
+    where
+        W: Write,
 {
     match serde_style {
         SerdeStyle::Newer => bincode::serialize_into(
@@ -415,8 +434,8 @@ pub(crate) fn bank_to_stream_no_extra_fields<W>(
     bank: &Bank,
     snapshot_storages: &[Vec<Arc<AccountStorageEntry>>],
 ) -> Result<(), Error>
-where
-    W: Write,
+    where
+        W: Write,
 {
     match serde_style {
         SerdeStyle::Newer => bincode::serialize_into(
@@ -439,9 +458,9 @@ fn reserialize_bank_fields_with_new_hash<W, R>(
     accounts_hash: &AccountsHash,
     incremental_snapshot_persistence: Option<&BankIncrementalSnapshotPersistence>,
 ) -> Result<(), Error>
-where
-    W: Write,
-    R: Read,
+    where
+        W: Write,
+        R: Read,
 {
     newer::Context::reserialize_bank_fields_with_hash(
         stream_reader,
@@ -480,7 +499,7 @@ pub fn reserialize_bank_with_new_accounts_hash(
                 accounts_hash,
                 incremental_snapshot_persistence,
             )
-            .unwrap();
+                .unwrap();
         }
     }
     if found {
@@ -497,8 +516,8 @@ struct SerializableBankAndStorage<'a, C> {
 
 impl<'a, C: TypeContext<'a>> Serialize for SerializableBankAndStorage<'a, C> {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
+        where
+            S: serde::ser::Serializer,
     {
         C::serialize_bank_and_storage(serializer, self)
     }
@@ -514,8 +533,8 @@ struct SerializableBankAndStorageNoExtra<'a, C> {
 #[cfg(test)]
 impl<'a, C: TypeContext<'a>> Serialize for SerializableBankAndStorageNoExtra<'a, C> {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
+        where
+            S: serde::ser::Serializer,
     {
         C::serialize_bank_and_storage_without_extra_fields(serializer, self)
     }
@@ -546,8 +565,8 @@ struct SerializableAccountsDb<'a, C> {
 
 impl<'a, C: TypeContext<'a>> Serialize for SerializableAccountsDb<'a, C> {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
+        where
+            S: serde::ser::Serializer,
     {
         C::serialize_accounts_db_fields(serializer, self)
     }
@@ -574,8 +593,8 @@ fn reconstruct_bank_from_fields<E>(
     accounts_update_notifier: Option<AccountsUpdateNotifier>,
     exit: &Arc<AtomicBool>,
 ) -> Result<Bank, Error>
-where
-    E: SerializableStorage + std::marker::Sync,
+    where
+        E: SerializableStorage + std::marker::Sync,
 {
     let capitalizations = (
         bank_fields.full.capitalization,
@@ -724,8 +743,8 @@ fn reconstruct_accountsdb_from_fields<E>(
     capitalizations: (u64, Option<u64>),
     incremental_snapshot_persistence: Option<&BankIncrementalSnapshotPersistence>,
 ) -> Result<(AccountsDb, ReconstructedAccountsDbInfo), Error>
-where
-    E: SerializableStorage + std::marker::Sync,
+    where
+        E: SerializableStorage + std::marker::Sync,
 {
     let mut accounts_db = AccountsDb::new_with_config(
         account_paths.to_vec(),
@@ -855,7 +874,7 @@ where
     assert!(
         old_accounts_delta_hash.is_none(),
         "There should not already be an AccountsDeltaHash at slot {snapshot_slot}: {old_accounts_delta_hash:?}",
-        );
+    );
     let old_stats = accounts_db
         .update_bank_hash_stats_from_snapshot(snapshot_slot, snapshot_bank_hash_info.stats);
     assert!(

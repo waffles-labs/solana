@@ -50,7 +50,7 @@ pub enum InvalidCacheEntryReason {
     WrongOwner,
 }
 
-type StakeAccount = stake_account::StakeAccount<Delegation>;
+pub type StakeAccount = stake_account::StakeAccount<Delegation>;
 
 #[derive(Default, Debug, AbiExample)]
 pub(crate) struct StakesCache(RwLock<Stakes<StakeAccount>>);
@@ -171,7 +171,7 @@ pub struct Stakes<T: Clone> {
     vote_accounts: VoteAccounts,
 
     /// stake_delegations
-    stake_delegations: ImHashMap<Pubkey, T>,
+    pub stake_delegations: ImHashMap<Pubkey, T>,
 
     /// unused
     unused: u64,
@@ -396,7 +396,7 @@ impl Stakes<StakeAccount> {
         }
     }
 
-    pub(crate) fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
+    pub fn stake_delegations(&self) -> &ImHashMap<Pubkey, StakeAccount> {
         &self.stake_delegations
     }
 
