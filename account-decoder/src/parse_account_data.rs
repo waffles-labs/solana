@@ -34,8 +34,10 @@ lazy_static! {
         );
         m.insert(*CONFIG_PROGRAM_ID, ParsableAccount::Config);
         m.insert(*SYSTEM_PROGRAM_ID, ParsableAccount::Nonce);
-        m.insert(spl_token::id(), ParsableAccount::SplToken);
-        m.insert(spl_token_2022::id(), ParsableAccount::SplToken2022);
+        let temp = solana_sdk::pubkey::Pubkey::new(&spl_token::id().to_bytes());
+        let temp_2022 = solana_sdk::pubkey::Pubkey::new(&spl_token_2022::id().to_bytes());
+        m.insert(temp, ParsableAccount::SplToken);
+        m.insert(temp_2022, ParsableAccount::SplToken2022);
         m.insert(*STAKE_PROGRAM_ID, ParsableAccount::Stake);
         m.insert(*SYSVAR_PROGRAM_ID, ParsableAccount::Sysvar);
         m.insert(*VOTE_PROGRAM_ID, ParsableAccount::Vote);
