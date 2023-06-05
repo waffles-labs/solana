@@ -887,7 +887,7 @@ pub(crate) struct StartBlockHeightAndRewards {
 
 /// Represent whether bank is in the reward phase or not.
 #[derive(AbiExample, AbiEnumVisitor, Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
-pub(crate) enum EpochRewardStatus {
+pub enum EpochRewardStatus {
     /// this bank is in the reward phase.
     /// Contents are the start point for epoch reward calculation,
     /// i.e. parent_slot and parent_block height for the starting
