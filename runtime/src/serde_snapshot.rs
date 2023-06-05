@@ -53,7 +53,7 @@ use {
 };
 
 mod newer;
-pub(crate) mod storage;
+pub mod storage;
 mod tests;
 mod types;
 mod utils;
