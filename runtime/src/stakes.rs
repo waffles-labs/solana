@@ -270,7 +270,7 @@ impl Stakes<StakeAccount> {
         })
     }
 
-    pub(crate) fn history(&self) -> &StakeHistory {
+    pub fn history(&self) -> &StakeHistory {
         &self.stake_history
     }
 
