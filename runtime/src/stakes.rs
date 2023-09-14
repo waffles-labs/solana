@@ -177,10 +177,10 @@ pub struct Stakes<T: Clone> {
     unused: u64,
 
     /// current epoch, used to calculate current stake
-    epoch: Epoch,
+    pub epoch: Epoch,
 
     /// history of staking levels
-    stake_history: StakeHistory,
+    pub stake_history: StakeHistory,
 }
 
 // For backward compatibility, we can only serialize and deserialize
